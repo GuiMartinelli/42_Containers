@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/06/27 21:01:10 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:24:28 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,9 +161,11 @@ namespace ft
 
 		public:
 			iterator() {};
+
 			iterator(T *ptr) {
 				this->it = ptr;
 			};
+
 			iterator(iterator const & obj) {
 				*this = obj;
 			};
@@ -227,6 +229,63 @@ namespace ft
 			}
 		};
 
+		class	reverse_iterator : public iterator {
+		public:
+			reverse_iterator() {};
+
+			reverse_iterator(T *ptr) {
+				this->it = ptr;
+			};
+
+			reverse_iterator(reverse_iterator const & obj) {
+				*this = obj;
+			};
+			
+			~reverse_iterator() {};
+
+			bool	operator<(reverse_iterator const & obj) {
+				return !(this->it < obj.it);
+			}
+
+			bool	operator>(reverse_iterator const & obj) {
+				return !(this->it > obj.it);
+			}
+
+			bool	operator<=(reverse_iterator const & obj) {
+				return !(this->it <= obj.it);
+			}
+
+			bool	operator>=(reverse_iterator const & obj) {
+				return !(this->it >= obj.it);
+			}
+
+			reverse_iterator	operator++() {
+				this->it--;
+
+				return *this;
+			}
+
+			reverse_iterator	operator--() {
+				this->it++;
+
+				return *this;
+			}
+
+			reverse_iterator	operator++(T) {
+				reverse_iterator	tmp(*this);
+				this->it--;
+
+				return tmp;
+			}
+
+			reverse_iterator	operator--(T) {
+				reverse_iterator	tmp(*this);
+				this->it++;
+
+				return tmp;
+			}
+		};
+
 		iterator	begin() {
 			iterator	it(this->_content);
 
@@ -251,14 +310,29 @@ namespace ft
 			return it;
 		}
 
-		// iterator const	iterator::begin() {
-		// 	return (new iterator(this->_content[0]));
-		// }
+		reverse_iterator	rbegin() {
+			reverse_iterator	it(this->_content + (this->_size - 1));
 
-		// iterator const	iterator::end() {
-		// 	return (new iterator(this->_content[this->_size]));
-		// }
+			return it;
+		}
 
+		reverse_iterator	rend() {
+			reverse_iterator	it(this->_content);
+
+			return it;
+		}
+
+		reverse_iterator	crbegin() {
+			reverse_iterator const	it(this->_content + (this->_size - 1));
+
+			return it;
+		}
+
+		reverse_iterator	crend() {
+			reverse_iterator const	it(this->_content);
+			
+			return it;
+		}
 	};
 }
 

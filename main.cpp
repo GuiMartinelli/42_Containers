@@ -93,6 +93,8 @@ int	main(void) {
 	ft::vector<int>	vc;
 	ft::vector<int>::iterator	it1;
 	ft::vector<int>::iterator	it2;
+	ft::vector<int>::reverse_iterator	it3;
+	ft::vector<int>::reverse_iterator	it4;
 
 	vc.push_back(1);
 	vc.push_back(2);
@@ -105,4 +107,13 @@ int	main(void) {
 
 	for (; it1 < it2; it1++)
 		std::cout << "Number is: " << *it1 << std::endl;
+
+	std::cout << "============================================" << std::endl;
+
+
+	it3 = vc.rbegin();
+	it4 = vc.rend();
+
+	for (; it4 > it3; it3++)
+		std::cout << "Number is: " << *it3 << std::endl;
 }
