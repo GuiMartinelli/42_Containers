@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/06/28 21:31:06 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/06/29 21:24:32 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,36 @@ namespace ft
 
 			bool	operator==(iterator const & obj) {
 				return (this->it == obj.it);
+			}
+
+			iterator	operator+=(int n) {
+				for (; n > 0; n--)
+					this->it++;
+				return (this->it);
+			}
+
+			iterator	operator-=(int n) {
+				for (; n > 0; n--)
+					this->it--;
+				return (this->it);
+			}
+
+			iterator	operator+(int n) {
+				iterator	aux;
+
+				aux = this->it;
+				for (; n > 0; n--)
+					aux++;
+				return (aux);
+			}
+
+			iterator	operator-(int n) {
+				iterator	aux;
+
+				aux = this->it;
+				for (; n > 0; n--)
+					aux--;
+				return (aux);
 			}
 
 			int	operator+(iterator const & obj) {
@@ -345,9 +375,45 @@ namespace ft
 
 		//INSERT
 
-		//ERASE
+		iterator	erase(iterator pos) {
+			iterator	aux;
 
-		//SWAP
+			aux = this->begin();
+			for (int index = pos - aux; index < (this->_size - 1); index++)
+				this->_content[index] = this->_content[index + 1];
+			this->_size--;
+			return pos;
+		}
+
+		//NOT FINISHED
+		// iterator	erase(iterator begin, iterator end) {
+		// 	iterator	aux;
+		// 	int			diff;
+
+		// 	diff = end - begin;
+		// 	aux = this->begin();
+		// 	for (int index = begin - aux; index < this->_size; index++) {
+		// 		this->_content[index] = this->_content[diff++];
+		// 	}
+		// 	this->_size -= end - begin;
+		// 	return begin;
+		// }
+
+		void	swap(vector& vec) {
+			T*				auxContent;
+			unsigned int	auxSize;
+			unsigned int	auxCapacity;
+
+			auxContent = vec._content;
+			auxSize = vec.size();
+			auxCapacity = vec.capacity();
+			vec._content = this->_content;
+			vec._size = this->_size;
+			vec._capacity = this->_capacity;
+			this->_content = auxContent;
+			this->_size = auxSize;
+			this->_capacity = auxCapacity;
+		}
 
 		void	clear() {
 			this->resize(1);
