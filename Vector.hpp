@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/06/30 17:05:01 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/07/06 18:52:28 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,188 +16,33 @@
 #include <iostream>
 #include <memory>
 #include <stdexcept>
+#include "Iterator.hpp"
+#include "Reverse_iterator.hpp"
 
 namespace ft
 {
-	template<typename T>
+	template< typename T, class Alloc = std::allocator<T> >
 	class vector
 	{
 	private:
 		T*					_content;
 		unsigned int		_size;
 		unsigned int		_capacity;
-		std::allocator<T>	alloc;
+		Alloc				alloc;
 
 	public:
-		class iterator
-		{
-		protected:
-			T*	it;
-
-		public:
-			iterator() {};
-
-			iterator(T *ptr) {
-				this->it = ptr;
-			};
-
-			iterator(iterator const & obj) {
-				*this = obj;
-			};
-
-			~iterator() {};
-
-			iterator &	operator=(iterator const & obj) {
-				if (this != &obj)
-					this->it = obj.it;
-				return *this;
-			};
-
-			T	operator*() {
-				return (*this->it);
-			}
-
-			bool	operator<(iterator const & obj) {
-				return (this->it < obj.it);
-			}
-
-			bool	operator>(iterator const & obj) {
-				return (this->it > obj.it);
-			}
-
-			bool	operator<=(iterator const & obj) {
-				return (this->it <= obj.it);
-			}
-
-			bool	operator>=(iterator const & obj) {
-				return (this->it >= obj.it);
-			}
-
-			bool	operator==(iterator const & obj) {
-				return (this->it == obj.it);
-			}
-
-			iterator	operator+=(int n) {
-				for (; n > 0; n--)
-					this->it++;
-				return (this->it);
-			}
-
-			iterator	operator-=(int n) {
-				for (; n > 0; n--)
-					this->it--;
-				return (this->it);
-			}
-
-			iterator	operator+(int n) {
-				iterator	aux;
-
-				aux = this->it;
-				for (; n > 0; n--)
-					aux++;
-				return (aux);
-			}
-
-			iterator	operator-(int n) {
-				iterator	aux;
-
-				aux = this->it;
-				for (; n > 0; n--)
-					aux--;
-				return (aux);
-			}
-
-			int	operator+(iterator const & obj) {
-				return (this->it + obj.it);
-			}
-
-			int	operator-(iterator const & obj) {
-				return (this->it - obj.it);
-			}
-
-			iterator	operator++() {
-				this->it++;
-
-				return *this;
-			}
-
-			iterator	operator--() {
-				this->it--;
-
-				return *this;
-			}
-
-			iterator	operator++(T) {
-				iterator	tmp(*this);
-				this->it++;
-
-				return tmp;
-			}
-
-			iterator	operator--(T) {
-				iterator	tmp(*this);
-				this->it--;
-
-				return tmp;
-			}
-		};
-
-		class	reverse_iterator : public iterator {
-		public:
-			reverse_iterator() {};
-
-			reverse_iterator(T *ptr) {
-				this->it = ptr;
-			};
-
-			reverse_iterator(reverse_iterator const & obj) {
-				*this = obj;
-			};
-			
-			~reverse_iterator() {};
-
-			bool	operator<(reverse_iterator const & obj) {
-				return !(this->it < obj.it);
-			}
-
-			bool	operator>(reverse_iterator const & obj) {
-				return !(this->it > obj.it);
-			}
-
-			bool	operator<=(reverse_iterator const & obj) {
-				return !(this->it <= obj.it);
-			}
-
-			bool	operator>=(reverse_iterator const & obj) {
-				return !(this->it >= obj.it);
-			}
-
-			reverse_iterator	operator++() {
-				this->it--;
-
-				return *this;
-			}
-
-			reverse_iterator	operator--() {
-				this->it++;
-
-				return *this;
-			}
-
-			reverse_iterator	operator++(T) {
-				reverse_iterator	tmp(*this);
-				this->it--;
-
-				return tmp;
-			}
-
-			reverse_iterator	operator--(T) {
-				reverse_iterator	tmp(*this);
-				this->it++;
-
-				return tmp;
-			}
-		};
+		typedef	T										value_type;
+		typedef	std::allocator<value_type>				allocator_type;
+		//reference
+		//const_reference
+		//pointer
+		//const_pointer
+		typedef	ft::iterator<value_type>				iterator;
+		typedef	ft::iterator<const value_type>			const_iterator;
+		typedef	ft::reverse_iterator<value_type>		reverse_iterator;
+		typedef	ft::reverse_iterator<const value_type>	const_reverse_iterator;
+		typedef ptrdiff_t								difference_type;
+		typedef size_t									size_type;
 
 		//Member Functions
 		vector() {
@@ -332,7 +177,7 @@ namespace ft
 			}
 		}
 
-		void	assign(vector<T>::iterator & first, vector<T>::iterator & last) {
+		void	assign(iterator & first, iterator & last) {
 			if ((last - first) > this->_capacity)
 				this->resize((last - first) + 1);
 			for (int i = 0; first <= last; i++) {
@@ -341,7 +186,7 @@ namespace ft
 			}
 		}
 
-		void	assign(vector<T>::iterator const & first, vector<T>::iterator const & last) {
+		void	assign(iterator const & first, iterator const & last) {
 			if ((last - first) > this->_capacity)
 				this->resize((last - first) + 1);
 			for (int i = 0; first <= last; i++) {
@@ -477,27 +322,19 @@ namespace ft
 		//ITERATORS
 
 		iterator	begin() {
-			iterator	it(this->_content);
-
-			return it;
+			return iterator(this->_content);
 		}
 
 		iterator	end() {
-			iterator	it(this->_content + this->_size);
-			
-			return it;
+			return iterator(this->_content + this->_size);
 		}
 
-		iterator	begin() const {
-			iterator const	it(this->_content);
-
-			return it;
+		const_iterator	begin() const {
+			return const_iterator(this->_content);
 		}
 
-		iterator	end() const {
-			iterator const	it(this->_content + this->_size);
-			
-			return it;
+		const_iterator	end() const {
+			return const_iterator(this->_content + this->_size);
 		}
 
 		reverse_iterator	rbegin() {
