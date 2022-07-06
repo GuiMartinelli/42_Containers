@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 21:19:10 by guferrei          #+#    #+#             */
-/*   Updated: 2022/07/05 21:20:44 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/07/06 20:27:55 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 namespace ft {
 	template <typename T>
-	class	reverse_iterator : public iterator {
+	class	reverse_iterator : public iterator<T> {
 		public:
 			reverse_iterator() {};
 

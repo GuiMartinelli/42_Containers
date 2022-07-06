@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/07/06 18:52:28 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/07/06 20:20:53 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ namespace ft
 	public:
 		typedef	T										value_type;
 		typedef	std::allocator<value_type>				allocator_type;
-		//reference
-		//const_reference
-		//pointer
-		//const_pointer
+		typedef	value_type &							reference;
+		typedef value_type const &						const_reference;
+		typedef	value_type *							pointer;
+		typedef	value_type const *						const_pointer;
 		typedef	ft::iterator<value_type>				iterator;
 		typedef	ft::iterator<const value_type>			const_iterator;
 		typedef	ft::reverse_iterator<value_type>		reverse_iterator;
@@ -71,11 +71,11 @@ namespace ft
 		}
 
 		//Capacity
-		size_t	size() const {
+		size_type	size() const {
 			return this->_size;
 		}
 
-		size_t	max_size() const {
+		size_type	max_size() const {
 			return alloc.max_size();
 		}
 
@@ -129,39 +129,39 @@ namespace ft
 		}
 
 		//Element Access
-		T const &	operator[](int n) const {
+		const_reference	operator[](int n) const {
 			return this->_content[n];
 		}
 
-		T &	operator[](int n) {
+		reference	operator[](int n) {
 			return this->_content[n];
 		}
 
-		T const &	at(size_t n) const {
+		const_reference	at(size_t n) const {
 			if (n >= this->_size)
 				throw std::exception();
 			return this->_content[n];
 		}
 
-		T &	at(size_t n) {
+		reference	at(size_t n) {
 			if (n >= this->_size)
 				throw std::exception();
 			return this->_content[n];
 		}
 
-		T const &	front() const {
+		const_reference	front() const {
 			return this->_content[0];
 		}
 
-		T &	front() {
+		reference	front() {
 			return this->_content[0];
 		}
 
-		T const &	back() const {
+		const_reference	back() const {
 			return this->_content[this->_size - 1];
 		}
 
-		T &	back() {
+		reference	back() {
 			return this->_content[this->_size - 1];
 		}
 
@@ -315,8 +315,8 @@ namespace ft
 
 		//ALLOCATORS
 
-		std::allocator<T> &	get_allocator() const {
-			return this->alloc;
+		allocator_type	get_allocator() const {
+			return allocator_type();
 		}
 
 		//ITERATORS
