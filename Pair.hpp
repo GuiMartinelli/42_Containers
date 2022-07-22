@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 19:19:12 by guferrei          #+#    #+#             */
-/*   Updated: 2022/07/07 19:35:11 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/07/21 20:52:46 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 namespace ft
 {
 	template<typename T1, typename T2>
-	class Pair
+	class pair
 	{
 	public:
 		T1	first;
@@ -25,30 +25,30 @@ namespace ft
 		typedef T1	first_type;
 		typedef T2	second_type;
 
-		Pair() {}
+		pair() {}
 
-		Pair(first_type first, second_type second) {
+		pair(first_type first, second_type second) {
 			this->first = first;
 			this->second = second;
 		}
 
-		Pair(Pair const & obj) {
+		pair(pair const & obj) {
 			*this = obj;
 		}
 
-		Pair &	operator=(Pair const & obj) {
+		pair &	operator=(pair const & obj) {
 			if (this != &obj) {
 				this->first = obj.first;
 				this->second = obj.second;
 			}
 		}
 
-		~Pair();
+		~pair();
 	};
 
 	template<typename T1, typename T2>
 	pair<T1, T2>	make_pair(T1 x, T2 y) {
-		return (new Pair(x, y));
+		return (new pair(x, y));
 	}
 }
 
