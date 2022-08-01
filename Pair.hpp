@@ -6,12 +6,12 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 19:19:12 by guferrei          #+#    #+#             */
-/*   Updated: 2022/07/21 20:52:46 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/07/28 20:41:10 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PAIR_HPP
-#include PAIR_HPP
+#define PAIR_HPP
 
 namespace ft
 {
@@ -26,6 +26,10 @@ namespace ft
 		typedef T2	second_type;
 
 		pair() {}
+
+		pair(first_type first) {
+			this->first = first;
+		}
 
 		pair(first_type first, second_type second) {
 			this->first = first;
@@ -48,7 +52,7 @@ namespace ft
 
 	template<typename T1, typename T2>
 	pair<T1, T2>	make_pair(T1 x, T2 y) {
-		return (new pair(x, y));
+		return (new ft::pair<T1, T2>);
 	}
 }
 
