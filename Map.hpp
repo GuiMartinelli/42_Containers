@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/08/17 21:08:07 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/08/17 21:10:02 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ namespace ft
 			//Element Access
 
 			mapped_type&	operator[] (const key_type& k) {
-				Node*	aux;
+				value_type	*aux;
 
 				aux = this->_root;
 				while(aux->data) {
@@ -87,13 +87,13 @@ namespace ft
 					else
 						return (&aux->data.second);
 				}
-				aux = new Node(k);
+				aux = new value_type();
 				this->size++;
 				return (&aux->data.second);
 			}
 
 			mapped_type&	at(const key_type& k) {
-				Node*	aux;
+				value_type	*aux;
 
 				aux = this->_root;
 				while(aux->data) {
@@ -108,7 +108,7 @@ namespace ft
 			}
 
 			mapped_type&	at(const key_type& k) const {
-				Node*	aux;
+				value_type	*aux;
 
 				aux = this->_root;
 				while(aux->data) {
