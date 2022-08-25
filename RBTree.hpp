@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/08/17 21:02:39 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/08/25 19:57:54 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ public:
 		return node;
 	}
 
-	Node< T >	*getUncle(Node< T > *node) {
+	Node< T >	*getUncle(Node< T > *node) const {
 		Node< T >	*par = node->parent;
 
 		if (this->_comp(par->data, par->parent->data))
@@ -74,48 +74,122 @@ public:
 			return par->parent->left;
 	}
 
-	bool	insert(T data) {
-		Node< T >	*node;
-		Node< T >	*par = NULL;
-		Node< T >	*temp = this->_content;
+	void leftRotate(Node< T > *node) {
+		Node< T > *aux = node->right;
 
-		while(temp) {
-			par = temp;
-			if (this->_comp(data, par->data))
-				temp = temp->left;
-			else if (this->_comp(par->data, data))
-				temp = temp->right;
-			else
-				return false;
+		node->right = aux->left;
+		if (aux->left)
+			aux->left->parent = node;
+		aux->parent = node->parent;
+		if (!node->parent)
+			this->_content = aux;
+		else if (node == node->parent->left)
+			node->parent->left = aux;
+		else
+			node->parent->right = aux;
+		aux->left = node;
+		node->parent = aux;
+	}
+
+	void rightRotate(Node< T > *node) {
+		Node< T > *aux = node->left;
+
+		node->left = aux->right;
+		if (aux->right)
+			aux->right->parent = node;
+		aux->parent = node->parent;
+		if (!node->parent)
+			this->_content = aux;
+		else if (node == node->parent->right)
+			node->parent->right = aux;
+		else
+			node->parent->left = aux;
+		aux->right = node;
+		node->parent = aux;
+	}
+
+
+	void insertFix(Node< T > *node) {
+		Node< T >	*aux;
+
+		while (node->parent->color == RED) {
+			if (node->parent == node->parent->parent->right) {
+				aux = getUncle(node);
+
+				if (aux && aux->color == RED) {
+					aux->color = BLACK;
+					node->parent->color = BLACK;
+					node->parent->parent->color = RED;
+					node = node->parent->parent;
+				} else {
+					if (node == node->parent->left) {
+						node = node->parent;
+						rightRotate(node);
+					}
+					node->parent->color = BLACK;
+					node->parent->parent->color = RED;
+					leftRotate(node->parent->parent);
+				}
+			} else {
+				aux = getUncle(node);
+
+				if (aux && aux->color == RED) {
+					aux->color = BLACK;
+					node->parent->color = BLACK;
+					node->parent->parent->color = RED;
+					node = node->parent->parent;
+				} else {
+					if (node == node->parent->right) {
+						node = node->parent;
+						leftRotate(node);
+					}
+					node->parent->color = BLACK;
+					node->parent->parent->color = RED;
+					rightRotate(node->parent->parent);
+				}
+			}
+			if (node == this->_content)
+				break;
 		}
-		node = createNode(data);
-		node->parent = par;
+		this->_content->color = BLACK;
+	}
 
+	bool	insert(T data) {
+		Node< T > *node = createNode(data);
+		Node< T > *par = NULL;
+		Node< T > *aux = this->_content;
+
+		while (aux) {
+			par = aux;
+			if (this->_comp(node->data, aux->data)) {
+			aux = aux->left;
+			} else if (this->_comp(aux->data, node->data)) {
+			aux = aux->right;
+			} else {
+			return false;
+			}
+		}
+
+		node->parent = par;
 		if (!par) {
-			node->color = BLACK;
 			this->_content = node;
+		} else if (node->data < par->data) {
+			par->left = node;
+		} else {
+			par->right = node;
+		}
+
+		if (!node->parent) {
+			node->color = BLACK;
 			return true;
 		}
-		if (this->_comp(data, par->data))
-			par->left = node;
-		else
-			par->right = node;
-		if (!par->color) {
-			if (this->_comp(data, par->data))
-				par->left = node;
-			else
-				par->right = node;
-		} else {
-			if (getUncle(node)->color) {
-				getUncle(node)->color = !getUncle(node)->color;
-				par->color = !par->color;
-				if (par->parent != this->_content)
-					par->parent->color = !par->parent->color;
-			}
-			//ROTATION
+		if (!node->parent->parent) {
+			return true;
 		}
+
+		insertFix(node);
 		return true;
-	};
+	}
 
 	Node< T >	*search(Node< T > *node, T key) const {
 		if (!node || (!_comp(node->data, key) && !_comp(key, node->data)))
@@ -124,11 +198,6 @@ public:
 			return search(node->left, key);
 		else
 			return search(node->right, key);
-	}
-
-	Node< T >	*remove(Node< T > *node, T key) {
-		//SOON
-		return NULL;
 	}
 
 	Node< T >	*min(Node< T > *node) const {
