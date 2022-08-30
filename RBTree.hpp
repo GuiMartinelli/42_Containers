@@ -6,14 +6,15 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/08/25 19:57:54 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/08/29 21:23:59 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RBTREE_HPP
 #define RBTREE_HPP
-#define RED true
-#define BLACK false
+#define BLACK 0
+#define RED 1
+#define D_BLACK 2
 
 #include <iostream>
 #include <memory>
@@ -27,7 +28,7 @@ struct Node
 	Node*	right;
 	Node*	left;
 	Node*	parent;
-	bool	color;
+	short	color;
 };
 
 template< typename T,
@@ -63,6 +64,24 @@ public:
 		node->right = NULL;
 		node->color = RED;
 		return node;
+	}
+
+	Node< T >	*predecessor(Node< T > *node) {
+		Node< T >	*aux;
+
+		aux = node->left;
+		while (aux->right)
+			aux = aux->right;
+		return aux;
+	}
+
+	Node< T >	*sucessor(Node< T > *node) {
+		Node< T >	*aux;
+
+		aux = node->right;
+		while (aux->left)
+			aux = aux->left;
+		return aux;
 	}
 
 	Node< T >	*getUncle(Node< T > *node) const {
@@ -191,6 +210,138 @@ public:
 		return true;
 	}
 
+	short	getColor(Node< T > *node) {
+		if (!node || node->color == BLACK)
+			return (BLACK);
+		return (RED);
+	}
+
+	void	removeFix(Node< T > *node) {
+		if (!node)
+			return ;
+		if (node == this->_content) {
+			this->_content = NULL;
+			return ;
+		}
+
+		if (getColor(node) == RED
+			|| getColor(node->right) == RED
+			|| getColor(node->left) == RED) {
+			Node< T >	*child = (node->left) ? node->left : node->right;
+
+			if (node == node->parent->left) {
+				node->parent->left = child;
+				if (child) {
+					child->parent = node->parent;
+					child->color = BLACK;
+				}
+				this->_alloc.deallocate(node, 1);
+			} else {
+				node->parent->right = child;
+				if (child) {
+					child->parent = node->parent;
+					child->color = BLACK;
+				}
+				this->_alloc.deallocate(node, 1);
+			}
+		} else {
+			Node< T >	*sibling;
+			Node< T >	*parent;
+			Node< T >	*aux = node;
+
+			aux->color = D_BLACK;
+			while (aux != this->_content && getColor(aux) == D_BLACK) {
+				parent = aux->parent;
+				if (aux == parent->left) {
+					sibling = parent->right;
+					if (getColor(sibling) == RED) {
+						sibling->color = BLACK;
+						parent->color = RED;
+						leftRotate(parent);
+					} else {
+						if (getColor(sibling->left) == BLACK
+							&& getColor(sibling->right) == BLACK) {
+							sibling->color = RED;
+							if (getColor(parent) == RED)
+								parent->color = BLACK;
+							else
+								parent->color = D_BLACK;
+							aux = parent;
+						} else {
+							if (getColor(sibling->right) == BLACK) {
+								sibling->left->color = BLACK;
+								sibling->color = RED;
+								rightRotate(sibling);
+								sibling = parent->right;
+							}
+							sibling->color = parent->color;
+							parent->color = BLACK;
+							sibling->right->color = BLACK;
+							leftRotate(parent);
+							break ;
+						}
+					}
+				} else {
+					sibling = parent->left;
+					if (getColor(sibling) == RED) {
+						sibling->color = BLACK;
+						parent->color = RED;
+						rightRotate(parent);
+					} else {
+						if (getColor(sibling->left) == BLACK
+							&& getColor(sibling->right) == BLACK) {
+								sibling->color = RED;
+								if (getColor(parent) == RED)
+									parent->color = BLACK;
+								else
+									parent->color = D_BLACK;
+								aux = parent;
+						} else {
+							if (getColor(sibling->left) == BLACK) {
+								sibling->right->color = BLACK;
+								sibling->color = RED;
+								leftRotate(sibling);
+								sibling = parent->left;
+							}
+							sibling->color = parent->color;
+							parent->color = BLACK;
+							sibling->left->color = BLACK;
+							rightRotate(parent);
+							break ;
+						}
+					}
+				}
+			}
+
+			if (node == node->parent->left)
+				node->parent->left = NULL;
+			else
+				node->parent->right = NULL;
+			this->_alloc.deallocate(node, 1);
+			this->_content->color = BLACK;
+		}
+	}
+
+	Node< T >	*BSTRemove(Node< T > *node, T data) {
+		if (!node)
+			return node;
+		if (this->_comp(data, node->data))
+			return BSTRemove(node->left, data);
+		if(this->_comp(node->data, data))
+			return BSTRemove(node->right, data);
+		if (!node->left || !node->right)
+			return node;
+
+		Node< T >	*temp = sucessor(node);
+		node->data = temp->data;
+		return BSTRemove(node->right, temp->data);
+	}
+
+	void	remove(T data) {
+		Node< T >	*node = BSTRemove(this->_content, data);
+		removeFix(node);
+	}
+
 	Node< T >	*search(Node< T > *node, T key) const {
 		if (!node || (!_comp(node->data, key) && !_comp(key, node->data)))
 			return node;
@@ -223,18 +374,6 @@ public:
 			destroy(node->left);
 			destroy(node->right);
 			_alloc.deallocate(node, sizeof(Node< T > *));
-		}
-	}
-
-	void	print(Node< T > *node) const {
-		if (node) {
-			print(node->left);
-			std::cout << node->data << " -> ";
-			if (node->color)
-				std::cout << "RED" << std::endl;
-			else
-				std::cout << "BLACK" << std::endl;
-			print(node->right);
 		}
 	}
 
