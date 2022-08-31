@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/08/17 21:10:02 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/08/30 21:17:06 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include "Less.hpp"
 #include "Pair.hpp"
 #include "RBTree.hpp"
-#include "Iterator.hpp"
-#include "Reverse_iterator.hpp"
+// #include "Iterator.hpp"
+// #include "Reverse_iterator.hpp"
 
 namespace ft
 {
@@ -41,7 +41,7 @@ namespace ft
 			typedef const value_type &			const_reference;
 			//pointer
 			//const_pointer
-			//iterator
+			// iterator;
 			//const_iterator
 			//reverse_iterator
 			//const_reverse_iterator
@@ -66,60 +66,38 @@ namespace ft
 			//Member Functions
 
 			map() {
-				this->_root = this->_alloc.allocate(1);
+				this->_content = NULL;
 				this->_size = 0;
 			}
 
 			~map() {
+				this->_content->destroy(this->_content->getRoot());
+			}
+
+			// map&	operator=(const map& obj) {
+			// }
+
+			allocator_type	getAllocator() const {
+				return this->_alloc;
 			}
 
 			//Element Access
 
-			mapped_type&	operator[] (const key_type& k) {
-				value_type	*aux;
-
-				aux = this->_root;
-				while(aux->data) {
-					if (value_compare(aux->data.first, k))
-						aux = aux->lChild;
-					else if (value_compare(k, aux->data.first))
-						aux = aux->rChild;
-					else
-						return (&aux->data.second);
-				}
-				aux = new value_type();
-				this->size++;
-				return (&aux->data.second);
-			}
-
 			mapped_type&	at(const key_type& k) {
-				value_type	*aux;
+				value_type	*aux = this->_content->search(this->_content->getRoot(), k);
 
-				aux = this->_root;
-				while(aux->data) {
-					if (value_compare(aux->data.first, k))
-						aux = aux->lChild;
-					else if (value_compare(k, aux->data.first))
-						aux = aux->rChild;
-					else
-						return (&aux->data.second);
-				}
-				throw std::exception();
+				if (aux)
+					return (&aux.second);
+				else
+					throw std::exception();
 			}
 
-			mapped_type&	at(const key_type& k) const {
-				value_type	*aux;
+			mapped_type&	operator[] (const key_type& k) {
+				value_type	*aux = this->_content->search(this->_content->getRoot(), k);
 
-				aux = this->_root;
-				while(aux->data) {
-					if (value_compare(aux->data.first, k))
-						aux = aux->lChild;
-					else if (value_compare(k, aux->data.first))
-						aux = aux->rChild;
-					else
-						return (&aux->data.second);
-				}
-				throw std::exception();
+				if (aux)
+					return (&aux.second);
+				return (this->_content->insert(ft::make_pair(k, mapped_type())).second);
 			}
 
 			//Iterators
@@ -127,13 +105,11 @@ namespace ft
 			//Capacity
 
 			bool	empty() const {
-				if (this->_root)
-					return false;
-				return true;
+				return (this->_content) ? true : false;
 			}
 
 			size_type	size() const {
-				return this->size;
+				return this->_size;
 			}
 
 			size_type	max_size() const {
@@ -142,13 +118,77 @@ namespace ft
 
 			//Modifers
 
+			void	clear() {
+				this->_content->destroy(this->_content->getRoot());
+				this->_size = 0;
+			}
+
+			bool	insert(const value_type& value) {
+				return this->_content->insert(value);
+			}
+
+			// iterator	insert(iterator hint, const value_type& value) {
+			// }
+
+			// template< class InputIt >
+			// void	insert(InputIt first, InputIt last) {
+			// }
+
+			void	erase(value_type *pos) {
+				return this->_content->remove(pos->second);
+			}
+
+			// void	erase(iterator first, iterator last) {
+			// }
+
+			// size_type	erase(const key_type& key) {
+			// }
+
+			// void	swap(map& obj) {
+			// }
+
 			//Lookup
 
+			// size_type	count(const key_type& key) const {
+			// }
+
+			// iterator	find(const key_type& key) {
+			// }
+
+			// const_iterator	find(const key_type& key) const {
+			// }
+
+			// ft::pair<iterator, iterator>	equal_range(const key_type& key) {
+			// }
+
+			// ft::pair<iterator, iterator>	equal_range(const key_type& key) const {
+			// }
+
+			// iterator	lower_bound(const key_type& key) {
+			// }
+
+			// const iterator	lower_bound(const key_type& key) const {
+			// }
+
+			// iterator	upper_bound(const key_type& key) {
+			// }
+
+			// const iterator	upper_bound(const key_type& key) const {
+			// }
+
 			//Observers
+
+			key_compare	key_comp() const {
+				return (new key_compare(comp));
+			}
+
+			// ft::map::value_compare	value_comp() const {
+			// }
+
 		private:
-			RBTree<value_type>	*_root;
+			RBTree<value_type>	*_content;
 			size_t				_size;
-			_Alloc				_alloc;
+			allocator_type		_alloc;
 			_Compare			comp;
 
 	};

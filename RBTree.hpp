@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/08/29 21:23:59 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/08/30 21:19:27 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 #include <iostream>
 #include <memory>
-#include "../Pair.hpp"
-#include "../Less.hpp"
+#include "Pair.hpp"
+#include "Less.hpp"
 
 template< typename T >
 struct Node
@@ -185,14 +185,14 @@ public:
 			} else if (this->_comp(aux->data, node->data)) {
 			aux = aux->right;
 			} else {
-			return false;
+				return false;
 			}
 		}
 
 		node->parent = par;
 		if (!par) {
 			this->_content = node;
-		} else if (node->data < par->data) {
+		} else if (this->_comp(node->data < par->data)) {
 			par->left = node;
 		} else {
 			par->right = node;
