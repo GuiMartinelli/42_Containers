@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/08/30 21:19:27 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/05 20:33:39 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ public:
 		node->parent = par;
 		if (!par) {
 			this->_content = node;
-		} else if (this->_comp(node->data < par->data)) {
+		} else if (this->_comp(node->data, par->data)) {
 			par->left = node;
 		} else {
 			par->right = node;
@@ -333,7 +333,15 @@ public:
 			return node;
 
 		Node< T >	*temp = sucessor(node);
-		node->data = temp->data;
+		if (node->parent) {
+			if (node->parent->left == node)
+				node->parent->left = temp;
+			else
+				node->parent->right = temp;
+		}
+		temp->parent = node->parent;
+		temp->right = node->right;
+		temp->left = node->left;
 		return BSTRemove(node->right, temp->data);
 	}
 
@@ -342,9 +350,9 @@ public:
 		removeFix(node);
 	}
 
-	Node< T >	*search(Node< T > *node, T key) const {
+	T	*search(Node< T > *node, T key) const {
 		if (!node || (!_comp(node->data, key) && !_comp(key, node->data)))
-			return node;
+			return &node->data ;
 		if (_comp(key, node->data))
 			return search(node->left, key);
 		else
