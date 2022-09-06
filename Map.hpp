@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/08/30 21:17:06 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/05 20:50:43 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,32 @@
 #include "Less.hpp"
 #include "Pair.hpp"
 #include "RBTree.hpp"
-// #include "Iterator.hpp"
-// #include "Reverse_iterator.hpp"
+#include "MapIterator.hpp"
+#include "ReverseMapIterator.hpp"
 
 namespace ft
 {
 	template< typename _Key,
 			typename _Tp,
 			typename _Compare = ft::less<_Key>,
-			typename _Alloc = std::allocator< ft::pair<const _Key, _Tp > > >
+			typename _Alloc = std::allocator< pair<_Key, _Tp > > >
 	class map {
 		public:
-			typedef _Key						key_type;
-			typedef _Tp							mapped_type;
-			typedef ft::pair<const _Key, _Tp >	value_type;
-			typedef size_t						size_type;
-			typedef ptrdiff_t					difference_type;
-			typedef _Compare					key_compare;
-			typedef _Alloc						allocator_type;
-			typedef value_type &				reference;
-			typedef const value_type &			const_reference;
-			//pointer
-			//const_pointer
-			// iterator;
-			//const_iterator
-			//reverse_iterator
-			//const_reverse_iterator
+			typedef _Key										key_type;
+			typedef _Tp											mapped_type;
+			typedef pair<_Key, _Tp >						value_type;
+			typedef size_t										size_type;
+			typedef ptrdiff_t									difference_type;
+			typedef _Compare									key_compare;
+			typedef _Alloc										allocator_type;
+			typedef value_type &								reference;
+			typedef const value_type &							const_reference;
+			typedef value_type *								pointer;
+			typedef value_type const *							const_pointer;
+			typedef ft::MapIterator<value_type>					iterator;
+			typedef ft::MapIterator<const value_type>			const_iterator;
+			typedef ft::ReverseMapIterator<value_type>			reverse_iterator;
+			typedef ft::ReverseMapIterator<const value_type>	reverse_const_iterator;
 
 			class value_compare
 			{
@@ -97,10 +97,42 @@ namespace ft
 
 				if (aux)
 					return (&aux.second);
-				return (this->_content->insert(ft::make_pair(k, mapped_type())).second);
+				return (this->_content->insert(make_pair(k, mapped_type())).second);
 			}
 
 			//Iterators
+
+			iterator	begin() {
+				return iterator(this->_content->min());
+			}
+
+			const_iterator	cbegin() const {
+				return const_iterator(this->_content->min());
+			}
+
+			iterator	end() {
+				return iterator();
+			}
+
+			const_iterator	cend() const {
+				return const_iterator();
+			}
+
+			reverse_iterator	rbegin() {
+				return reverse_iterator();
+			}
+
+			reverse_const_iterator	crbegin() const {
+				return reverse_const_iterator();
+			}
+
+			reverse_iterator	rend() {
+				return reverse_iterator();
+			}
+
+			reverse_const_iterator	crend() const {
+				return reverse_const_iterator();
+			}
 
 			//Capacity
 
@@ -123,8 +155,13 @@ namespace ft
 				this->_size = 0;
 			}
 
-			bool	insert(const value_type& value) {
-				return this->_content->insert(value);
+			pair<iterator, bool>	insert(const value_type& value) {
+				bool					ins;
+				iterator				insNode;
+
+				ins = this->_content->insert(value);
+				insNode = iterator(this->_content->search(this->_content->getRoot(), value));
+				return (ft::make_pair(insNode, ins));
 			}
 
 			// iterator	insert(iterator hint, const value_type& value) {
@@ -135,7 +172,7 @@ namespace ft
 			// }
 
 			void	erase(value_type *pos) {
-				return this->_content->remove(pos->second);
+				this->_content->remove(pos->second);
 			}
 
 			// void	erase(iterator first, iterator last) {
@@ -158,10 +195,10 @@ namespace ft
 			// const_iterator	find(const key_type& key) const {
 			// }
 
-			// ft::pair<iterator, iterator>	equal_range(const key_type& key) {
+			// pair<iterator, iterator>	equal_range(const key_type& key) {
 			// }
 
-			// ft::pair<iterator, iterator>	equal_range(const key_type& key) const {
+			// pair<iterator, iterator>	equal_range(const key_type& key) const {
 			// }
 
 			// iterator	lower_bound(const key_type& key) {
@@ -187,9 +224,9 @@ namespace ft
 
 		private:
 			RBTree<value_type>	*_content;
-			size_t				_size;
-			allocator_type		_alloc;
-			_Compare			comp;
+			size_t											_size;
+			allocator_type									_alloc;
+			_Compare										comp;
 
 	};
 }
