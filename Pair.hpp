@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 19:19:12 by guferrei          #+#    #+#             */
-/*   Updated: 2022/08/30 21:19:44 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/05 21:08:55 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,22 @@ namespace ft
 			this->second = second;
 		}
 
+		pair<T1, T2>&	operator=(const pair<T1, T2>& obj) {
+			if (this == &obj)
+				return (*this);
+			first = obj.first;
+			second = obj.second;
+			return (*this);
+		}
+
+		bool	operator==(const pair<T1, T2>& obj) const {
+			return (this->first == obj.first && this->second == obj.second);
+		}
+
+		bool	operator<(const pair<T1, T2>& p1) const {
+			return (this->first < p1.first);
+		}
+
 		// pair(pair const & obj) {
 		// 	*this = obj;
 		// }
@@ -44,12 +60,12 @@ namespace ft
 		// 	return *this;
 		// }
 
-		~pair();
+		~pair() {};
 	};
 
 	template<typename T1, typename T2>
-	pair<T1, T2>	*make_pair(T1 x, T2 y) {
-		return (new ft::pair<T1, T2>(x, y));
+	pair<T1, T2>	make_pair(T1 x, T2 y) {
+		return (pair<T1, T2>(x, y));
 	}
 }
 
