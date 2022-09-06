@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/05 20:33:39 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/06 10:10:25 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,12 @@ class RBTree
 private:
 
 	Node< T >	*_content;
-	int			_size;
 	_Alloc		_alloc;
 	_Compare	_comp;
 
 public:
 
 	RBTree() {
-		this->_content = NULL;
-		this->_size = 0;
 	} ;
 
 	RBTree(RBTree const & obj) {} ;

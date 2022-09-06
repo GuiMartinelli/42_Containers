@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/05 20:50:43 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/06 10:13:37 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,10 @@ namespace ft
 			//Member Functions
 
 			map() {
-				this->_content = NULL;
 				this->_size = 0;
 			}
 
 			~map() {
-				this->_content->destroy(this->_content->getRoot());
 			}
 
 			// map&	operator=(const map& obj) {
@@ -84,7 +82,7 @@ namespace ft
 			//Element Access
 
 			mapped_type&	at(const key_type& k) {
-				value_type	*aux = this->_content->search(this->_content->getRoot(), k);
+				value_type	*aux = this->_content.search(this->_content.getRoot(), k);
 
 				if (aux)
 					return (&aux.second);
@@ -93,21 +91,21 @@ namespace ft
 			}
 
 			mapped_type&	operator[] (const key_type& k) {
-				value_type	*aux = this->_content->search(this->_content->getRoot(), k);
+				value_type	*aux = this->_content.search(this->_content.getRoot(), k);
 
 				if (aux)
 					return (&aux.second);
-				return (this->_content->insert(make_pair(k, mapped_type())).second);
+				return (this->_content.insert(make_pair(k, mapped_type())).second);
 			}
 
 			//Iterators
 
 			iterator	begin() {
-				return iterator(this->_content->min());
+				return iterator(this->_content.min());
 			}
 
 			const_iterator	cbegin() const {
-				return const_iterator(this->_content->min());
+				return const_iterator(this->_content.min());
 			}
 
 			iterator	end() {
@@ -151,7 +149,7 @@ namespace ft
 			//Modifers
 
 			void	clear() {
-				this->_content->destroy(this->_content->getRoot());
+				this->_content.destroy(this->_content.getRoot());
 				this->_size = 0;
 			}
 
@@ -159,8 +157,8 @@ namespace ft
 				bool					ins;
 				iterator				insNode;
 
-				ins = this->_content->insert(value);
-				insNode = iterator(this->_content->search(this->_content->getRoot(), value));
+				ins = this->_content.insert(value);
+				insNode = iterator(this->_content.search(this->_content.getRoot(), value));
 				return (ft::make_pair(insNode, ins));
 			}
 
@@ -172,7 +170,7 @@ namespace ft
 			// }
 
 			void	erase(value_type *pos) {
-				this->_content->remove(pos->second);
+				this->_content.remove(pos->second);
 			}
 
 			// void	erase(iterator first, iterator last) {
@@ -223,10 +221,10 @@ namespace ft
 			// }
 
 		private:
-			RBTree<value_type>	*_content;
-			size_t											_size;
-			allocator_type									_alloc;
-			_Compare										comp;
+			RBTree<value_type>	_content;
+			size_t				_size;
+			allocator_type		_alloc;
+			_Compare			comp;
 
 	};
 }
