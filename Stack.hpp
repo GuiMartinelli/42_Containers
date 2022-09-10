@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 12:18:40 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/10 12:54:01 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/10 12:55:28 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ namespace ft {
 
 		stack&	operator=(stack& obj) {
 			this->_data = obj._data;
+
+			return *this;
 		};
 
 		//Element Access
