@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/10 15:29:06 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/10 15:37:56 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,6 +361,30 @@ namespace ft
 			return it;
 		}
 	};
+
+	//Operators Overload
+
+	template <class T, class Alloc>
+	bool	operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
+		if (lhs.size() != rhs.size())
+			return false;
+		for (int i = 0; i < lhs.size(); i++) {
+			if (lhs[i] != rhs[i])
+				return false;
+		}
+		return true;
+	}
+
+	template <class T, class Alloc>
+	bool	operator!=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
+		if (lhs.size() != rhs.size())
+			return true;
+		for (int i = 0; i < lhs.size(); i++) {
+			if (lhs[i] != rhs[i])
+				return true;
+		}
+		return false;
+	}
 }
 
 #endif
