@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Stack.hpp                                          :+:      :+:    :+:   */
+/*   stack.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 12:18:40 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/10 15:28:01 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/10 18:46:49 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,24 @@ namespace ft {
 	{
 	protected:
 		Container	_data;
+
+		template < class Tp, class Cont >
+		friend bool	operator==(stack< Tp, Cont > const & lhs, stack< Tp, Cont > const & rhs);
+
+		template < class Tp, class Cont >
+		friend bool	operator!=(stack< Tp, Cont > const & lhs, stack< Tp, Cont > const & rhs);
+
+		template < class Tp, class Cont >
+		friend bool	operator<(stack< Tp, Cont > const & lhs, stack< Tp, Cont > const & rhs);
+
+		template < class Tp, class Cont >
+		friend bool	operator<=(stack< Tp, Cont > const & lhs, stack< Tp, Cont > const & rhs);
+
+		template < class Tp, class Cont >
+		friend bool	operator>(stack< Tp, Cont > const & lhs, stack< Tp, Cont > const & rhs);
+
+		template < class Tp, class Cont >
+		friend bool	operator>=(stack< Tp, Cont > const & lhs, stack< Tp, Cont > const & rhs);
 
 	public:
 		//Member Type
@@ -74,6 +92,37 @@ namespace ft {
 			this->_data.pop_back();
 		}
 	};
+
+	//Operator Overload
+	template < class T, class Container = ft::vector<T> >
+	bool	operator==(stack< T, Container > const & lhs, stack< T, Container > const & rhs) {
+		return rhs._data == lhs._data;
+	}
+
+	template < class T, class Container = ft::vector<T> >
+	bool	operator!=(stack< T, Container > const & lhs, stack< T, Container > const & rhs) {
+		return rhs._data != lhs._data;
+	}
+
+	template < class T, class Container = ft::vector<T> >
+	bool	operator<(stack< T, Container > const & lhs, stack< T, Container > const & rhs) {
+		return rhs._data < lhs._data;
+	}
+
+	template < class T, class Container = ft::vector<T> >
+	bool	operator<=(stack< T, Container > const & lhs, stack< T, Container > const & rhs) {
+		return rhs._data <= lhs._data;
+	}
+
+	template < class T, class Container = ft::vector<T> >
+	bool	operator>(stack< T, Container > const & lhs, stack< T, Container > const & rhs) {
+		return rhs._data > lhs._data;
+	}
+
+	template < class T, class Container = ft::vector<T> >
+	bool	operator>=(stack< T, Container > const & lhs, stack< T, Container > const & rhs) {
+		return rhs._data >= lhs._data;
+	}
 }
 
 #endif
