@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/07/06 20:20:53 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/10 12:27:29 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ namespace ft
 		typedef	T										value_type;
 		typedef	std::allocator<value_type>				allocator_type;
 		typedef	value_type &							reference;
-		typedef value_type const &						const_reference;
+		typedef	value_type const &						const_reference;
 		typedef	value_type *							pointer;
 		typedef	value_type const *						const_pointer;
 		typedef	ft::iterator<value_type>				iterator;
 		typedef	ft::iterator<const value_type>			const_iterator;
 		typedef	ft::reverse_iterator<value_type>		reverse_iterator;
 		typedef	ft::reverse_iterator<const value_type>	const_reverse_iterator;
-		typedef ptrdiff_t								difference_type;
-		typedef size_t									size_type;
+		typedef	ptrdiff_t								difference_type;
+		typedef	size_t									size_type;
 
 		//Member Functions
 		vector() {
