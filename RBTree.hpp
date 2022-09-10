@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/06 10:10:25 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/10 13:23:16 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,13 @@ private:
 	Node< T >	*_content;
 	_Alloc		_alloc;
 	_Compare	_comp;
+	size_t		_size;
 
 public:
 
 	RBTree() {
+		this->_content = NULL;
+		this->_size = 0;
 	} ;
 
 	RBTree(RBTree const & obj) {} ;
@@ -186,6 +189,7 @@ public:
 			}
 		}
 
+		this->_size++;
 		node->parent = par;
 		if (!par) {
 			this->_content = node;
@@ -344,6 +348,8 @@ public:
 
 	void	remove(T data) {
 		Node< T >	*node = BSTRemove(this->_content, data);
+		if (node)
+			this->_size--;
 		removeFix(node);
 	}
 
@@ -384,6 +390,10 @@ public:
 
 	Node< T >	*getRoot() const {
 		return this->_content;
+	}
+
+	size_t	getSize() const {
+		return this->_size;
 	}
 };
 

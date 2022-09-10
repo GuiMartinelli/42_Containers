@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/06 10:13:37 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/10 14:00:20 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ namespace ft
 		public:
 			typedef _Key										key_type;
 			typedef _Tp											mapped_type;
-			typedef pair<_Key, _Tp >						value_type;
+			typedef pair<_Key, _Tp >							value_type;
 			typedef size_t										size_type;
 			typedef ptrdiff_t									difference_type;
 			typedef _Compare									key_compare;
@@ -65,12 +65,9 @@ namespace ft
 			
 			//Member Functions
 
-			map() {
-				this->_size = 0;
-			}
+			map() {}
 
-			~map() {
-			}
+			~map() {}
 
 			// map&	operator=(const map& obj) {
 			// }
@@ -85,7 +82,7 @@ namespace ft
 				value_type	*aux = this->_content.search(this->_content.getRoot(), k);
 
 				if (aux)
-					return (&aux.second);
+					return (aux->second);
 				else
 					throw std::exception();
 			}
@@ -94,8 +91,10 @@ namespace ft
 				value_type	*aux = this->_content.search(this->_content.getRoot(), k);
 
 				if (aux)
-					return (&aux.second);
-				return (this->_content.insert(make_pair(k, mapped_type())).second);
+					return (aux->second);
+				this->_content.insert(ft::make_pair(k, std::string()));
+				aux = this->_content.search(this->_content.getRoot(), k);
+				return aux->second;
 			}
 
 			//Iterators
@@ -139,7 +138,7 @@ namespace ft
 			}
 
 			size_type	size() const {
-				return this->_size;
+				return this->_content.getSize();
 			}
 
 			size_type	max_size() const {
@@ -176,8 +175,11 @@ namespace ft
 			// void	erase(iterator first, iterator last) {
 			// }
 
-			// size_type	erase(const key_type& key) {
-			// }
+			size_type	erase(const key_type& key) {
+				this->_content.remove(key);
+
+				return 1;
+			}
 
 			// void	swap(map& obj) {
 			// }
@@ -222,7 +224,6 @@ namespace ft
 
 		private:
 			RBTree<value_type>	_content;
-			size_t				_size;
 			allocator_type		_alloc;
 			_Compare			comp;
 
