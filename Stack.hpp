@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 12:18:40 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/10 12:51:55 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/10 12:54:01 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ namespace ft {
 	public:
 		//Member Type
 
-		typedef Container					container_type;
+		typedef Container							container_type;
 		typedef typename Container::value_type		value_type;
 		typedef typename Container::size_type		size_type;
 		typedef typename Container::reference		reference;
