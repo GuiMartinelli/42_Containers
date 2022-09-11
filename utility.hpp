@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Pair.hpp                                           :+:      :+:    :+:   */
+/*   utility.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 19:19:12 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/05 21:08:55 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/11 13:18:54 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PAIR_HPP
-#define PAIR_HPP
+#ifndef UTILITY_HPP
+#define UTILITY_HPP
 
 namespace ft
 {
