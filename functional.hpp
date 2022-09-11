@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Less.hpp                                           :+:      :+:    :+:   */
+/*   functional.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 20:28:05 by guferrei          #+#    #+#             */
-/*   Updated: 2022/08/30 21:22:53 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/11 13:24:42 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define LESS_HPP
 
 namespace ft {
-	template<typename T>
+	template<class T>
 	struct less {
 		bool	operator()(T const & x, T const & y) const {
 			return x < y;
