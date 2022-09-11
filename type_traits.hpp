@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 13:51:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/11 14:51:48 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/11 14:58:05 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 
 namespace ft
 {
+	template< typename, bool>
+	struct enable_if {};
+
+	template< typename T >
+	struct enable_if<T, true> {
+		typedef T	type;
+	};
+
 	template< class T, T value >
 	struct integral_constant;
 	typedef integral_constant<bool, false>	false_type;
