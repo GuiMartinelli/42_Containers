@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Iterator.hpp                                       :+:      :+:    :+:   */
+/*   iterator.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 21:04:30 by guferrei          #+#    #+#             */
-/*   Updated: 2022/07/06 20:16:40 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/11 13:44:20 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ namespace ft {
 
 		bool	operator==(iterator const & obj) {
 			return (this->it == obj.it);
+		}
+
+		bool	operator!=(iterator const & obj) {
+			return (this->it != obj.it);
 		}
 
 		iterator	operator+=(int n) {
