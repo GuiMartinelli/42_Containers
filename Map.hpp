@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/11 13:19:49 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/11 13:21:52 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <iostream>
 #include <memory>
 #include <stdexcept>
-#include "Less.hpp"
+#include "functional.hpp"
 #include "utility.hpp"
 #include "RBTree.hpp"
 #include "MapIterator.hpp"

@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/11 13:19:37 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/11 13:22:02 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 #include <iostream>
 #include <memory>
-#include "Less.hpp"
+#include "functional.hpp"
 
 template< typename T >
 struct Node
