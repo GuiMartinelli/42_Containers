@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 19:19:12 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/12 19:52:52 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/12 20:31:53 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ namespace ft
 		}
 	};
 
-	template<typename T1, typename T2>
+	template<class T1, class T2>
 	pair<T1, T2>	make_pair(T1 x, T2 y) {
 		return (pair<T1, T2>(x, y));
 	}
