@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/12 19:50:55 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/12 20:00:42 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,15 @@ namespace ft
 
 			map() {}
 
-			~map() {}
+			map(iterator first, iterator last) {}
 
-			// map&	operator=(const map& obj) {
-			// }
+			map(const map& obj) {
+				*this = obj;
+			}
+
+			map&	operator=(const map& obj) {}
+
+			~map() {}
 
 			allocator_type	getAllocator() const {
 				return this->_alloc;
