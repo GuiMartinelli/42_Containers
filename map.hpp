@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/12 20:33:27 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/12 20:36:22 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <memory>
 #include <stdexcept>
+#include <cstddef>
 #include "functional.hpp"
 #include "utility.hpp"
 #include "RBTree.hpp"
