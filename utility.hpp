@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 19:19:12 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/11 13:18:54 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/12 19:52:52 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,15 @@ namespace ft
 		typedef T1	first_type;
 		typedef T2	second_type;
 
-		pair(first_type first) : first(first) {
+		pair() {}
+
+		pair(const first_type& first, const second_type& second) {
+			this->first = first;
+			this->second = second;
 		}
 
-		pair(first_type first, second_type second) : first(first) {
-			this->second = second;
+		pair(const pair<T1, T2>& obj) {
+			*this = obj;
 		}
 
 		pair<T1, T2>&	operator=(const pair<T1, T2>& obj) {
@@ -40,27 +44,31 @@ namespace ft
 			return (*this);
 		}
 
+		~pair() {};
+
 		bool	operator==(const pair<T1, T2>& obj) const {
 			return (this->first == obj.first && this->second == obj.second);
+		}
+
+		bool	operator!=(const pair<T1, T2>& p1) const {
+			return (this->first != p1.first);
 		}
 
 		bool	operator<(const pair<T1, T2>& p1) const {
 			return (this->first < p1.first);
 		}
 
-		// pair(pair const & obj) {
-		// 	*this = obj;
-		// }
+		bool	operator<=(const pair<T1, T2>& p1) const {
+			return (this->first <= p1.first);
+		}
 
-		// pair &	operator=(pair const & obj) {
-		// 	if (this != &obj) {
-		// 		this->first = obj.first;
-		// 		this->second = obj.second;
-		// 	}
-		// 	return *this;
-		// }
+		bool	operator>(const pair<T1, T2>& p1) const {
+			return (this->first > p1.first);
+		}
 
-		~pair() {};
+		bool	operator>=(const pair<T1, T2>& p1) const {
+			return (this->first >= p1.first);
+		}
 	};
 
 	template<typename T1, typename T2>
