@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/11 13:43:39 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/12 18:37:12 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -394,6 +394,11 @@ namespace ft
 	template <class T, class Alloc>
 	bool	operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
 		return (lhs > rhs || lhs == rhs);
+	}
+
+	template< class T, class Alloc >
+	void	swap(vector< T, Alloc > lhs, vector < T, Alloc > rhs) {
+		lhs.swap(rhs);
 	}
 }
 
