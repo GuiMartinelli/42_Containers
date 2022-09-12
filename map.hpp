@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Map.hpp                                            :+:      :+:    :+:   */
+/*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/11 13:21:52 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/12 19:50:55 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ namespace ft
 			//Element Access
 
 			mapped_type&	at(const key_type& k) {
-				value_type	*aux = this->_content.search(this->_content.getRoot(), k);
+				pointer	aux = this->_content.search(this->_content.getRoot(), k);
 
 				if (aux)
 					return (aux->second);
@@ -88,7 +88,7 @@ namespace ft
 			}
 
 			mapped_type&	operator[] (const key_type& k) {
-				value_type	*aux = this->_content.search(this->_content.getRoot(), k);
+				pointer	aux = this->_content.search(this->_content.getRoot(), k);
 
 				if (aux)
 					return (aux->second);
