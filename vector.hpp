@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/12 18:37:12 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/12 20:13:49 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <memory>
 #include <stdexcept>
+#include <cstddef>
 #include "iterator.hpp"
 #include "reverse_iterator.hpp"
 #include "algorithm.hpp"
@@ -205,8 +206,10 @@ namespace ft
 		}
 
 		void	pop_back() {
-			this->_content[this->_size - 1] = 0;
-			this->_size--;
+			if (this->_size > 1) {
+				this->alloc.destroy(&this->_content[this->_size - 1]);
+				this->_size--;
+			}
 		}
 
 		iterator	insert(iterator pos, T const & value) {
