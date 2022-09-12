@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/12 20:00:42 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/12 20:33:27 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ namespace ft
 			//Element Access
 
 			mapped_type&	at(const key_type& k) {
-				pointer	aux = this->_content.search(this->_content.getRoot(), k);
+				pointer	aux = this->_content.search(this->_content.getRoot(), ft::make_pair(k, mapped_type()));
 
 				if (aux)
 					return (aux->second);
@@ -93,7 +93,7 @@ namespace ft
 			}
 
 			mapped_type&	operator[] (const key_type& k) {
-				pointer	aux = this->_content.search(this->_content.getRoot(), k);
+				pointer	aux = this->_content.search(this->_content.getRoot(), ft::make_pair(k, mapped_type()));
 
 				if (aux)
 					return (aux->second);
@@ -174,14 +174,14 @@ namespace ft
 			// }
 
 			void	erase(value_type *pos) {
-				this->_content.remove(pos->second);
+				this->_content.remove(pos);
 			}
 
 			// void	erase(iterator first, iterator last) {
 			// }
 
-			size_type	erase(const key_type& key) {
-				this->_content.remove(key);
+			size_type	erase(const key_type& k) {
+				this->_content.remove(ft::make_pair(k, mapped_type()));
 
 				return 1;
 			}
