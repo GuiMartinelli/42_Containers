@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/14 20:06:55 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/14 20:56:33 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,145 @@ namespace ft
 		typedef T*							pointer;
 		typedef T&							reference;
 		typedef random_access_iterator_tag	iterator_category;
+	};
+
+	template <typename T>
+	class bidirectional_iterator {
+	protected:
+		T*	data;
+
+	public:
+		bidirectional_iterator() {};
+
+		bidirectional_iterator(bidirectional_iterator const & obj) {
+			*this = obj;
+		};
+
+		~bidirectional_iterator() {};
+
+		bidirectional_iterator &	operator=(bidirectional_iterator const & obj) {
+			if (this != &obj)
+				this->data = obj.data;
+			return *this;
+		};
+
+		bool	operator==(bidirectional_iterator const & obj) {
+			return (this->data == obj.data);
+		}
+
+		bool	operator!=(bidirectional_iterator const & obj) {
+			return (this->data != obj.data);
+		}
+
+		bidirectional_iterator	operator++() {
+			this->data++;
+
+			return *this;
+		}
+
+		bidirectional_iterator	operator--() {
+			this->data--;
+
+			return *this;
+		}
+
+		bidirectional_iterator	operator++(T) {
+			bidirectional_iterator	tmp(*this);
+			this->data++;
+
+			return tmp;
+		}
+
+		bidirectional_iterator	operator--(T) {
+			bidirectional_iterator	tmp(*this);
+			this->data--;
+
+			return tmp;
+		}
+
+		T&	operator*() {
+			return *data;
+		}
+
+		T*	operator->() {
+			return data;
+		}
+	};
+
+	template <typename T>
+	class random_access_iterator : public bidirectional_iterator {
+	public:
+		random_access_iterator() {};
+
+		random_access_iterator(random_access_iterator const & obj) {
+			*this = obj;
+		};
+
+		~random_access_iterator() {};
+
+		random_access_iterator &	operator=(random_access_iterator const & obj) {
+			if (this != &obj)
+				this->data = obj.it;
+			return *this;
+		};
+
+		random_access_iterator	operator+(int n) {
+			random_access_iterator	aux;
+
+			aux = this->data;
+			for (; n > 0; n--)
+				aux++;
+			return (aux);
+		}
+
+		random_access_iterator	operator-(int n) {
+			random_access_iterator	aux;
+
+			aux = this->data;
+			for (; n > 0; n--)
+				aux--;
+			return (aux);
+		}
+
+		int	operator+(random_access_iterator const & obj) {
+			return (this->data + obj.data);
+		}
+
+		int	operator-(random_access_iterator const & obj) {
+			return (this->data - obj.data);
+		}
+
+		bool	operator<(random_access_iterator const & obj) {
+			return (this->data < obj.data);
+		}
+
+		bool	operator>(random_access_iterator const & obj) {
+			return (this->data > obj.data);
+		}
+
+		bool	operator<=(random_access_iterator const & obj) {
+			return (this->data <= obj.data);
+		}
+
+		bool	operator>=(random_access_iterator const & obj) {
+			return (this->data >= obj.data);
+		}
+
+		random_access_iterator	operator+=(int n) {
+			for (; n > 0; n--)
+				this->data++;
+			return (this->data);
+		}
+
+		random_access_iterator	operator-=(int n) {
+			for (; n > 0; n--)
+				this->data--;
+			return (this->data);
+		}
+
+		T&	operator[](int n) {
+			return this->data[n];
+		}
 	};
 }
 
