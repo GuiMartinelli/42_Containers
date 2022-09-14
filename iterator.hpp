@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/14 19:51:14 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/14 20:06:55 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 
 namespace ft
 {
+	struct input_iterator_tag {};
+	struct output_iterator_tag {};
+	struct forward_iterator_tag : public input_iterator_tag {};
+	struct bidirectional_iterator_tag : public forward_iterator_tag {};
+	struct random_access_iterator_tag :public bidirectional_iterator_tag {};
+
 	template <
 		class Category,
 		class T,
@@ -57,12 +63,6 @@ namespace ft
 		typedef T&							reference;
 		typedef random_access_iterator_tag	iterator_category;
 	};
-
-	struct input_iterator_tag {};
-	struct output_iterator_tag {};
-	struct forward_iterator_tag : public input_iterator_tag {};
-	struct bidirectional_iterator_tag : public forward_iterator_tag {};
-	struct random_access_iterator_tag :public bidirectional_iterator_tag {};
 }
 
 #endif
