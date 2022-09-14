@@ -5,131 +5,64 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 21:04:30 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/11 13:44:20 by guferrei         ###   ########.fr       */
+/*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
+/*   Updated: 2022/09/14 19:51:14 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITERATOR_HPP
 #define ITERATOR_HPP
 
-namespace ft {
-	template <typename T>
-	class iterator {
-	protected:
-		T*	it;
+#include <iostream>
 
-	public:
-		iterator() {};
-
-		iterator(T *ptr) {
-			this->it = ptr;
+namespace ft
+{
+	template <
+		class Category,
+		class T,
+		class Distance = std::ptrdiff_t,
+		class Pointer = T*,
+		class Reference = T& >
+	struct iterator {
+		typedef T			value_type;
+		typedef Distance	difference_type;
+		typedef Pointer		pointer;
+		typedef Reference	reference;
+		typedef Category	iterator_category;
 		};
 
-		iterator(iterator const & obj) {
-			*this = obj;
-		};
-
-		~iterator() {};
-
-		iterator &	operator=(iterator const & obj) {
-			if (this != &obj)
-				this->it = obj.it;
-			return *this;
-		};
-
-		T	operator*() {
-			return (*this->it);
-		}
-
-		bool	operator<(iterator const & obj) {
-			return (this->it < obj.it);
-		}
-
-		bool	operator>(iterator const & obj) {
-			return (this->it > obj.it);
-		}
-
-		bool	operator<=(iterator const & obj) {
-			return (this->it <= obj.it);
-		}
-
-		bool	operator>=(iterator const & obj) {
-			return (this->it >= obj.it);
-		}
-
-		bool	operator==(iterator const & obj) {
-			return (this->it == obj.it);
-		}
-
-		bool	operator!=(iterator const & obj) {
-			return (this->it != obj.it);
-		}
-
-		iterator	operator+=(int n) {
-			for (; n > 0; n--)
-				this->it++;
-			return (this->it);
-		}
-
-		iterator	operator-=(int n) {
-			for (; n > 0; n--)
-				this->it--;
-			return (this->it);
-		}
-
-		iterator	operator+(int n) {
-			iterator	aux;
-
-			aux = this->it;
-			for (; n > 0; n--)
-				aux++;
-			return (aux);
-		}
-
-		iterator	operator-(int n) {
-			iterator	aux;
-
-			aux = this->it;
-			for (; n > 0; n--)
-				aux--;
-			return (aux);
-		}
-
-		int	operator+(iterator const & obj) {
-			return (this->it + obj.it);
-		}
-
-		int	operator-(iterator const & obj) {
-			return (this->it - obj.it);
-		}
-
-		iterator	operator++() {
-			this->it++;
-
-			return *this;
-		}
-
-		iterator	operator--() {
-			this->it--;
-
-			return *this;
-		}
-
-		iterator	operator++(T) {
-			iterator	tmp(*this);
-			this->it++;
-
-			return tmp;
-		}
-
-		iterator	operator--(T) {
-			iterator	tmp(*this);
-			this->it--;
-
-			return tmp;
-		}
+	template< class Iter >
+	struct iterator_traits {
+		typedef typename Iter::difference_type		difference_type;
+		typedef typename Iter::value_type			value_type;
+		typedef typename Iter::pointer				pointer;
+		typedef typename Iter::reference			reference;
+		typedef typename Iter::iterator_category	iterator_category;
 	};
+
+	template< class T >
+	struct iterator_traits< T* > {
+		typedef std::ptrdiff_t				difference_type;
+		typedef T							value_type;
+		typedef T*							pointer;
+		typedef T&							reference;
+		typedef random_access_iterator_tag	iterator_category;
+	};
+
+	template< class T >
+	struct iterator_traits< const T* > {
+		typedef std::ptrdiff_t				difference_type;
+		typedef T							value_type;
+		typedef T*							pointer;
+		typedef T&							reference;
+		typedef random_access_iterator_tag	iterator_category;
+	};
+
+	struct input_iterator_tag {};
+	struct output_iterator_tag {};
+	struct forward_iterator_tag : public input_iterator_tag {};
+	struct bidirectional_iterator_tag : public forward_iterator_tag {};
+	struct random_access_iterator_tag :public bidirectional_iterator_tag {};
 }
 
 #endif
