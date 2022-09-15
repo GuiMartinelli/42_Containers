@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/15 15:54:26 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/15 18:07:05 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,14 @@ namespace ft
 			return *this;
 		}
 
-		bidirectional_iterator	operator++(T) {
+		bidirectional_iterator	operator++(int) {
 			bidirectional_iterator	tmp(*this);
 			this->data++;
 
 			return tmp;
 		}
 
-		bidirectional_iterator	operator--(T) {
+		bidirectional_iterator	operator--(int) {
 			bidirectional_iterator	tmp(*this);
 			this->data--;
 
