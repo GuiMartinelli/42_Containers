@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/15 18:10:41 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/15 19:51:05 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,23 @@ namespace ft
 	};
 
 	template <typename T>
-	class bidirectional_iterator {
+	class bidirectional_iterator : public iterator <random_access_iterator_tag,
+													T >
+	{
 	protected:
-		T*	data;
+		T	data;
 
 	public:
+		typedef T															iterator_type;
+		typedef typename iterator_traits<iterator_type>::iterator_category	iterator_category;
+		typedef typename iterator_traits<iterator_type>::value_type			value_type;
+		typedef typename iterator_traits<iterator_type>::difference_type	difference_type;
+		typedef typename iterator_traits<iterator_type>::pointer			pointer;
+		typedef typename iterator_traits<iterator_type>::reference			reference;
+
 		bidirectional_iterator() {};
 
-		bidirectional_iterator(T *ptr) {
+		bidirectional_iterator(T ptr) {
 			this->data = ptr;
 		};
 
@@ -122,11 +131,11 @@ namespace ft
 			return tmp;
 		}
 
-		T&	operator*() {
-			return *data;
+		reference	operator*() {
+			return (*data);
 		}
 
-		T*	operator->() {
+		pointer	operator->() {
 			return data;
 		}
 	};
@@ -136,8 +145,8 @@ namespace ft
 		public:
 			bidirectional_reverse_iterator() {};
 
-			bidirectional_reverse_iterator(T *ptr) {
-				this->it = ptr;
+			bidirectional_reverse_iterator(T ptr) {
+				this->data = ptr;
 			};
 
 			bidirectional_reverse_iterator(bidirectional_reverse_iterator const & obj) {
@@ -147,27 +156,27 @@ namespace ft
 			~bidirectional_reverse_iterator() {};
 
 			bidirectional_reverse_iterator	operator++() {
-				this->it--;
+				this->data--;
 
 				return *this;
 			}
 
 			bidirectional_reverse_iterator	operator--() {
-				this->it++;
+				this->data++;
 
 				return *this;
 			}
 
 			bidirectional_reverse_iterator	operator++(int) {
 				bidirectional_reverse_iterator	tmp(*this);
-				this->it--;
+				this->data--;
 
 				return tmp;
 			}
 
 			bidirectional_reverse_iterator	operator--(int) {
 				bidirectional_reverse_iterator	tmp(*this);
-				this->it++;
+				this->data++;
 
 				return tmp;
 			}
@@ -182,7 +191,7 @@ namespace ft
 			*this = obj;
 		};
 
-		random_access_iterator(T *ptr) {
+		random_access_iterator(T ptr) {
 			this->data = ptr;
 		};
 
@@ -194,7 +203,7 @@ namespace ft
 			return *this;
 		};
 
-		random_access_iterator	operator+(int n) {
+		random_access_iterator	operator+(difference_type n) {
 			random_access_iterator	aux;
 
 			aux = this->data;
@@ -203,7 +212,7 @@ namespace ft
 			return (aux);
 		}
 
-		random_access_iterator	operator-(int n) {
+		random_access_iterator	operator-(difference_type n) {
 			random_access_iterator	aux;
 
 			aux = this->data;
@@ -236,13 +245,13 @@ namespace ft
 			return (this->data >= obj.data);
 		}
 
-		random_access_iterator	operator+=(int n) {
+		random_access_iterator	operator+=(difference_type n) {
 			for (; n > 0; n--)
 				this->data++;
 			return (this->data);
 		}
 
-		random_access_iterator	operator-=(int n) {
+		random_access_iterator	operator-=(difference_type n) {
 			for (; n > 0; n--)
 				this->data--;
 			return (this->data);
@@ -258,8 +267,8 @@ namespace ft
 		public:
 			random_access_reverse_iterator() {};
 
-			random_access_reverse_iterator(T *ptr) {
-				this->it = ptr;
+			random_access_reverse_iterator(T ptr) {
+				this->data = ptr;
 			};
 
 			random_access_reverse_iterator(random_access_reverse_iterator const & obj) {
@@ -269,19 +278,19 @@ namespace ft
 			~random_access_reverse_iterator() {};
 
 			bool	operator<(random_access_reverse_iterator const & obj) {
-				return !(this->it < obj.it);
+				return !(this->data < obj.data);
 			}
 
 			bool	operator>(random_access_reverse_iterator const & obj) {
-				return !(this->it > obj.it);
+				return !(this->data > obj.data);
 			}
 
 			bool	operator<=(random_access_reverse_iterator const & obj) {
-				return !(this->it <= obj.it);
+				return !(this->data <= obj.data);
 			}
 
 			bool	operator>=(random_access_reverse_iterator const & obj) {
-				return !(this->it >= obj.it);
+				return !(this->data >= obj.data);
 			}
 	};
 }
