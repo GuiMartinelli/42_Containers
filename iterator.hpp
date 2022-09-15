@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/14 20:56:33 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/14 21:05:22 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ namespace ft
 	public:
 		bidirectional_iterator() {};
 
+		bidirectional_iterator(T *ptr) {
+			this->data = ptr;
+		};
+
 		bidirectional_iterator(bidirectional_iterator const & obj) {
 			*this = obj;
 		};
@@ -128,7 +132,7 @@ namespace ft
 	};
 
 	template <typename T>
-	class random_access_iterator : public bidirectional_iterator {
+	class random_access_iterator : public bidirectional_iterator<T> {
 	public:
 		random_access_iterator() {};
 
@@ -136,11 +140,15 @@ namespace ft
 			*this = obj;
 		};
 
+		random_access_iterator(T *ptr) {
+			this->data = ptr;
+		};
+
 		~random_access_iterator() {};
 
 		random_access_iterator &	operator=(random_access_iterator const & obj) {
 			if (this != &obj)
-				this->data = obj.it;
+				this->data = obj.data;
 			return *this;
 		};
 

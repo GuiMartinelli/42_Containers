@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/12 20:13:49 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/14 21:05:56 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <stdexcept>
 #include <cstddef>
 #include "iterator.hpp"
-#include "reverse_iterator.hpp"
+// #include "iterators_bkp/reverse_iterator.hpp"
 #include "algorithm.hpp"
 
 namespace ft
@@ -33,18 +33,18 @@ namespace ft
 		Alloc				alloc;
 
 	public:
-		typedef	T										value_type;
-		typedef	std::allocator<value_type>				allocator_type;
-		typedef	value_type &							reference;
-		typedef	value_type const &						const_reference;
-		typedef	value_type *							pointer;
-		typedef	value_type const *						const_pointer;
-		typedef	ft::iterator<value_type>				iterator;
-		typedef	ft::iterator<const value_type>			const_iterator;
-		typedef	ft::reverse_iterator<value_type>		reverse_iterator;
-		typedef	ft::reverse_iterator<const value_type>	const_reverse_iterator;
-		typedef	ptrdiff_t								difference_type;
-		typedef	size_t									size_type;
+		typedef	T												value_type;
+		typedef	std::allocator<value_type>						allocator_type;
+		typedef	value_type &									reference;
+		typedef	value_type const &								const_reference;
+		typedef	value_type *									pointer;
+		typedef	value_type const *								const_pointer;
+		typedef	ft::random_access_iterator<value_type>			iterator;
+		typedef	ft::random_access_iterator<const value_type>	const_iterator;
+		typedef	ft::reverse_iterator<value_type>				reverse_iterator;
+		typedef	ft::reverse_iterator<const value_type>			const_reverse_iterator;
+		typedef	ptrdiff_t										difference_type;
+		typedef	size_t											size_type;
 
 		//Member Functions
 		vector() {
