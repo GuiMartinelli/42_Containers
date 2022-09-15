@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/15 15:56:25 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/15 18:09:31 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,11 @@ namespace ft
 				*this = obj;
 			}
 
-			map&	operator=(const map& obj) {}
+			map&	operator=(const map& obj) {
+				this->_content = obj._content;
+			
+				return *this;
+			}
 
 			~map() {}
 
