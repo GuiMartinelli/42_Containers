@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/12 20:36:22 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/15 15:56:25 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 #include "functional.hpp"
 #include "utility.hpp"
 #include "RBTree.hpp"
-#include "MapIterator.hpp"
-#include "ReverseMapIterator.hpp"
+#include "iterator.hpp"
 
 namespace ft
 {
@@ -31,21 +30,21 @@ namespace ft
 			typename _Alloc = std::allocator< pair<_Key, _Tp > > >
 	class map {
 		public:
-			typedef _Key										key_type;
-			typedef _Tp											mapped_type;
-			typedef pair<_Key, _Tp >							value_type;
-			typedef size_t										size_type;
-			typedef ptrdiff_t									difference_type;
-			typedef _Compare									key_compare;
-			typedef _Alloc										allocator_type;
-			typedef value_type &								reference;
-			typedef const value_type &							const_reference;
-			typedef value_type *								pointer;
-			typedef value_type const *							const_pointer;
-			typedef ft::MapIterator<value_type>					iterator;
-			typedef ft::MapIterator<const value_type>			const_iterator;
-			typedef ft::ReverseMapIterator<value_type>			reverse_iterator;
-			typedef ft::ReverseMapIterator<const value_type>	reverse_const_iterator;
+			typedef _Key													key_type;
+			typedef _Tp														mapped_type;
+			typedef pair<_Key, _Tp >										value_type;
+			typedef size_t													size_type;
+			typedef ptrdiff_t												difference_type;
+			typedef _Compare												key_compare;
+			typedef _Alloc													allocator_type;
+			typedef value_type &											reference;
+			typedef const value_type &										const_reference;
+			typedef value_type *											pointer;
+			typedef value_type const *										const_pointer;
+			typedef ft::bidirectional_iterator<value_type>					iterator;
+			typedef ft::bidirectional_iterator<const value_type>			const_iterator;
+			typedef ft::bidirectional_reverse_iterator<value_type>			reverse_iterator;
+			typedef ft::bidirectional_reverse_iterator<const value_type>	reverse_const_iterator;
 
 			class value_compare
 			{
