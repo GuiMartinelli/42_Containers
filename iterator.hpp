@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/14 21:05:22 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/15 15:54:26 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,48 @@ namespace ft
 	};
 
 	template <typename T>
+	class	bidirectional_reverse_iterator : public bidirectional_iterator<T> {
+		public:
+			bidirectional_reverse_iterator() {};
+
+			bidirectional_reverse_iterator(T *ptr) {
+				this->it = ptr;
+			};
+
+			bidirectional_reverse_iterator(bidirectional_reverse_iterator const & obj) {
+				*this = obj;
+			};
+			
+			~bidirectional_reverse_iterator() {};
+
+			bidirectional_reverse_iterator	operator++() {
+				this->it--;
+
+				return *this;
+			}
+
+			bidirectional_reverse_iterator	operator--() {
+				this->it++;
+
+				return *this;
+			}
+
+			bidirectional_reverse_iterator	operator++(T) {
+				bidirectional_reverse_iterator	tmp(*this);
+				this->it--;
+
+				return tmp;
+			}
+
+			bidirectional_reverse_iterator	operator--(T) {
+				bidirectional_reverse_iterator	tmp(*this);
+				this->it++;
+
+				return tmp;
+			}
+	};
+
+	template <typename T>
 	class random_access_iterator : public bidirectional_iterator<T> {
 	public:
 		random_access_iterator() {};
@@ -209,6 +251,38 @@ namespace ft
 		T&	operator[](int n) {
 			return this->data[n];
 		}
+	};
+
+	template <typename T>
+	class	random_access_reverse_iterator : public bidirectional_reverse_iterator<T> {
+		public:
+			random_access_reverse_iterator() {};
+
+			random_access_reverse_iterator(T *ptr) {
+				this->it = ptr;
+			};
+
+			random_access_reverse_iterator(random_access_reverse_iterator const & obj) {
+				*this = obj;
+			};
+			
+			~random_access_reverse_iterator() {};
+
+			bool	operator<(random_access_reverse_iterator const & obj) {
+				return !(this->it < obj.it);
+			}
+
+			bool	operator>(random_access_reverse_iterator const & obj) {
+				return !(this->it > obj.it);
+			}
+
+			bool	operator<=(random_access_reverse_iterator const & obj) {
+				return !(this->it <= obj.it);
+			}
+
+			bool	operator>=(random_access_reverse_iterator const & obj) {
+				return !(this->it >= obj.it);
+			}
 	};
 }
 
