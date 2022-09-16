@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/11 13:22:02 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/15 21:19:02 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,51 +36,20 @@ template< typename T,
 class RBTree
 {
 private:
-
 	Node< T >	*_content;
+	Node< T >	*_nil;
 	_Alloc		_alloc;
 	_Compare	_comp;
 	size_t		_size;
-
-public:
-
-	RBTree() {
-		this->_content = NULL;
-		this->_size = 0;
-	} ;
-
-	RBTree(RBTree const & obj) {} ;
-
-	~RBTree() {
-		destroy(this->_content);
-	} ;
 
 	Node< T >	*createNode(T data) {
 		Node< T >	*node = this->_alloc.allocate(1);
 		node->data = data;
 		node->parent = NULL;
-		node->left = NULL;
-		node->right = NULL;
+		node->left = this->_nil;
+		node->right = this->_nil;
 		node->color = RED;
 		return node;
-	}
-
-	Node< T >	*predecessor(Node< T > *node) {
-		Node< T >	*aux;
-
-		aux = node->left;
-		while (aux->right)
-			aux = aux->right;
-		return aux;
-	}
-
-	Node< T >	*sucessor(Node< T > *node) {
-		Node< T >	*aux;
-
-		aux = node->right;
-		while (aux->left)
-			aux = aux->left;
-		return aux;
 	}
 
 	Node< T >	*getUncle(Node< T > *node) const {
@@ -96,7 +65,7 @@ public:
 		Node< T > *aux = node->right;
 
 		node->right = aux->left;
-		if (aux->left)
+		if (aux->left != this->_nil)
 			aux->left->parent = node;
 		aux->parent = node->parent;
 		if (!node->parent)
@@ -113,7 +82,7 @@ public:
 		Node< T > *aux = node->left;
 
 		node->left = aux->right;
-		if (aux->right)
+		if (aux->right != this->_nil)
 			aux->right->parent = node;
 		aux->parent = node->parent;
 		if (!node->parent)
@@ -134,7 +103,7 @@ public:
 			if (node->parent == node->parent->parent->right) {
 				aux = getUncle(node);
 
-				if (aux && aux->color == RED) {
+				if (aux && aux != this->_nil && aux->color == RED) {
 					aux->color = BLACK;
 					node->parent->color = BLACK;
 					node->parent->parent->color = RED;
@@ -151,7 +120,7 @@ public:
 			} else {
 				aux = getUncle(node);
 
-				if (aux && aux->color == RED) {
+				if (aux && aux != this->_nil && aux->color == RED) {
 					aux->color = BLACK;
 					node->parent->color = BLACK;
 					node->parent->parent->color = RED;
@@ -172,45 +141,7 @@ public:
 		this->_content->color = BLACK;
 	}
 
-	bool	insert(T data) {
-		Node< T > *node = createNode(data);
-		Node< T > *par = NULL;
-		Node< T > *aux = this->_content;
-
-		while (aux) {
-			par = aux;
-			if (this->_comp(node->data, aux->data)) {
-			aux = aux->left;
-			} else if (this->_comp(aux->data, node->data)) {
-			aux = aux->right;
-			} else {
-				return false;
-			}
-		}
-
-		this->_size++;
-		node->parent = par;
-		if (!par) {
-			this->_content = node;
-		} else if (this->_comp(node->data, par->data)) {
-			par->left = node;
-		} else {
-			par->right = node;
-		}
-
-		if (!node->parent) {
-			node->color = BLACK;
-			return true;
-		}
-		if (!node->parent->parent) {
-			return true;
-		}
-
-		insertFix(node);
-		return true;
-	}
-
-	short	getColor(Node< T > *node) {
+		short	getColor(Node< T > *node) {
 		if (!node || node->color == BLACK)
 			return (BLACK);
 		return (RED);
@@ -231,14 +162,14 @@ public:
 
 			if (node == node->parent->left) {
 				node->parent->left = child;
-				if (child) {
+				if (child != this->_nil) {
 					child->parent = node->parent;
 					child->color = BLACK;
 				}
 				this->_alloc.deallocate(node, 1);
 			} else {
 				node->parent->right = child;
-				if (child) {
+				if (child != this->_nil) {
 					child->parent = node->parent;
 					child->color = BLACK;
 				}
@@ -322,6 +253,80 @@ public:
 		}
 	}
 
+public:
+	RBTree() {
+		this->_content = NULL;
+		this->_size = 0;
+	} ;
+
+	RBTree(RBTree const & obj) {
+		*this = obj;
+	} ;
+
+	~RBTree() {
+		destroy(this->_content);
+	};
+
+	RBTree&	operator=(RBTree const & obj) {
+		//TO DO
+	}
+
+	Node< T >	*predecessor(Node< T > *node) {
+		Node< T >	*aux;
+
+		aux = node->left;
+		while (aux->right != this->_nil)
+			aux = aux->right;
+		return aux;
+	}
+
+	Node< T >	*sucessor(Node< T > *node) {
+		Node< T >	*aux;
+
+		aux = node->right;
+		while (aux->left != this->_nil)
+			aux = aux->left;
+		return aux;
+	}
+
+	bool	insert(T data) {
+		Node< T > *node = createNode(data);
+		Node< T > *par = NULL;
+		Node< T > *aux = this->_content;
+
+		while (aux && aux != this->_nil) {
+			par = aux;
+			if (this->_comp(node->data, aux->data)) {
+			aux = aux->left;
+			} else if (this->_comp(aux->data, node->data)) {
+			aux = aux->right;
+			} else {
+				return false;
+			}
+		}
+
+		this->_size++;
+		node->parent = par;
+		if (!par) {
+			this->_content = node;
+		} else if (this->_comp(node->data, par->data)) {
+			par->left = node;
+		} else {
+			par->right = node;
+		}
+
+		if (!node->parent) {
+			node->color = BLACK;
+			return true;
+		}
+		if (!node->parent->parent) {
+			return true;
+		}
+
+		insertFix(node);
+		return true;
+	}
+
 	Node< T >	*BSTRemove(Node< T > *node, T data) {
 		if (!node)
 			return node;
@@ -361,26 +366,26 @@ public:
 			return search(node->right, key);
 	}
 
-	Node< T >	*min(Node< T > *node) const {
+	T	*min(Node< T > *node) const {
 		Node< T >	*temp;
 
 		temp = node;
-		while (temp->left)
+		while (temp->left != this->_nil)
 			temp = temp->left;
-		return temp;
+		return &temp->data;
 	}
 
-	Node< T >	*max(Node< T > *node) const {
+	T	*max(Node< T > *node) const {
 		Node< T >	*temp;
 
 		temp = node;
-		while (temp->right)
+		while (temp->right != this->_nil)
 			temp = temp->right;
-		return temp;
+		return &temp->data;
 	}
 
 	void	destroy(Node< T > *node) {
-		if (node) {
+		if (node && node != this->_nil) {
 			destroy(node->left);
 			destroy(node->right);
 			_alloc.deallocate(node, sizeof(Node< T > *));
