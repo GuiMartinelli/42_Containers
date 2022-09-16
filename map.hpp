@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/15 18:09:31 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/15 21:12:56 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@ namespace ft
 			typename _Alloc = std::allocator< pair<_Key, _Tp > > >
 	class map {
 		public:
-			typedef _Key													key_type;
-			typedef _Tp														mapped_type;
-			typedef pair<_Key, _Tp >										value_type;
-			typedef size_t													size_type;
-			typedef ptrdiff_t												difference_type;
-			typedef _Compare												key_compare;
-			typedef _Alloc													allocator_type;
-			typedef value_type &											reference;
-			typedef const value_type &										const_reference;
-			typedef value_type *											pointer;
-			typedef value_type const *										const_pointer;
-			typedef ft::bidirectional_iterator<value_type>					iterator;
-			typedef ft::bidirectional_iterator<const value_type>			const_iterator;
-			typedef ft::bidirectional_reverse_iterator<value_type>			reverse_iterator;
-			typedef ft::bidirectional_reverse_iterator<const value_type>	reverse_const_iterator;
+			typedef _Key												key_type;
+			typedef _Tp													mapped_type;
+			typedef pair<_Key, _Tp >									value_type;
+			typedef size_t												size_type;
+			typedef ptrdiff_t											difference_type;
+			typedef _Compare											key_compare;
+			typedef _Alloc												allocator_type;
+			typedef value_type &										reference;
+			typedef const value_type &									const_reference;
+			typedef value_type *										pointer;
+			typedef value_type const *									const_pointer;
+			typedef ft::bidirectional_iterator<pointer>					iterator;
+			typedef ft::bidirectional_iterator<const_pointer>			const_iterator;
+			typedef ft::bidirectional_reverse_iterator<pointer>			reverse_iterator;
+			typedef ft::bidirectional_reverse_iterator<const_pointer>	reverse_const_iterator;
 
 			class value_compare
 			{
@@ -109,35 +109,35 @@ namespace ft
 			//Iterators
 
 			iterator	begin() {
-				return iterator(this->_content.min());
+				return iterator(this->_content.min(this->_content.getRoot()));
 			}
 
 			const_iterator	cbegin() const {
-				return const_iterator(this->_content.min());
+				return const_iterator(this->_content.min(this->_content.getRoot()));
 			}
 
 			iterator	end() {
-				return iterator();
+				return iterator(this->_content._nil);
 			}
 
 			const_iterator	cend() const {
-				return const_iterator();
+				return const_iterator(this->_content._nil);
 			}
 
 			reverse_iterator	rbegin() {
-				return reverse_iterator();
+				return reverse_iterator(this->_content.max(this->_content.getRoot()));
 			}
 
 			reverse_const_iterator	crbegin() const {
-				return reverse_const_iterator();
+				return reverse_const_iterator(this->_content.max(this->_content.getRoot()));
 			}
 
 			reverse_iterator	rend() {
-				return reverse_iterator();
+				return reverse_iterator(this->_content._nil);
 			}
 
 			reverse_const_iterator	crend() const {
-				return reverse_const_iterator();
+				return reverse_const_iterator(this->_content._nil);
 			}
 
 			//Capacity
