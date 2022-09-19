@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/15 21:12:56 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:07:56 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <memory>
 #include <stdexcept>
 #include <cstddef>
+#include <functional.hpp>
 #include "functional.hpp"
 #include "utility.hpp"
 #include "RBTree.hpp"
@@ -46,17 +47,18 @@ namespace ft
 			typedef ft::bidirectional_reverse_iterator<pointer>			reverse_iterator;
 			typedef ft::bidirectional_reverse_iterator<const_pointer>	reverse_const_iterator;
 
-			class value_compare
+			class value_compare : public std::binary_function<value_type, value_type, bool>
 			{
+				friend class map;
+
 				protected:
 					_Compare	comp;
+					value_compare(_Compare c) : comp(c) {};
 			
 				public:
 					typedef bool		result_type;
 					typedef value_type	first_argument_type;
 					typedef value_type	second_argument_type;
-			
-					value_compare() {};
 
 					result_type	operator()(const first_argument_type& lhs, const second_argument_type& rhs) const {
 						return comp(lhs.first, rhs.first);
@@ -225,11 +227,12 @@ namespace ft
 			//Observers
 
 			key_compare	key_comp() const {
-				return (new key_compare(comp));
+				return (comp);
 			}
 
-			// ft::map::value_compare	value_comp() const {
-			// }
+			ft::map::value_compare	value_comp() const {
+				return new value_comp();
+			}
 
 		private:
 			RBTree<value_type>	_content;
