@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/19 20:07:56 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:49:10 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <memory>
 #include <stdexcept>
 #include <cstddef>
-#include <functional.hpp>
 #include "functional.hpp"
 #include "utility.hpp"
 #include "RBTree.hpp"
@@ -47,8 +46,7 @@ namespace ft
 			typedef ft::bidirectional_reverse_iterator<pointer>			reverse_iterator;
 			typedef ft::bidirectional_reverse_iterator<const_pointer>	reverse_const_iterator;
 
-			class value_compare : public std::binary_function<value_type, value_type, bool>
-			{
+			class value_compare : public binary_function<value_type, value_type, bool> {
 				friend class map;
 
 				protected:
@@ -230,8 +228,8 @@ namespace ft
 				return (comp);
 			}
 
-			ft::map::value_compare	value_comp() const {
-				return new value_comp();
+			value_compare	value_comp() const {
+				return value_comp();
 			}
 
 		private:
