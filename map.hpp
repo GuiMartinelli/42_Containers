@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/20 20:47:50 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/20 20:52:46 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,14 +195,17 @@ namespace ft
 
 			//Lookup
 
-			// size_type	count(const key_type& key) const {
-			// }
-
 			// iterator	find(const key_type& key) {
 			// }
 
 			// const_iterator	find(const key_type& key) const {
 			// }
+
+			size_type	count(const key_type& key) const {
+				if (this->find(key) != this->cend())
+					return 1;
+				return 0
+			}
 
 			// pair<iterator, iterator>	equal_range(const key_type& key) {
 			// }
