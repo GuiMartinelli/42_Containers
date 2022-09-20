@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/19 20:49:10 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/20 20:47:50 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,17 +210,53 @@ namespace ft
 			// pair<iterator, iterator>	equal_range(const key_type& key) const {
 			// }
 
-			// iterator	lower_bound(const key_type& key) {
-			// }
+			iterator	lower_bound(const key_type& key) {
+				iterator	it = this->begin();
+				iterator	end = this->end();
 
-			// const iterator	lower_bound(const key_type& key) const {
-			// }
+				while (it != end) {
+					if (!comp(it->data->first, key))
+						break;
+					it++;
+				}
+				return it;
+			}
 
-			// iterator	upper_bound(const key_type& key) {
-			// }
+			const_iterator	lower_bound(const key_type& key) const {
+				const_iterator	it = this->cbegin();
+				const_iterator	end = this->cend();
 
-			// const iterator	upper_bound(const key_type& key) const {
-			// }
+				while (it != end) {
+					if (!comp(it->data->first, key))
+						break;
+					it++;
+				}
+				return it;
+			}
+
+			iterator	upper_bound(const key_type& key) {
+				iterator	it = this->begin();
+				iterator	end = this->end();
+
+				while (it != end) {
+					if (comp(key, it->data->first))
+						break;
+					it++;
+				}
+				return it;
+			}
+
+			const_iterator	upper_bound(const key_type& key) const {
+				const_iterator	it = this->cbegin();
+				const_iterator	end = this->cend();
+
+				while (it != end) {
+					if (comp(key, it->data->first))
+						break;
+					it++;
+				}
+				return it;
+			}
 
 			//Observers
 
