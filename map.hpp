@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/20 20:52:46 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/20 21:10:20 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,13 +181,22 @@ namespace ft
 				this->_content.remove(pos);
 			}
 
-			// void	erase(iterator first, iterator last) {
-			// }
+			void	erase(iterator first, iterator last) {
+				iterator	aux;
+
+				while (first != last) {
+					aux = first;
+					first++;
+					this->erase(*aux);
+				}
+			}
 
 			size_type	erase(const key_type& k) {
-				this->_content.remove(ft::make_pair(k, mapped_type()));
-
-				return 1;
+				if (this->find(k) != this->cend()) {
+					this->_content.remove(ft::make_pair(k, mapped_type()));
+					return 1;
+				}
+				return 0;
 			}
 
 			// void	swap(map& obj) {
