@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/15 21:19:02 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/22 16:54:09 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,7 @@
 #include <iostream>
 #include <memory>
 #include "functional.hpp"
-
-template< typename T >
-struct Node
-{
-	T		data;
-	Node*	right;
-	Node*	left;
-	Node*	parent;
-	short	color;
-};
+#include "node.hpp"
 
 template< typename T,
 			typename _Compare = ft::less<T>,
@@ -357,31 +348,49 @@ public:
 		removeFix(node);
 	}
 
-	T	*search(Node< T > *node, T key) const {
+	Node< T >	*search(Node< T > *node, T key) const {
 		if (!node || (!_comp(node->data, key) && !_comp(key, node->data)))
-			return &node->data ;
+			return node;
 		if (_comp(key, node->data))
 			return search(node->left, key);
 		else
 			return search(node->right, key);
 	}
 
-	T	*min(Node< T > *node) const {
+	Node< T >	*min() const {
+		Node< T >	*temp;
+
+		temp = this->_content;
+		while (temp->left != this->_nil)
+			temp = temp->left;
+		return temp;
+	}
+
+	Node< T >	*min(Node< T > *node) const {
 		Node< T >	*temp;
 
 		temp = node;
 		while (temp->left != this->_nil)
 			temp = temp->left;
-		return &temp->data;
+		return temp;
 	}
 
-	T	*max(Node< T > *node) const {
+	Node< T >	*max() const {
+		Node< T >	*temp;
+
+		temp = this->_content;
+		while (temp->right != this->_nil)
+			temp = temp->right;
+		return temp;
+	}
+
+	Node< T >	*max(Node< T > *node) const {
 		Node< T >	*temp;
 
 		temp = node;
 		while (temp->right != this->_nil)
 			temp = temp->right;
-		return &temp->data;
+		return temp;
 	}
 
 	void	destroy(Node< T > *node) {
@@ -394,6 +403,10 @@ public:
 
 	Node< T >	*getRoot() const {
 		return this->_content;
+	}
+
+	Node< T >	*getNil() const {
+		return this->_nil;
 	}
 
 	size_t	getSize() const {
