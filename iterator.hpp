@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/22 19:57:04 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/22 20:47:53 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,7 +314,7 @@ namespace ft
 		}
 
 		T	&operator*() {
-			return (*_data->data);
+			return (_data->data);
 		}
 
 		T	*operator->() {
