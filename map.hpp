@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/22 20:42:49 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/22 20:47:17 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,11 +233,11 @@ namespace ft
 			}
 
 			pair<iterator, iterator>	equal_range(const key_type& key) {
-				return make_pair<iterator, iterator>(this->lower_bound(), this->upper_bound())
+				return make_pair<iterator, iterator>(this->lower_bound(), this->upper_bound());
 			}
 
 			pair<iterator, iterator>	equal_range(const key_type& key) const {
-				return make_pair<iterator, iterator>(this->lower_bound(), this->upper_bound())
+				return make_pair<iterator, iterator>(this->lower_bound(), this->upper_bound());
 			}
 
 			iterator	lower_bound(const key_type& key) {
