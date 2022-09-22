@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/15 21:05:03 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:16:36 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,193 @@ namespace ft
 
 				return tmp;
 			}
+	};
+
+	template <typename T>
+	class tree_bidirectional_iterator
+	// : public iterator <random_access_iterator_tag, T >
+	{
+	protected:
+		Node< T >	*_data;
+		Node< T >	*_nil;
+		Node< T >	*_begin;
+		Node< T >	*_end;
+
+	public:
+		typedef T															iterator_type;
+		// typedef typename iterator_traits<iterator_type>::iterator_category	iterator_category;
+		// typedef typename iterator_traits<iterator_type>::value_type			value_type;
+		// typedef typename iterator_traits<iterator_type>::difference_type	difference_type;
+		// typedef typename iterator_traits<iterator_type>::pointer			pointer;
+		// typedef typename iterator_traits<iterator_type>::reference			reference;
+
+		tree_bidirectional_iterator() {};
+
+		tree_bidirectional_iterator(Node< T > *ptr, Node< T > *nil, Node< T > *begin, Node< T > *end) {
+			this->_data = ptr;
+			this->_nil = nil;
+			this->_begin = begin;
+			this->_end = end;
+		};
+
+		tree_bidirectional_iterator(tree_bidirectional_iterator const & obj) {
+			*this = obj;
+		};
+
+		~tree_bidirectional_iterator() {};
+
+		tree_bidirectional_iterator &	operator=(tree_bidirectional_iterator const & obj) {
+			if (this != &obj) {
+				this->_data = obj._data;
+				this->_nil = obj._nil;
+				this->_begin = obj._begin;
+				this->_end = obj._end;
+			}
+			return *this;
+		};
+
+		bool	operator==(tree_bidirectional_iterator const & obj) {
+			return (this->_data->data == obj._data->data);
+		}
+
+		bool	operator!=(tree_bidirectional_iterator const & obj) {
+			return (this->_data->data != obj._data->data);
+		}
+
+		tree_bidirectional_iterator	operator++() {
+			if (this->_data == this->_nil)
+				this->_data = this->_begin;
+			else if (this->_data->right != this->_nil) {
+				this->_data = this->_data->right;
+				while (this->_data->left != this->_nil)
+					this->_data = this->_data->left;
+			} else if (this->_data->parent->left == this->_data)
+				this->_data = this->_data->parent;
+			else
+				this->_data = this->_nil;
+			return *this;
+		}
+
+		tree_bidirectional_iterator	operator--() {
+			if (this->_data == this->_nil)
+				this->_data = this->_end;
+			else if (this->_data->left != this->_nil) {
+				this->_data = this->_data->left;
+				while (this->_data->right != this->_nil)
+					this->_data = this->_data->right;
+			} else if (this->_data->parent->right == this->_data)
+				this->_data = this->_data->parent;
+			else
+				this->_data = this->_nil;
+			return *this;
+		}
+
+		tree_bidirectional_iterator	operator++(int) {
+			tree_bidirectional_iterator	tmp(*this);
+
+			if (this->_data == this->_nil)
+				this->_data = this->_begin;
+			else if (this->_data->right != this->_nil) {
+				this->_data = this->_data->right;
+				while (this->_data->left != this->_nil)
+					this->_data = this->_data->left;
+			} else if (this->_data->parent->left == this->_data)
+				this->_data = this->_data->parent;
+			else
+				this->_data = this->_nil;
+
+			return tmp;
+		}
+
+		tree_bidirectional_iterator	operator--(int) {
+			tree_bidirectional_iterator	tmp(*this);
+
+			if (this->_data == this->_nil)
+				this->_data = this->_end;
+			else if (this->_data->left != this->_nil) {
+				this->_data = this->_data->left;
+				while (this->_data->right != this->_nil)
+					this->_data = this->_data->right;
+			} else if (this->_data->parent->right == this->_data)
+				this->_data = this->_data->parent;
+			else
+				this->_data = this->_nil;
+
+			return tmp;
+		}
+
+		T	&operator*() {
+			return (*_data->data);
+		}
+
+		T	*operator->() {
+			return &_data->data;
+		}
+	};
+
+	template <typename T>
+	class reverse_tree_bidirectional_iterator : tree_bidirectional_iterator< T > {
+		reverse_tree_bidirectional_iterator	operator--() {
+			if (this->_data == this->_nil)
+				this->_data = this->_begin;
+			else if (this->_data->right != this->_nil) {
+				this->_data = this->_data->right;
+				while (this->_data->left != this->_nil)
+					this->_data = this->_data->left;
+			} else if (this->_data->parent->left == this->_data)
+				this->_data = this->_data->parent;
+			else
+				this->_data = this->_nil;
+			return *this;
+		}
+
+		reverse_tree_bidirectional_iterator	operator++() {
+			if (this->_data == this->_nil)
+				this->_data = this->_end;
+			else if (this->_data->left != this->_nil) {
+				this->_data = this->_data->left;
+				while (this->_data->right != this->_nil)
+					this->_data = this->_data->right;
+			} else if (this->_data->parent->right == this->_data)
+				this->_data = this->_data->parent;
+			else
+				this->_data = this->_nil;
+			return *this;
+		}
+
+		reverse_tree_bidirectional_iterator	operator--(int) {
+			reverse_tree_bidirectional_iterator	tmp(*this);
+
+			if (this->_data == this->_nil)
+				this->_data = this->_begin;
+			else if (this->_data->right != this->_nil) {
+				this->_data = this->_data->right;
+				while (this->_data->left != this->_nil)
+					this->_data = this->_data->left;
+			} else if (this->_data->parent->left == this->_data)
+				this->_data = this->_data->parent;
+			else
+				this->_data = this->_nil;
+
+			return tmp;
+		}
+
+		reverse_tree_bidirectional_iterator	operator++(int) {
+			reverse_tree_bidirectional_iterator	tmp(*this);
+
+			if (this->_data == this->_nil)
+				this->_data = this->_end;
+			else if (this->_data->left != this->_nil) {
+				this->_data = this->_data->left;
+				while (this->_data->right != this->_nil)
+					this->_data = this->_data->right;
+			} else if (this->_data->parent->right == this->_data)
+				this->_data = this->_data->parent;
+			else
+				this->_data = this->_nil;
+
+			return tmp;
+		}
 	};
 
 	template <typename T>
