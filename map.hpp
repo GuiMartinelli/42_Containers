@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/22 19:12:42 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/22 20:13:52 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,9 +173,13 @@ namespace ft
 			// iterator	insert(iterator hint, const value_type& value) {
 			// }
 
-			// template< class InputIt >
-			// void	insert(InputIt first, InputIt last) {
-			// }
+			template< class InputIt >
+			void	insert(InputIt first, InputIt last) {
+				while (first != last) {
+					this->_content.insert(*first);
+					first++;
+				}
+			}
 
 			void	erase(value_type *pos) {
 				this->_content.remove(pos);
@@ -204,11 +208,13 @@ namespace ft
 
 			//Lookup
 
-			// iterator	find(const key_type& key) {
-			// }
+			iterator	find(const key_type& key) {
+				return iterator(this->_content.search(make_pair(key, mapped_type())), this->_content.getNil(), this->_content.min(), this->_content.max());
+			}
 
-			// const_iterator	find(const key_type& key) const {
-			// }
+			const_iterator	find(const key_type& key) const {
+				return const_iterator(this->_content.search(make_pair(key, mapped_type())), this->_content.getNil(), this->_content.min(), this->_content.max());
+			}
 
 			size_type	count(const key_type& key) const {
 				if (this->find(key) != this->cend())
