@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/22 20:34:44 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/22 20:42:49 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ namespace ft
 			}
 
 			map&	operator=(const map& obj) {
-				this->_content = obj._content;
+				this->clear();
+				this->insert(obj.begin(), obj.end());
+				this->comp = obj.comp;
+				this->_alloc = obj._alloc;
 			
 				return *this;
 			}
@@ -159,7 +162,6 @@ namespace ft
 
 			void	clear() {
 				this->_content.destroy(this->_content.getRoot());
-				this->_size = 0;
 			}
 
 			pair<iterator, bool>	insert(const value_type& value) {
@@ -230,11 +232,13 @@ namespace ft
 				return 0;
 			}
 
-			// pair<iterator, iterator>	equal_range(const key_type& key) {
-			// }
+			pair<iterator, iterator>	equal_range(const key_type& key) {
+				return make_pair<iterator, iterator>(this->lower_bound(), this->upper_bound())
+			}
 
-			// pair<iterator, iterator>	equal_range(const key_type& key) const {
-			// }
+			pair<iterator, iterator>	equal_range(const key_type& key) const {
+				return make_pair<iterator, iterator>(this->lower_bound(), this->upper_bound())
+			}
 
 			iterator	lower_bound(const key_type& key) {
 				iterator	it = this->begin();
