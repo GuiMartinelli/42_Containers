@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/22 17:19:09 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/22 19:12:42 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,11 @@ namespace ft
 			}
 
 			reverse_iterator	rbegin() {
-				return reverse_iterator(this->_content.min(), this->_content.getNil(), this->_content.min(), this->_content.max());
+				return reverse_iterator(this->_content.max(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			reverse_const_iterator	crbegin() const {
-				return reverse_const_iterator(this->_content.min(), this->_content.getNil(), this->_content.min(), this->_content.max());
+				reverse_const_iterator temp(this->_content.max(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			reverse_iterator	rend() {
