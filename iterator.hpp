@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/22 17:16:36 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/22 19:57:04 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,11 +226,11 @@ namespace ft
 		};
 
 		bool	operator==(tree_bidirectional_iterator const & obj) {
-			return (this->_data->data == obj._data->data);
+			return (this->_data == obj._data);
 		}
 
 		bool	operator!=(tree_bidirectional_iterator const & obj) {
-			return (this->_data->data != obj._data->data);
+			return (this->_data != obj._data);
 		}
 
 		tree_bidirectional_iterator	operator++() {
@@ -240,10 +240,15 @@ namespace ft
 				this->_data = this->_data->right;
 				while (this->_data->left != this->_nil)
 					this->_data = this->_data->left;
-			} else if (this->_data->parent->left == this->_data)
+			} else {
+				while (this->_data->parent && (this->_data != this->_data->parent->left))
+					this->_data = this->_data->parent;
 				this->_data = this->_data->parent;
-			else
-				this->_data = this->_nil;
+			}
+
+			if (this->_data == this->_nil)
+				this->_data = NULL;
+
 			return *this;
 		}
 
@@ -254,10 +259,15 @@ namespace ft
 				this->_data = this->_data->left;
 				while (this->_data->right != this->_nil)
 					this->_data = this->_data->right;
-			} else if (this->_data->parent->right == this->_data)
+			} else {
+				while (this->_data->parent && (this->_data != this->_data->parent->right))
+					this->_data = this->_data->parent;
 				this->_data = this->_data->parent;
-			else
-				this->_data = this->_nil;
+			}
+
+			if (this->_data == this->_nil)
+				this->_data = NULL;
+
 			return *this;
 		}
 
@@ -270,10 +280,14 @@ namespace ft
 				this->_data = this->_data->right;
 				while (this->_data->left != this->_nil)
 					this->_data = this->_data->left;
-			} else if (this->_data->parent->left == this->_data)
+			} else {
+				while (this->_data->parent && (this->_data != this->_data->parent->left))
+					this->_data = this->_data->parent;
 				this->_data = this->_data->parent;
-			else
-				this->_data = this->_nil;
+			}
+
+			if (this->_data == this->_nil)
+				this->_data = NULL;
 
 			return tmp;
 		}
@@ -287,10 +301,14 @@ namespace ft
 				this->_data = this->_data->left;
 				while (this->_data->right != this->_nil)
 					this->_data = this->_data->right;
-			} else if (this->_data->parent->right == this->_data)
+			} else {
+				while (this->_data->parent && (this->_data != this->_data->parent->right))
+					this->_data = this->_data->parent;
 				this->_data = this->_data->parent;
-			else
-				this->_data = this->_nil;
+			}
+
+			if (this->_data == this->_nil)
+				this->_data = NULL;
 
 			return tmp;
 		}
@@ -305,7 +323,34 @@ namespace ft
 	};
 
 	template <typename T>
-	class reverse_tree_bidirectional_iterator : tree_bidirectional_iterator< T > {
+	class reverse_tree_bidirectional_iterator : public tree_bidirectional_iterator< T >
+	{
+	public:
+		reverse_tree_bidirectional_iterator() {};
+
+		reverse_tree_bidirectional_iterator(Node< T > *ptr, Node< T > *nil, Node< T > *begin, Node< T > *end) {
+			this->_data = ptr;
+			this->_nil = nil;
+			this->_begin = begin;
+			this->_end = end;
+		};
+
+		reverse_tree_bidirectional_iterator(reverse_tree_bidirectional_iterator const & obj) {
+			*this = obj;
+		};
+
+		~reverse_tree_bidirectional_iterator() {};
+
+		reverse_tree_bidirectional_iterator &	operator=(reverse_tree_bidirectional_iterator const & obj) {
+			if (this != &obj) {
+				this->_data = obj._data;
+				this->_nil = obj._nil;
+				this->_begin = obj._begin;
+				this->_end = obj._end;
+			}
+			return *this;
+		};
+
 		reverse_tree_bidirectional_iterator	operator--() {
 			if (this->_data == this->_nil)
 				this->_data = this->_begin;
@@ -313,10 +358,15 @@ namespace ft
 				this->_data = this->_data->right;
 				while (this->_data->left != this->_nil)
 					this->_data = this->_data->left;
-			} else if (this->_data->parent->left == this->_data)
+			} else {
+				while (this->_data->parent && (this->_data != this->_data->parent->left))
+					this->_data = this->_data->parent;
 				this->_data = this->_data->parent;
-			else
-				this->_data = this->_nil;
+			}
+
+			if (this->_data == this->_nil)
+				this->_data = NULL;
+
 			return *this;
 		}
 
@@ -327,10 +377,15 @@ namespace ft
 				this->_data = this->_data->left;
 				while (this->_data->right != this->_nil)
 					this->_data = this->_data->right;
-			} else if (this->_data->parent->right == this->_data)
+			} else {
+				while (this->_data->parent && (this->_data != this->_data->parent->right))
+					this->_data = this->_data->parent;
 				this->_data = this->_data->parent;
-			else
-				this->_data = this->_nil;
+			}
+
+			if (this->_data == this->_nil)
+				this->_data = NULL;
+
 			return *this;
 		}
 
@@ -343,10 +398,14 @@ namespace ft
 				this->_data = this->_data->right;
 				while (this->_data->left != this->_nil)
 					this->_data = this->_data->left;
-			} else if (this->_data->parent->left == this->_data)
+			} else {
+				while (this->_data->parent && (this->_data != this->_data->parent->left))
+					this->_data = this->_data->parent;
 				this->_data = this->_data->parent;
-			else
-				this->_data = this->_nil;
+			}
+
+			if (this->_data == this->_nil)
+				this->_data = NULL;
 
 			return tmp;
 		}
@@ -360,10 +419,14 @@ namespace ft
 				this->_data = this->_data->left;
 				while (this->_data->right != this->_nil)
 					this->_data = this->_data->right;
-			} else if (this->_data->parent->right == this->_data)
+			} else {
+				while (this->_data->parent && (this->_data != this->_data->parent->right))
+					this->_data = this->_data->parent;
 				this->_data = this->_data->parent;
-			else
-				this->_data = this->_nil;
+			}
+
+			if (this->_data == this->_nil)
+				this->_data = NULL;
 
 			return tmp;
 		}
