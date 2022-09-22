@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/22 16:54:09 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:31:23 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,7 @@ private:
 public:
 	RBTree() {
 		this->_content = NULL;
+		this->_nil = NULL;
 		this->_size = 0;
 	} ;
 
