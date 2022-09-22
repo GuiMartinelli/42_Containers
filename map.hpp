@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/20 21:10:20 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:19:09 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ namespace ft
 			typedef const value_type &									const_reference;
 			typedef value_type *										pointer;
 			typedef value_type const *									const_pointer;
-			typedef ft::bidirectional_iterator<pointer>					iterator;
-			typedef ft::bidirectional_iterator<const_pointer>			const_iterator;
-			typedef ft::bidirectional_reverse_iterator<pointer>			reverse_iterator;
-			typedef ft::bidirectional_reverse_iterator<const_pointer>	reverse_const_iterator;
+			typedef ft::tree_bidirectional_iterator<value_type>			iterator;
+			typedef ft::tree_bidirectional_iterator<value_type>			const_iterator;
+			typedef ft::reverse_tree_bidirectional_iterator<value_type>	reverse_iterator;
+			typedef ft::reverse_tree_bidirectional_iterator<value_type>	reverse_const_iterator;
 
 			class value_compare : public binary_function<value_type, value_type, bool> {
 				friend class map;
@@ -109,35 +109,35 @@ namespace ft
 			//Iterators
 
 			iterator	begin() {
-				return iterator(this->_content.min(this->_content.getRoot()));
+				return iterator(this->_content.min(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			const_iterator	cbegin() const {
-				return const_iterator(this->_content.min(this->_content.getRoot()));
+				return const_iterator(this->_content.min(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			iterator	end() {
-				return iterator(this->_content._nil);
+				return iterator(this->_content.getNil(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			const_iterator	cend() const {
-				return const_iterator(this->_content._nil);
+				return const_iterator(this->_content.getNil(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			reverse_iterator	rbegin() {
-				return reverse_iterator(this->_content.max(this->_content.getRoot()));
+				return reverse_iterator(this->_content.min(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			reverse_const_iterator	crbegin() const {
-				return reverse_const_iterator(this->_content.max(this->_content.getRoot()));
+				return reverse_const_iterator(this->_content.min(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			reverse_iterator	rend() {
-				return reverse_iterator(this->_content._nil);
+				return reverse_iterator(this->_content.getNil(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			reverse_const_iterator	crend() const {
-				return reverse_const_iterator(this->_content._nil);
+				return reverse_const_iterator(this->_content.getNil(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			//Capacity
@@ -166,7 +166,7 @@ namespace ft
 				iterator				insNode;
 
 				ins = this->_content.insert(value);
-				insNode = iterator(this->_content.search(this->_content.getRoot(), value));
+				insNode = iterator(this->_content.search(this->_content.getRoot(), value), this->_content.getNil(), this->_content.min(), this->_content.max());
 				return (ft::make_pair(insNode, ins));
 			}
 
@@ -213,7 +213,7 @@ namespace ft
 			size_type	count(const key_type& key) const {
 				if (this->find(key) != this->cend())
 					return 1;
-				return 0
+				return 0;
 			}
 
 			// pair<iterator, iterator>	equal_range(const key_type& key) {
