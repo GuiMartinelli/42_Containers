@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/22 21:11:05 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/23 12:02:21 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ namespace ft
 			//Modifers
 
 			void	clear() {
-				this->_content.destroy(this->_content.getRoot());
+				this->erase(this->begin(), this->end());
 			}
 
 			pair<iterator, bool>	insert(const value_type& value) {
@@ -184,7 +184,7 @@ namespace ft
 				}
 			}
 
-			void	erase(value_type *pos) {
+			void	erase(iterator pos) {
 				this->_content.remove(*pos);
 			}
 
@@ -194,7 +194,7 @@ namespace ft
 				while (first != last) {
 					aux = first;
 					first++;
-					this->erase(*aux);
+					this->erase(aux);
 				}
 			}
 
