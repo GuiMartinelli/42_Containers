@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/22 20:47:17 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/22 21:03:11 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,11 +219,11 @@ namespace ft
 			//Lookup
 
 			iterator	find(const key_type& key) {
-				return iterator(this->_content.search(make_pair(key, mapped_type())), this->_content.getNil(), this->_content.min(), this->_content.max());
+				return iterator(this->_content.search(this->_content.getRoot(), make_pair<key_type, mapped_type>(key, mapped_type())), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			const_iterator	find(const key_type& key) const {
-				return const_iterator(this->_content.search(make_pair(key, mapped_type())), this->_content.getNil(), this->_content.min(), this->_content.max());
+				return const_iterator(this->_content.search(this->_content.getRoot(), make_pair<key_type, mapped_type>(key, mapped_type())), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			size_type	count(const key_type& key) const {
