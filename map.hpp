@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/22 21:03:11 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/22 21:11:05 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ namespace ft
 			}
 
 			void	erase(value_type *pos) {
-				this->_content.remove(pos);
+				this->_content.remove(*pos);
 			}
 
 			void	erase(iterator first, iterator last) {
