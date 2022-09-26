@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/22 17:31:23 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/26 20:08:55 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,10 @@ private:
 		this->_content->color = BLACK;
 	}
 
-		short	getColor(Node< T > *node) {
+	short	getColor(Node< T > *node) {
 		if (!node || node->color == BLACK)
 			return (BLACK);
-		return (RED);
+		return (node->color);
 	}
 
 	void	removeFix(Node< T > *node) {
@@ -326,19 +326,13 @@ public:
 			return BSTRemove(node->left, data);
 		if(this->_comp(node->data, data))
 			return BSTRemove(node->right, data);
-		if (!node->left || !node->right)
+		if (!node->left && !node->right)
 			return node;
 
 		Node< T >	*temp = sucessor(node);
-		if (node->parent) {
-			if (node->parent->left == node)
-				node->parent->left = temp;
-			else
-				node->parent->right = temp;
-		}
-		temp->parent = node->parent;
-		temp->right = node->right;
-		temp->left = node->left;
+		if (!temp)
+			temp = predecessor(node);
+		node->data = temp->data;
 		return BSTRemove(node->right, temp->data);
 	}
 
@@ -400,6 +394,7 @@ public:
 			destroy(node->right);
 			_alloc.deallocate(node, sizeof(Node< T > *));
 		}
+		this->_size = 0;
 	}
 
 	Node< T >	*getRoot() const {
