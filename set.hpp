@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 18:55:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/27 19:59:52 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/27 20:05:17 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ namespace ft {
 				return 0;
 			}
 
-			void	swap(map& obj) {
+			void	swap(set& obj) {
 				set<key_type, key_compare, allocator_type>	aux;
 
 				aux.insert(obj.begin(), obj.end());
