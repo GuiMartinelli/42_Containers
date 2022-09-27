@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/27 19:19:01 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/27 19:31:28 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ namespace ft
 			typedef ft::tree_bidirectional_iterator<value_type>			iterator;
 			typedef ft::tree_bidirectional_iterator<value_type>			const_iterator;
 			typedef ft::reverse_tree_bidirectional_iterator<value_type>	reverse_iterator;
-			typedef ft::reverse_tree_bidirectional_iterator<value_type>	reverse_const_iterator;
+			typedef ft::reverse_tree_bidirectional_iterator<value_type>	const_reverse_iterator;
 
 			class value_compare : public binary_function<value_type, value_type, bool> {
 				friend class map;
@@ -134,16 +134,16 @@ namespace ft
 				return reverse_iterator(this->_content.max(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
-			reverse_const_iterator	crbegin() const {
-				reverse_const_iterator temp(this->_content.max(), this->_content.getNil(), this->_content.min(), this->_content.max());
+			const_reverse_iterator	crbegin() const {
+				const_reverse_iterator temp(this->_content.max(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			reverse_iterator	rend() {
 				return reverse_iterator(this->_content.getNil(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
-			reverse_const_iterator	crend() const {
-				return reverse_const_iterator(this->_content.getNil(), this->_content.getNil(), this->_content.min(), this->_content.max());
+			const_reverse_iterator	crend() const {
+				return const_reverse_iterator(this->_content.getNil(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			//Capacity
