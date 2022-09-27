@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 18:55:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/27 19:36:26 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/27 19:59:52 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,13 @@ namespace ft {
 				return (ft::make_pair(insNode, ins));
 			}
 
-			// iterator	insert(iterator hint, const value_type& value) {
-			// }
+			iterator	insert(iterator hint, const value_type& value) {
+				iterator				it;
+
+				this->_content.insert(*hint, value);
+				it = iterator(this->_content.search(this->_content.getRoot(), value), this->_content.getNil(), this->_content.min(), this->_content.max());
+				return it;
+			}
 
 			template< class InputIt >
 			void	insert(InputIt first, InputIt last) {
