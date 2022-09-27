@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 18:55:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/27 19:18:47 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/27 19:36:26 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "functional.hpp"
 #include "iterator.hpp"
 #include "RBTree.hpp"
+#include "utility.hpp"
 #include <memory>
 
 namespace ft {
@@ -86,16 +87,16 @@ namespace ft {
 				return reverse_iterator(this->_content.max(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
-			reverse_const_iterator	crbegin() const {
-				reverse_const_iterator temp(this->_content.max(), this->_content.getNil(), this->_content.min(), this->_content.max());
+			const_reverse_iterator	crbegin() const {
+				const_reverse_iterator temp(this->_content.max(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			reverse_iterator	rend() {
 				return reverse_iterator(this->_content.getNil(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
-			reverse_const_iterator	crend() const {
-				return reverse_const_iterator(this->_content.getNil(), this->_content.getNil(), this->_content.min(), this->_content.max());
+			const_reverse_iterator	crend() const {
+				return const_reverse_iterator(this->_content.getNil(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			//Capacity
@@ -245,7 +246,7 @@ namespace ft {
 			//Observers
 
 			key_compare	key_comp() const {
-				return (comp);
+				return (_comp);
 			}
 
 			value_compare	value_comp() const {
@@ -253,44 +254,44 @@ namespace ft {
 			}
 
 		private:
-			RBTree< Key >	_content;
-			Compare			_comp;
-			Allocator		_alloc;
-	}
+			RBTree<value_type>	_content;
+			Compare				_comp;
+			Allocator			_alloc;
+	};
 
 	template< class Key, class Compare, class Alloc >
-	bool	operator==(const map<Key, Compare, Alloc>& lhs, const map<Key, Compare, Alloc>& rhs) {
+	bool	operator==(const set<Key, Compare, Alloc>& lhs, const set<Key, Compare, Alloc>& rhs) {
 		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin())
 				&& lhs.size() == rhs.size());
 	}
 
 	template< class Key, class Compare, class Alloc >
-	bool	operator!=(const map<Key, Compare, Alloc>& lhs, const map<Key, Compare, Alloc>& rhs) {
+	bool	operator!=(const set<Key, Compare, Alloc>& lhs, const set<Key, Compare, Alloc>& rhs) {
 		return (!(lhs == rhs));
 	}
 
 	template< class Key, class Compare, class Alloc >
-	bool	operator<(const map<Key, Compare, Alloc>& lhs, const map<Key, Compare, Alloc>& rhs) {
+	bool	operator<(const set<Key, Compare, Alloc>& lhs, const set<Key, Compare, Alloc>& rhs) {
 			return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 	}
 
 	template< class Key, class Compare, class Alloc >
-	bool	operator<=(const map<Key, Compare, Alloc>& lhs, const map<Key, Compare, Alloc>& rhs) {
+	bool	operator<=(const set<Key, Compare, Alloc>& lhs, const set<Key, Compare, Alloc>& rhs) {
 		return (lhs < rhs || lhs == rhs);
 	}
 
 	template< class Key, class Compare, class Alloc >
-	bool	operator>(const map<Key, Compare, Alloc>& lhs, const map<Key, Compare, Alloc>& rhs) {
+	bool	operator>(const set<Key, Compare, Alloc>& lhs, const set<Key, Compare, Alloc>& rhs) {
 		return (ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
 	}
 
 	template< class Key, class Compare, class Alloc >
-	bool	operator>=(const map<Key, Compare, Alloc>& lhs, const map<Key, Compare, Alloc>& rhs) {
+	bool	operator>=(const set<Key, Compare, Alloc>& lhs, const set<Key, Compare, Alloc>& rhs) {
 		return (lhs > rhs || lhs == rhs);
 	}
 
 	template< class Key, class Compare, class Alloc >
-	void	swap(map<Key, Compare, Alloc>& lhs, map<Key, Compare, Alloc>& rhs) {
+	void	swap(set<Key, Compare, Alloc>& lhs, set<Key, Compare, Alloc>& rhs) {
 		lhs.swap(rhs);
 	}
 }
