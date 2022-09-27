@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/26 20:08:55 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/27 19:55:44 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,6 +285,44 @@ public:
 		Node< T > *node = createNode(data);
 		Node< T > *par = NULL;
 		Node< T > *aux = this->_content;
+
+		while (aux && aux != this->_nil) {
+			par = aux;
+			if (this->_comp(node->data, aux->data)) {
+			aux = aux->left;
+			} else if (this->_comp(aux->data, node->data)) {
+			aux = aux->right;
+			} else {
+				return false;
+			}
+		}
+
+		this->_size++;
+		node->parent = par;
+		if (!par) {
+			this->_content = node;
+		} else if (this->_comp(node->data, par->data)) {
+			par->left = node;
+		} else {
+			par->right = node;
+		}
+
+		if (!node->parent) {
+			node->color = BLACK;
+			return true;
+		}
+		if (!node->parent->parent) {
+			return true;
+		}
+
+		insertFix(node);
+		return true;
+	}
+
+	bool	insert(T hint, T data) {
+		Node< T > *node = createNode(data);
+		Node< T > *par = NULL;
+		Node< T > *aux = this->search(this->_content, hint);
 
 		while (aux && aux != this->_nil) {
 			par = aux;
