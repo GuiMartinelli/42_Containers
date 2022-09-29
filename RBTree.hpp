@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/29 10:05:02 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:35:48 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ private:
 		return node;
 	}
 
-	void	copy(Node< T > *node) {
-		if (!node || node == this->_nil)
+	void	copy(Node< T > *node, Node< T > *nil) {
+		if (!node || node == nil)
 			return ;
 		this->insert(node->data);
-		this->copy(node->left);
-		this->copy(node->right);
+		this->copy(node->left, nil);
+		this->copy(node->right, nil);
 	}
 
 	Node< T >	*getUncle(Node< T > *node) const {
@@ -255,7 +255,7 @@ private:
 public:
 	RBTree() {
 		this->_content = NULL;
-		this->_nil = NULL;
+		this->_nil = createNode(T());
 		this->_size = 0;
 	} ;
 
@@ -265,11 +265,12 @@ public:
 
 	~RBTree() {
 		destroy(this->_content);
+		_alloc.deallocate(this->_nil, sizeof(Node< T > *));
 	};
 
 	RBTree&	operator=(RBTree const & obj) {
 		this->destroy(this->getRoot());
-		this->copy(obj.getRoot());
+		this->copy(obj.getRoot(), obj.getNil());
 
 		return *this;
 	}
