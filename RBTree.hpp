@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/27 19:55:44 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/29 10:05:02 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ private:
 	_Compare	_comp;
 	size_t		_size;
 
-	Node< T >	*createNode(T data) {
+	Node< T >	*createNode(const T& data) {
 		Node< T >	*node = this->_alloc.allocate(1);
 		node->data = data;
 		node->parent = NULL;
@@ -41,6 +41,14 @@ private:
 		node->right = this->_nil;
 		node->color = RED;
 		return node;
+	}
+
+	void	copy(Node< T > *node) {
+		if (!node || node == this->_nil)
+			return ;
+		this->insert(node->data);
+		this->copy(node->left);
+		this->copy(node->right);
 	}
 
 	Node< T >	*getUncle(Node< T > *node) const {
@@ -260,7 +268,10 @@ public:
 	};
 
 	RBTree&	operator=(RBTree const & obj) {
-		//TO DO
+		this->destroy(this->getRoot());
+		this->copy(obj.getRoot());
+
+		return *this;
 	}
 
 	Node< T >	*predecessor(Node< T > *node) {
@@ -281,7 +292,7 @@ public:
 		return aux;
 	}
 
-	bool	insert(T data) {
+	bool	insert(const T& data) {
 		Node< T > *node = createNode(data);
 		Node< T > *par = NULL;
 		Node< T > *aux = this->_content;
@@ -319,7 +330,7 @@ public:
 		return true;
 	}
 
-	bool	insert(T hint, T data) {
+	bool	insert(const T& hint, const T& data) {
 		Node< T > *node = createNode(data);
 		Node< T > *par = NULL;
 		Node< T > *aux = this->search(this->_content, hint);
@@ -357,7 +368,7 @@ public:
 		return true;
 	}
 
-	Node< T >	*BSTRemove(Node< T > *node, T data) {
+	Node< T >	*BSTRemove(Node< T > *node, const T& data) {
 		if (!node)
 			return node;
 		if (this->_comp(data, node->data))
@@ -374,14 +385,14 @@ public:
 		return BSTRemove(node->right, temp->data);
 	}
 
-	void	remove(T data) {
+	void	remove(const T& data) {
 		Node< T >	*node = BSTRemove(this->_content, data);
 		if (node)
 			this->_size--;
 		removeFix(node);
 	}
 
-	Node< T >	*search(Node< T > *node, T key) const {
+	Node< T >	*search(Node< T > *node, const T& key) const {
 		if (!node || (!_comp(node->data, key) && !_comp(key, node->data)))
 			return node;
 		if (_comp(key, node->data))
@@ -431,8 +442,8 @@ public:
 			destroy(node->left);
 			destroy(node->right);
 			_alloc.deallocate(node, sizeof(Node< T > *));
+			this->_size--;
 		}
-		this->_size = 0;
 	}
 
 	Node< T >	*getRoot() const {
