@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/27 19:59:25 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/29 08:58:53 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,11 +216,9 @@ namespace ft
 			void	swap(map& obj) {
 				map<key_type, mapped_type, key_compare, allocator_type>	aux;
 
-				aux.insert(obj.begin(), obj.end());
-				obj.clear();
-				obj.insert(this->begin(), this->end());
-				this->clear();
-				this->insert(aux.begin(), aux.end());
+				aux._content = obj._content;
+				obj._content = this->_content;
+				this->_content = aux._content;
 			}
 
 			//Lookup
