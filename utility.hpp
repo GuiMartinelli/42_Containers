@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 19:19:12 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/12 20:31:53 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/29 10:12:19 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,14 @@ namespace ft
 		typedef T1	first_type;
 		typedef T2	second_type;
 
-		pair() {}
+		pair() : first(), second() {}
 
-		pair(const first_type& first, const second_type& second) {
-			this->first = first;
-			this->second = second;
-		}
+		pair(const first_type& a, const second_type& b) : first(a), second(b) { }
 
-		pair(const pair<T1, T2>& obj) {
-			*this = obj;
-		}
+		template< class U, class V >
+		pair(const pair<U, V>& obj) : first(obj.first), second(obj.second) {}
 
-		pair<T1, T2>&	operator=(const pair<T1, T2>& obj) {
+		pair&	operator=(const pair& obj) {
 			if (this == &obj)
 				return (*this);
 			first = obj.first;
