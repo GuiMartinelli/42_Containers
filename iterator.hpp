@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/27 20:04:37 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/29 12:49:49 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,11 +244,11 @@ namespace ft
 			} else {
 				while (this->_data->parent && (this->_data != this->_data->parent->left))
 					this->_data = this->_data->parent;
-				this->_data = this->_data->parent;
+				if (this->_data->parent)
+					this->_data = this->_data->parent;
+				else
+					this->_data = this->_nil;
 			}
-
-			if (this->_data == this->_nil)
-				this->_data = NULL;
 
 			return *this;
 		}
@@ -263,11 +263,11 @@ namespace ft
 			} else {
 				while (this->_data->parent && (this->_data != this->_data->parent->right))
 					this->_data = this->_data->parent;
-				this->_data = this->_data->parent;
+				if (this->_data->parent)
+					this->_data = this->_data->parent;
+				else
+					this->_data = this->_nil;
 			}
-
-			if (this->_data == this->_nil)
-				this->_data = NULL;
 
 			return *this;
 		}
@@ -284,11 +284,11 @@ namespace ft
 			} else {
 				while (this->_data->parent && (this->_data != this->_data->parent->left))
 					this->_data = this->_data->parent;
-				this->_data = this->_data->parent;
+				if (this->_data->parent)
+					this->_data = this->_data->parent;
+				else
+					this->_data = this->_nil;
 			}
-
-			if (this->_data == this->_nil)
-				this->_data = NULL;
 
 			return tmp;
 		}
@@ -305,11 +305,11 @@ namespace ft
 			} else {
 				while (this->_data->parent && (this->_data != this->_data->parent->right))
 					this->_data = this->_data->parent;
-				this->_data = this->_data->parent;
+				if (this->_data->parent)
+					this->_data = this->_data->parent;
+				else
+					this->_data = this->_nil;
 			}
-
-			if (this->_data == this->_nil)
-				this->_data = NULL;
 
 			return tmp;
 		}
