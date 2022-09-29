@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/29 08:58:53 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/29 19:44:28 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ namespace ft
 
 			//Iterators
 
-			iterator	begin() {
+			iterator	begin() const {
 				return iterator(this->_content.min(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
@@ -122,7 +122,7 @@ namespace ft
 				return const_iterator(this->_content.min(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
-			iterator	end() {
+			iterator	end() const {
 				return iterator(this->_content.getNil(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
@@ -130,7 +130,7 @@ namespace ft
 				return const_iterator(this->_content.getNil(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
-			reverse_iterator	rbegin() {
+			reverse_iterator	rbegin() const {
 				return reverse_iterator(this->_content.max(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
@@ -138,7 +138,7 @@ namespace ft
 				const_reverse_iterator temp(this->_content.max(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
-			reverse_iterator	rend() {
+			reverse_iterator	rend() const {
 				return reverse_iterator(this->_content.getNil(), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
