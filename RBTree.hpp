@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 19:47:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/29 18:35:48 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/09/29 22:32:35 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,24 @@ public:
 		this->copy(obj.getRoot(), obj.getNil());
 
 		return *this;
+	}
+
+	void	swap(RBTree& obj) {
+		Node< T >	*root;
+		Node< T >	*nil;
+		int			size;
+
+		root = obj._content;
+		nil = obj._nil;
+		size = obj._size;
+
+		obj._content = this->_content;
+		obj._nil = this->_nil;
+		obj._size = this->_size;
+
+		this->_content = root;
+		this->_nil = nil;
+		this->_size = size;
 	}
 
 	Node< T >	*predecessor(Node< T > *node) {
