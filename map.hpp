@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/29 22:51:09 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/04 19:51:27 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ namespace ft
 			//Capacity
 
 			bool	empty() const {
-				return (this->_content) ? true : false;
+				return (this->_content.getSize() == 0) ? true : false;
 			}
 
 			size_type	size() const {
