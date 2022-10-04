@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:35:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/04 19:59:11 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/04 20:56:09 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,81 @@ int	main(void) {
 	} catch (const std::out_of_range& e) {
 		std::cout << "key not found!" << std::endl << std::endl;
 	}
+
+	//===================================================================================
+
+	std::cout << "4. Testing Iterators" << std::endl;
+
+	std::map<int, const char *>::iterator			it1 = m1.begin();
+	std::map<int, const char *>::iterator			it2 = m1.end();
+	std::map<int, const char *>::reverse_iterator	rit1 = m1.rbegin();
+	std::map<int, const char *>::reverse_iterator	rit2 = m1.rend();
+
+	std::cout << "    4.1 Printing map using iterator: ";
+	while (it1 != it2) {
+		std::cout << "[" << it1->first << "]->" << it1->second << ", ";
+		it1++;
+	}
+
+	std::cout << std::endl << "    4.2 Printing map using reverse_iterator: ";
+	while (rit1 != rit2) {
+		std::cout << "[" << rit1->first << "]->" << rit1->second << ", ";
+		rit1++;
+	}
+	std::cout << std::endl << std::endl;
+
+	//===================================================================================
+
+	std::cout << "5. Testing Erase" << std::endl;
+
+	it1 = m1.begin();
+
+	std::cout << "    5.1 Printing map before erasing first value with iterator: ";
+	while (it1 != it2) {
+		std::cout << "[" << it1->first << "]->" << it1->second << ", ";
+		it1++;
+	}
+	m1.erase(m1.begin());
+	it1 = m1.begin();
+	std::cout << std::endl << "    5.2 Printing map before erasing first value with iterator: ";
+	while (it1 != it2) {
+		std::cout << "[" << it1->first << "]->" << it1->second << ", ";
+		it1++;
+	}
+
+	it1 = m1.begin();
+	std::cout << std::endl << std::endl << "    5.3 Printing map before erasing key 7: ";
+	while (it1 != it2) {
+		std::cout << "[" << it1->first << "]->" << it1->second << ", ";
+		it1++;
+	}
+	m1.erase(7);
+	it1 = m1.begin();
+	std::cout << std::endl << "    5.4 Printing map before erasing key 7: ";
+	while (it1 != it2) {
+		std::cout << "[" << it1->first << "]->" << it1->second << ", ";
+		it1++;
+	}
+	std::cout << std::endl;
+
+	//===================================================================================
+
+	std::cout << std::endl << "6. Testing Find" << std::endl;
+
+	std::cout << "    6.1 Finding element 3: ";
+	it1 = m1.find(3);
+	std::cout << "[" << it1->first << "]->" << it1->second << std::endl;
+	std::cout << "    6.1 Finding non-existent element: ";
+	it1 = m1.find(423);
+	if (it1 == m1.end())
+		std::cout << "Map end" << std::endl;
+
+	//===================================================================================
+
+	std::cout << std::endl << "7. Testing Count" << std::endl;
+
+	std::cout << "    7.1 Counting element 5: " << m1.count(5) << std::endl;
+	std::cout << "    7.2 Counting non-existent element: " << m1.count(423) << std::endl;
 
 	//===================================================================================
 
