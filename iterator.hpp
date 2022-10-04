@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/29 12:49:49 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/03 21:06:16 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,8 @@ namespace ft
 			return tmp;
 		}
 
-		reference	operator*() {
-			return (*data);
+		value_type	operator*() {
+			return *(this->data);
 		}
 
 		pointer	operator->() {
@@ -150,7 +150,7 @@ namespace ft
 				this->data = ptr;
 			};
 
-			bidirectional_reverse_iterator(bidirectional_reverse_iterator const & obj) {
+			bidirectional_reverse_iterator(bidirectional_reverse_iterator const & obj) : bidirectional_iterator<T>(obj) {
 				*this = obj;
 			};
 			
@@ -445,7 +445,7 @@ namespace ft
 
 		random_access_iterator() {};
 
-		random_access_iterator(random_access_iterator const & obj) {
+		random_access_iterator(random_access_iterator const & obj) : bidirectional_iterator<T>(obj) {
 			*this = obj;
 		};
 
@@ -529,7 +529,7 @@ namespace ft
 				this->data = ptr;
 			};
 
-			random_access_reverse_iterator(random_access_reverse_iterator const & obj) {
+			random_access_reverse_iterator(random_access_reverse_iterator const & obj) : bidirectional_reverse_iterator<T>(obj) {
 				*this = obj;
 			};
 			
