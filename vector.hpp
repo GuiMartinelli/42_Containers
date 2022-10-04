@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/15 19:41:24 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/03 21:10:56 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ namespace ft
 		vector &	operator=(vector const & obj) {
 			if (this != &obj) {
 				this->_content = alloc.allocate(obj._capacity);
-				for (int i = 0; i < obj._size; i++)
+				for (size_type i = 0; i < obj._size; i++)
 					this->_content[i] = obj._content[i];
 				this->_size = obj._size;
 			}
@@ -83,7 +83,7 @@ namespace ft
 		void	resize(unsigned int n) {
 			if (n > this->_capacity) {
 				T*	resized = alloc.allocate(n);
-				for (int i = 0; i < this->_capacity; i++) {
+				for (unsigned int i = 0; i < this->_capacity; i++) {
 					resized[i] = this->_content[i];
 				}
 				alloc.deallocate(this->_content, this->_size);
@@ -166,6 +166,14 @@ namespace ft
 			return this->_content[this->_size - 1];
 		}
 
+		value_type*	data() {
+			return this->_content;
+		}
+
+		const value_type*	data() const {
+			return this->_content;
+		}
+
 		//Modifiers
 
 		void	assign(size_t count, const T& value) {
@@ -178,17 +186,9 @@ namespace ft
 			}
 		}
 
-		void	assign(iterator & first, iterator & last) {
-			if ((last - first) > this->_capacity)
-				this->resize((last - first) + 1);
-			for (int i = 0; first <= last; i++) {
-				first++;
-				this->_content[i] = *first;
-			}
-		}
-
-		void	assign(iterator const & first, iterator const & last) {
-			if ((last - first) > this->_capacity)
+		template <class InputIterator>
+		void	assign(InputIterator first, InputIterator last) {
+			if ((last - first) > (int)this->_capacity)
 				this->resize((last - first) + 1);
 			for (int i = 0; first <= last; i++) {
 				first++;
@@ -247,8 +247,8 @@ namespace ft
 		}
 
 		iterator	insert(iterator pos, iterator begin, iterator end) {
-			int	index;
-			int	resized;
+			unsigned int	index;
+			unsigned int	resized;
 			int	count;
 
 			if (begin > end)
@@ -263,7 +263,7 @@ namespace ft
 				pos = this->begin() + index;
 			}
 			this->_size += count;
-			for (int aux = this->_size; aux >= (index + count); aux--)
+			for (unsigned int aux = this->_size; aux >= (index + count); aux--)
 				this->_content[aux] = this->_content[aux - count];
 			for (int i = 0; i < count; i++)
 				this->_content[index + i] = *(begin + i);
@@ -274,7 +274,7 @@ namespace ft
 			iterator	aux;
 
 			aux = this->begin();
-			for (int index = pos - aux; index < (this->_size - 1); index++)
+			for (unsigned int index = pos - aux; index < (this->_size - 1); index++)
 				this->_content[index] = this->_content[index + 1];
 			this->_size--;
 			return pos;
@@ -288,7 +288,7 @@ namespace ft
 				throw std::exception();
 			diff = end - begin;
 			aux = this->begin();
-			for (int index = begin - aux; index < this->_size; index++) {
+			for (unsigned int index = begin - aux; index < this->_size; index++) {
 				this->_content[index] = this->_content[index + diff];
 			}
 			this->_size -= end - begin;
@@ -332,11 +332,11 @@ namespace ft
 			return iterator(this->_content + this->_size);
 		}
 
-		const_iterator	begin() const {
+		const_iterator	cbegin() const {
 			return const_iterator(this->_content);
 		}
 
-		const_iterator	end() const {
+		const_iterator	cend() const {
 			return const_iterator(this->_content + this->_size);
 		}
 
@@ -352,14 +352,14 @@ namespace ft
 			return it;
 		}
 
-		reverse_iterator	rbegin() const {
-			reverse_iterator const	it(this->_content + (this->_size - 1));
+		const_reverse_iterator	crbegin() const {
+			const_reverse_iterator const	it(this->_content + (this->_size - 1));
 
 			return it;
 		}
 
-		reverse_iterator	rend() const {
-			reverse_iterator const	it(this->_content);
+		const_reverse_iterator	crend() const {
+			const_reverse_iterator const	it(this->_content);
 			
 			return it;
 		}
@@ -369,7 +369,7 @@ namespace ft
 
 	template <class T, class Alloc>
 	bool	operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
-		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin())
+		return (ft::equal(lhs.cbegin(), lhs.cend(), rhs.cbegin())
 				&& lhs.size() == rhs.size());
 	}
 
@@ -380,7 +380,7 @@ namespace ft
 
 	template <class T, class Alloc>
 	bool	operator<(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
-		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+		return (ft::lexicographical_compare(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend()));
 	}
 
 	template <class T, class Alloc>
@@ -390,7 +390,7 @@ namespace ft
 
 	template <class T, class Alloc>
 	bool	operator>(const vector<T, Alloc>& lhs, const vector<T, Alloc>& rhs) {
-		return (ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
+		return (ft::lexicographical_compare(rhs.cbegin(), rhs.cend(), lhs.cbegin(), lhs.cend()));
 	}
 
 	template <class T, class Alloc>
