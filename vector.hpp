@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/03 21:10:56 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/03 21:27:01 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,23 +177,15 @@ namespace ft
 		//Modifiers
 
 		void	assign(size_t count, const T& value) {
-			if (count > this->_capacity)
-				this->resize(count + 1);
-			if (count > this->_size)
-				this->_size = static_cast<int>(count);
-			for (size_t i = 0; i <= count; i++) {
-				this->_content[i] = value;
-			}
+			this->clear();
+			for(size_t i = 0; i < count; i++)
+				this->pop_back(value);
 		}
 
 		template <class InputIterator>
 		void	assign(InputIterator first, InputIterator last) {
-			if ((last - first) > (int)this->_capacity)
-				this->resize((last - first) + 1);
-			for (int i = 0; first <= last; i++) {
-				first++;
-				this->_content[i] = *first;
-			}
+			this->clear();
+			this->insert(this->begin(), first, last);
 		}
 
 		void	push_back(T const & x) {
@@ -348,6 +340,7 @@ namespace ft
 
 		reverse_iterator	rend() {
 			reverse_iterator	it(this->_content);
+			it++;
 
 			return it;
 		}
@@ -360,7 +353,8 @@ namespace ft
 
 		const_reverse_iterator	crend() const {
 			const_reverse_iterator const	it(this->_content);
-			
+			it++;
+
 			return it;
 		}
 	};
