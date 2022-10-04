@@ -6,13 +6,14 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:35:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/04 19:48:51 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/04 19:59:11 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <map>
 #include <utility>
+#include <stdexcept>
 
 int	main(void) {
 	std::map<int, const char*>	m1;
@@ -45,6 +46,20 @@ int	main(void) {
 	std::cout << "    2.5 Size: " << m1.size() << std::endl;
 	m1.insert(std::make_pair<int, const char *>(7, "Seven"));
 	std::cout << "    2.6 Size: " << m1.size() << std::endl << std::endl;
+
+	//===================================================================================
+
+	std::cout << "3. Testing Element Access" << std::endl;
+
+	std::cout << "    3.1 Accessing mapped string to key 2 with []: " << m1[2] << std::endl;
+	std::cout << "    3.2 Accessing mapped string to key 2 with at: " << m1.at(2) << std::endl;
+	std::cout << "    3.3 Accessing mapped string to key 7 with []: " << m1[7] << std::endl;
+	std::cout << "    3.4 Accessing mapped string to key 7 with at: " << m1.at(7) << std::endl;
+	try {
+		std::cout << "    3.2 Accessing non-existent key with at: " << m1.at(12);
+	} catch (const std::out_of_range& e) {
+		std::cout << "key not found!" << std::endl << std::endl;
+	}
 
 	//===================================================================================
 
