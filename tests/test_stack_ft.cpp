@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:06:53 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/04 19:29:35 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/04 19:41:52 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,15 @@ int	main(void) {
 	st.push('a');
 	std::cout << "    1.2 Empty after push: " << st.empty() << std::endl << std::endl;
 
+	//===================================================================================
+
 	std::cout << "2. Testing top" << std::endl;
 
 	std::cout << "    2.1 Top before push('b'): " << st.top() << std::endl;
 	st.push('b');
 	std::cout << "    2.2 Top after push('b'): " << st.top() << std::endl << std::endl;
+
+	//===================================================================================
 
 	std::cout << "3. Testing size" << std::endl;
 
@@ -43,11 +47,15 @@ int	main(void) {
 	st.push('c');
 	std::cout << "    3.2 Size after push('c'): " << st.size() << std::endl << std::endl;
 
+	//===================================================================================
+
 	std::cout << "4. Testing pop" << std::endl;
 
 	std::cout << "    4.1 Top before pop: " << st.top() << std::endl;
 	st.pop();
 	std::cout << "    4.2 Top after pop: " << st.top() << std::endl << std::endl;
+
+	//===================================================================================
 
 	std::cout << "5. Testing non-Members operators" << std::endl;
 
@@ -60,6 +68,8 @@ int	main(void) {
 	std::cout << "    5.4 st > st2: " << (st > st2) << std::endl;
 	std::cout << "    5.5 st <= st2: " << (st <= st2) << std::endl;
 	std::cout << "    5.6 st >= st2: " << (st >= st2) << std::endl << std::endl;
+
+	//===================================================================================
 
 	std::cout << "5. Testing different inner container" << std::endl;
 
