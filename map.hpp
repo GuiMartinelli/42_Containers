@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/04 19:51:27 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/04 20:18:03 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@
 #include <cstddef>
 #include "algorithm.hpp"
 #include "functional.hpp"
+#include "node.hpp"
 #include "utility.hpp"
-#include "RBTree.hpp"
+#include "rb_tree.hpp"
 #include "iterator.hpp"
 
 namespace ft
@@ -94,22 +95,23 @@ namespace ft
 			//Element Access
 
 			mapped_type&	at(const key_type& k) {
-				pointer	aux = this->_content.search(this->_content.getRoot(), ft::make_pair(k, mapped_type()));
+				Node< value_type >	*aux = this->_content.search(this->_content.getRoot(), ft::make_pair(k, mapped_type()));
 
-				if (aux)
-					return (aux->second);
+				if (aux != this->_content.getNil())
+					return (aux->data.second);
 				else
-					throw std::exception();
+					throw std::out_of_range("Not found");
 			}
 
 			mapped_type&	operator[] (const key_type& k) {
-				pointer	aux = this->_content.search(this->_content.getRoot(), ft::make_pair(k, mapped_type()));
+				ft::pair<key_type, mapped_type>	p = ft::make_pair(k, mapped_type());
+				Node< value_type >	*aux = this->_content.search(this->_content.getRoot(), p);
 
 				if (aux)
-					return (aux->second);
-				this->_content.insert(ft::make_pair(k, std::string()));
-				aux = this->_content.search(this->_content.getRoot(), k);
-				return aux->second;
+					return (aux->data.second);
+				this->_content.insert(p);
+				aux = this->_content.search(this->_content.getRoot(), p);
+				return aux->data.second;
 			}
 
 			//Iterators
@@ -305,7 +307,7 @@ namespace ft
 			}
 
 		private:
-			RBTree<value_type>	_content;
+			rb_tree<value_type>	_content;
 			allocator_type		_alloc;
 			_Compare			comp;
 
