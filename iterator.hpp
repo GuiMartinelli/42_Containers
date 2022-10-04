@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/03 21:06:16 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/04 20:30:23 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,7 +336,7 @@ namespace ft
 			this->_end = end;
 		};
 
-		reverse_tree_bidirectional_iterator(reverse_tree_bidirectional_iterator const & obj) {
+		reverse_tree_bidirectional_iterator(reverse_tree_bidirectional_iterator const & obj) : tree_bidirectional_iterator< T >(obj) {
 			*this = obj;
 		};
 
