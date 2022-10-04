@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 12:18:40 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/12 19:16:52 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/04 19:22:02 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,37 +97,37 @@ namespace ft {
 	};
 
 	//Operator Overload
-	template < class T, class Container = ft::vector<T> >
+	template < class T, class Container >
 	bool	operator==(stack< T, Container > const & lhs, stack< T, Container > const & rhs) {
 		return rhs._data == lhs._data;
 	}
 
-	template < class T, class Container = ft::vector<T> >
+	template < class T, class Container >
 	bool	operator!=(stack< T, Container > const & lhs, stack< T, Container > const & rhs) {
 		return rhs._data != lhs._data;
 	}
 
-	template < class T, class Container = ft::vector<T> >
+	template < class T, class Container >
 	bool	operator<(stack< T, Container > const & lhs, stack< T, Container > const & rhs) {
 		return rhs._data < lhs._data;
 	}
 
-	template < class T, class Container = ft::vector<T> >
+	template < class T, class Container >
 	bool	operator<=(stack< T, Container > const & lhs, stack< T, Container > const & rhs) {
 		return rhs._data <= lhs._data;
 	}
 
-	template < class T, class Container = ft::vector<T> >
+	template < class T, class Container >
 	bool	operator>(stack< T, Container > const & lhs, stack< T, Container > const & rhs) {
 		return rhs._data > lhs._data;
 	}
 
-	template < class T, class Container = ft::vector<T> >
+	template < class T, class Container >
 	bool	operator>=(stack< T, Container > const & lhs, stack< T, Container > const & rhs) {
 		return rhs._data >= lhs._data;
 	}
 
-	template < class T, class Container = ft::vector<T> >
+	template < class T, class Container >
 	void	swap(stack< T, Container > & lhs, stack< T, Container > & rhs) {
 		stack< T, Container >	aux1;
 		stack< T, Container >	aux2;
