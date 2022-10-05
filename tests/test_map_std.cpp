@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:35:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/04 20:56:09 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/05 19:46:42 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 
 int	main(void) {
 	std::map<int, const char*>	m1;
+	std::map<int, const char*>	m2;
+	std::pair<std::map<int, const char *>::iterator, std::map<int, const char *>::iterator>	p;
+	std::pair<std::map<int, const char *>::iterator, bool>	p2;
 	clock_t			start;
 	clock_t			end;
 
@@ -124,7 +127,7 @@ int	main(void) {
 	std::cout << "    6.1 Finding element 3: ";
 	it1 = m1.find(3);
 	std::cout << "[" << it1->first << "]->" << it1->second << std::endl;
-	std::cout << "    6.1 Finding non-existent element: ";
+	std::cout << "    6.2 Finding non-existent element: ";
 	it1 = m1.find(423);
 	if (it1 == m1.end())
 		std::cout << "Map end" << std::endl;
@@ -135,6 +138,131 @@ int	main(void) {
 
 	std::cout << "    7.1 Counting element 5: " << m1.count(5) << std::endl;
 	std::cout << "    7.2 Counting non-existent element: " << m1.count(423) << std::endl;
+
+	//===================================================================================
+
+	std::cout << std::endl << "8. Testing Lower_Bound, Upper_Bound and Equal_Range" << std::endl;
+
+	it1 = m1.lower_bound(3);
+	std::cout << "    8.1 Lower Bound of 3 is: [" << it1->first << "] " << it1->second << std::endl;
+	it1 = m1.upper_bound(3);
+	std::cout << "    8.2 Upper Bound of 3 is: [" << it1->first << "] " << it1->second << std::endl;
+
+	p = m1.equal_range(3);
+	std::cout << "    8.3 Equal Range first of 3 is: [" << p.first->first << "] " << p.first->second << std::endl;
+	it1 = m1.upper_bound(3);
+	std::cout << "    8.4 Equal Range second of 3 is: [" << p.second->first << "] " << p.second->second << std::endl;
+
+	//===================================================================================
+
+	std::cout << std::endl << "9. Testing iterator insertion" << std::endl;
+
+	m2.insert(std::make_pair<int, const char *>(-2, "Negative Two"));
+	m2.insert(std::make_pair<int, const char *>(4, "Four"));
+	m2.insert(std::make_pair<int, const char *>(15, "Fifteen"));
+
+	it1 = m2.begin();
+	it2 = m2.end();
+
+	std::cout << "    9.1 Printing m2: ";
+	while (it1 != it2) {
+		std::cout << "[" << it1->first << "]->" << it1->second << ", ";
+		it1++;
+	}
+
+	it1 = m1.begin();
+	it2 = m1.end();
+
+	std::cout << std::endl << "    9.2 Printing m1 before inserting m2: ";
+	while (it1 != it2) {
+		std::cout << "[" << it1->first << "]->" << it1->second << ", ";
+		it1++;
+	}
+
+	m1.insert(m2.begin(), m2.end());
+
+	it1 = m1.begin();
+	it2 = m1.end();
+
+	std::cout << std::endl << "    9.3 Printing m1 after inserting m2: ";
+	while (it1 != it2) {
+		std::cout << "[" << it1->first << "]->" << it1->second << ", ";
+		it1++;
+	}
+
+	//===================================================================================
+
+	std::cout << std::endl << std::endl << "10. Testing insert return" << std::endl;
+
+	p2 = m1.insert(std::make_pair<int, const char *>(12, "Twelve"));
+
+	std::cout << "    10.2 Boolean return after trying to insert 12: " << p2.second << std::endl ;
+
+	p2 = m1.insert(std::make_pair<int, const char *>(2, "Two"));
+
+	std::cout << "    10.2 Boolean return after trying to insert 2: " << p2.second << std::endl ;
+
+	//===================================================================================
+
+
+	std::cout << std::endl << "11. Testing swap" << std::endl;
+
+	it1 = m1.begin();
+	it2 = m1.end();
+
+	std::cout << "    11.1 Printing m1 before swap: ";
+	while (it1 != it2) {
+		std::cout << "[" << it1->first << "]->" << it1->second << ", ";
+		it1++;
+	}
+
+	it1 = m2.begin();
+	it2 = m2.end();
+
+	std::cout << std::endl << "    11.2 Printing m2 before swap: ";
+	while (it1 != it2) {
+		std::cout << "[" << it1->first << "]->" << it1->second << ", ";
+		it1++;
+	}
+
+	m1.swap(m2);
+
+	it1 = m1.begin();
+	it2 = m1.end();
+
+	std::cout << std::endl << "    11.3 Printing m1 after swap: ";
+	while (it1 != it2) {
+		std::cout << "[" << it1->first << "]->" << it1->second << ", ";
+		it1++;
+	}
+
+	it1 = m2.begin();
+	it2 = m2.end();
+
+	std::cout << std::endl << "    11.4 Printing m2 after swap: ";
+	while (it1 != it2) {
+		std::cout << "[" << it1->first << "]->" << it1->second << ", ";
+		it1++;
+	}
+
+	//===================================================================================
+
+	std::cout << std::endl << std::endl << "12. Testing clear" << std::endl;
+
+	std::cout << "    12.1 m2 size before clear: " << m2.size() << std::endl;
+	m2.clear();
+	std::cout << "    12.1 m2 size after clear: " << m2.size() << std::endl;
+
+	//===================================================================================
+
+	std::cout << std::endl << "13. Testing non-Members operators" << std::endl;
+
+	std::cout << "    13.1 m1 == m2: " << (m1 == m2) << std::endl;
+	std::cout << "    13.2 m1 != m2: " << (m1 != m2) << std::endl;
+	std::cout << "    13.3 m1 < m2: " << (m1 < m2) << std::endl;
+	std::cout << "    13.4 m1 > m2: " << (m1 > m2) << std::endl;
+	std::cout << "    13.5 m1 <= m2: " << (m1 <= m2) << std::endl;
+	std::cout << "    13.6 m1 >= m2: " << (m1 >= m2) << std::endl;
 
 	//===================================================================================
 
