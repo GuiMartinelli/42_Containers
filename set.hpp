@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 18:55:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/09/27 20:05:17 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/05 20:56:10 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "algorithm.hpp"
 #include "functional.hpp"
 #include "iterator.hpp"
-#include "RBTree.hpp"
+#include "rb_tree.hpp"
 #include "utility.hpp"
 #include <memory>
 
@@ -36,7 +36,7 @@ namespace ft {
 			typedef typename Allocator::pointer								pointer;
 			typedef typename Allocator::const_pointer						const_pointer;
 			typedef tree_bidirectional_iterator<value_type>					iterator;
-			typedef tree_bidirectional_iterator<const value_type>			const_iterator;
+			typedef tree_bidirectional_iterator<value_type>					const_iterator;
 			typedef reverse_tree_bidirectional_iterator<value_type>			reverse_iterator;
 			typedef reverse_tree_bidirectional_iterator<const value_type>	const_reverse_iterator;
 
@@ -102,7 +102,7 @@ namespace ft {
 			//Capacity
 
 			bool	empty() const {
-				return (this->_content) ? true : false;
+				return (this->_content.getSize() == 0) ? true : false;
 			}
 
 			size_type	size() const {
@@ -159,7 +159,7 @@ namespace ft {
 			}
 
 			size_type	erase(const key_type& k) {
-				if (this->find(k) != this->cend()) {
+				if (this->find(k) != this->end()) {
 					this->_content.remove(k);
 					return 1;
 				}
@@ -193,11 +193,11 @@ namespace ft {
 			}
 
 			pair<iterator, iterator>	equal_range(const key_type& key) {
-				return make_pair<iterator, iterator>(this->lower_bound(), this->upper_bound());
+				return make_pair<iterator, iterator>(this->lower_bound(key), this->upper_bound(key));
 			}
 
 			pair<iterator, iterator>	equal_range(const key_type& key) const {
-				return make_pair<iterator, iterator>(this->lower_bound(), this->upper_bound());
+				return make_pair<iterator, iterator>(this->lower_bound(key), this->upper_bound(key));
 			}
 
 			iterator	lower_bound(const key_type& key) {
@@ -205,7 +205,7 @@ namespace ft {
 				iterator	end = this->end();
 
 				while (it != end) {
-					if (!comp(it->data->first, key))
+					if (!comp(*it, key))
 						break;
 					it++;
 				}
@@ -217,7 +217,7 @@ namespace ft {
 				const_iterator	end = this->cend();
 
 				while (it != end) {
-					if (!comp(it->data->first, key))
+					if (!comp(*it, key))
 						break;
 					it++;
 				}
@@ -229,7 +229,7 @@ namespace ft {
 				iterator	end = this->end();
 
 				while (it != end) {
-					if (comp(key, it->data->first))
+					if (comp(key, *it))
 						break;
 					it++;
 				}
@@ -241,7 +241,7 @@ namespace ft {
 				const_iterator	end = this->cend();
 
 				while (it != end) {
-					if (comp(key, it->data->first))
+					if (comp(key, *it))
 						break;
 					it++;
 				}
@@ -251,7 +251,7 @@ namespace ft {
 			//Observers
 
 			key_compare	key_comp() const {
-				return (_comp);
+				return (comp);
 			}
 
 			value_compare	value_comp() const {
@@ -259,14 +259,14 @@ namespace ft {
 			}
 
 		private:
-			RBTree<value_type>	_content;
-			Compare				_comp;
+			rb_tree<value_type>	_content;
 			Allocator			_alloc;
+			Compare				comp;
 	};
 
 	template< class Key, class Compare, class Alloc >
 	bool	operator==(const set<Key, Compare, Alloc>& lhs, const set<Key, Compare, Alloc>& rhs) {
-		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin())
+		return (ft::equal(lhs.cbegin(), lhs.cend(), rhs.cbegin())
 				&& lhs.size() == rhs.size());
 	}
 
@@ -277,7 +277,7 @@ namespace ft {
 
 	template< class Key, class Compare, class Alloc >
 	bool	operator<(const set<Key, Compare, Alloc>& lhs, const set<Key, Compare, Alloc>& rhs) {
-			return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+			return (ft::lexicographical_compare(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend()));
 	}
 
 	template< class Key, class Compare, class Alloc >
@@ -287,7 +287,7 @@ namespace ft {
 
 	template< class Key, class Compare, class Alloc >
 	bool	operator>(const set<Key, Compare, Alloc>& lhs, const set<Key, Compare, Alloc>& rhs) {
-		return (ft::lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
+		return (ft::lexicographical_compare(rhs.cbegin(), rhs.cend(), lhs.cbegin(), lhs.cend()));
 	}
 
 	template< class Key, class Compare, class Alloc >
