@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/04 20:18:03 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/05 19:51:10 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,11 +241,11 @@ namespace ft
 			}
 
 			pair<iterator, iterator>	equal_range(const key_type& key) {
-				return make_pair<iterator, iterator>(this->lower_bound(), this->upper_bound());
+				return make_pair<iterator, iterator>(this->lower_bound(key), this->upper_bound(key));
 			}
 
 			pair<iterator, iterator>	equal_range(const key_type& key) const {
-				return make_pair<iterator, iterator>(this->lower_bound(), this->upper_bound());
+				return make_pair<iterator, iterator>(this->lower_bound(key), this->upper_bound(key));
 			}
 
 			iterator	lower_bound(const key_type& key) {
@@ -253,7 +253,7 @@ namespace ft
 				iterator	end = this->end();
 
 				while (it != end) {
-					if (!comp(it->data->first, key))
+					if (!comp(it->first, key))
 						break;
 					it++;
 				}
@@ -265,7 +265,7 @@ namespace ft
 				const_iterator	end = this->cend();
 
 				while (it != end) {
-					if (!comp(it->data->first, key))
+					if (!comp(it->first, key))
 						break;
 					it++;
 				}
@@ -277,7 +277,7 @@ namespace ft
 				iterator	end = this->end();
 
 				while (it != end) {
-					if (comp(key, it->data->first))
+					if (comp(key, it->first))
 						break;
 					it++;
 				}
