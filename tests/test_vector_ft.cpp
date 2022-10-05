@@ -6,11 +6,12 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:06:38 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/04 19:06:39 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/04 21:03:33 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iomanip>
+#include <stdexcept>
 #include "../vector.hpp"
 
 int	main(void) {
@@ -248,7 +249,19 @@ int	main(void) {
 	std::cout << "    11.1 Testing at 2nd position: " << vec1.at(2) << std::endl;
 	std::cout << "    11.2 Testing front: " << vec1.front() << std::endl;
 	std::cout << "    11.3 Testing back: " << vec1.back() << std::endl;
-	std::cout << "    11.3 Testing data: " << *vec1.data() << std::endl;
+	std::cout << "    11.4 Testing data: " << *vec1.data() << std::endl;
+	try {
+		std::cout << "    11.5 Testing at with out of range: ";
+		vec1.at(43);
+	} catch (std::out_of_range& e) {
+		std::cout << "out of range Exception" << std::endl;
+	}
+	try {
+		std::cout << "    11.6 Testing [] with out of range: ";
+		vec1[54];
+	} catch (std::out_of_range& e) {
+		std::cout << "out of range Exception" << std::endl;
+	}
 
 	//===================================================================================
 

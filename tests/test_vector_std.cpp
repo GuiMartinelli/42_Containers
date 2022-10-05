@@ -6,12 +6,13 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:06:43 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/04 19:06:50 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/04 21:05:52 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <vector>
+#include <stdexcept>
 
 int	main(void) {
 	std::vector<int>	vec1;
@@ -248,10 +249,22 @@ int	main(void) {
 	std::cout << "    11.2 Testing front: " << vec1.front() << std::endl;
 	std::cout << "    11.3 Testing back: " << vec1.back() << std::endl;
 	std::cout << "    11.3 Testing data: " << *vec1.data() << std::endl;
+	try {
+		std::cout << "    11.5 Testing at with out of range: ";
+		vec1.at(43);
+	} catch (std::out_of_range& e) {
+		std::cout << "out of range Exception" << std::endl;
+	}
+	try {
+		std::cout << "    11.6 Testing [] with out of range: ";
+		vec1[54];
+	} catch (std::out_of_range& e) {
+		std::cout << "out of range Exception" << std::endl;
+	}
 
 	//===================================================================================
 
-	std::cout << std::endl << "12. Testing reserve" << std::endl;
+	std::cout << std::endl << std::endl << "12. Testing reserve" << std::endl;
 
 	std::cout << "    12.1 Capacity before reserve: " << vec1.capacity() << std::endl;
 	vec1.reserve(72);
