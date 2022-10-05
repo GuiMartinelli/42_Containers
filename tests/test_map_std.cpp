@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:35:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/05 19:46:42 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/05 20:01:13 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	main(void) {
 	}
 	m1.erase(m1.begin());
 	it1 = m1.begin();
-	std::cout << std::endl << "    5.2 Printing map before erasing first value with iterator: ";
+	std::cout << std::endl << "    5.2 Printing map after erasing first value with iterator: ";
 	while (it1 != it2) {
 		std::cout << "[" << it1->first << "]->" << it1->second << ", ";
 		it1++;
@@ -113,7 +113,7 @@ int	main(void) {
 	}
 	m1.erase(7);
 	it1 = m1.begin();
-	std::cout << std::endl << "    5.4 Printing map before erasing key 7: ";
+	std::cout << std::endl << "    5.4 Printing map after erasing key 7: ";
 	while (it1 != it2) {
 		std::cout << "[" << it1->first << "]->" << it1->second << ", ";
 		it1++;
