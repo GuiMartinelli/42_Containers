@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/04 21:04:19 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/06 19:59:43 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ namespace ft
 		void	resize(unsigned int n) {
 			if (n > this->_capacity) {
 				T*	resized = alloc.allocate(n);
-				for (unsigned int i = 0; i < this->_capacity; i++) {
+				for (unsigned int i = 0; i < this->_size; i++) {
 					resized[i] = this->_content[i];
 				}
-				alloc.deallocate(this->_content, this->_size);
+				alloc.deallocate(this->_content, this->_capacity);
 				this->_content = resized;
 				this->_capacity = n;
 			}
@@ -97,7 +97,7 @@ namespace ft
 
 		void	resize(unsigned int n, T value) {
 			if (n < this->_capacity) {
-				for (int i = this->_size; i < this->_capacity; i++) {
+				for (int i = this->_size; i < n; i++) {
 					this->_content[i] = value;
 				}
 			}
@@ -110,7 +110,7 @@ namespace ft
 					resized[i] = value;
 				}
 				this->_capacity = n;
-				alloc.deallocate(this->_content, this->_size);
+				alloc.deallocate(this->_content, this->_capacity);
 				this->_content = resized;
 			}
 			this->_size = n;
