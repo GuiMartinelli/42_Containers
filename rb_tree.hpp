@@ -394,11 +394,13 @@ public:
 			return BSTRemove(node->left, data);
 		if(this->_comp(node->data, data))
 			return BSTRemove(node->right, data);
-		if (!node->left && !node->right)
+		if (node->left == this->_nil && node->right == this->_nil)
 			return node;
 
-		Node< T >	*temp = sucessor(node);
-		if (!temp)
+		Node< T >	*temp;
+		if (node->right != this->_nil)
+			temp = sucessor(node);
+		else
 			temp = predecessor(node);
 		node->data = temp->data;
 		return BSTRemove(node->right, temp->data);
