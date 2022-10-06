@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/04 20:30:23 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/06 17:33:48 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,6 +354,8 @@ namespace ft
 
 		reverse_tree_bidirectional_iterator	operator--() {
 			if (this->_data == this->_nil)
+				this->_data = NULL;
+			else if (this->_data == this->_nil)
 				this->_data = this->_begin;
 			else if (this->_data->right != this->_nil) {
 				this->_data = this->_data->right;
@@ -365,15 +367,14 @@ namespace ft
 				this->_data = this->_data->parent;
 			}
 
-			if (this->_data == this->_nil)
-				this->_data = NULL;
-
 			return *this;
 		}
 
 		reverse_tree_bidirectional_iterator	operator++() {
 			if (this->_data == this->_nil)
-				this->_data = this->_end;
+				this->_data = NULL;
+			else if (this->_data == this->_begin)
+				this->_data = this->_nil;
 			else if (this->_data->left != this->_nil) {
 				this->_data = this->_data->left;
 				while (this->_data->right != this->_nil)
@@ -383,9 +384,6 @@ namespace ft
 					this->_data = this->_data->parent;
 				this->_data = this->_data->parent;
 			}
-
-			if (this->_data == this->_nil)
-				this->_data = NULL;
 
 			return *this;
 		}
@@ -394,6 +392,8 @@ namespace ft
 			reverse_tree_bidirectional_iterator	tmp(*this);
 
 			if (this->_data == this->_nil)
+				this->_data = NULL;
+			else if (this->_data == this->_nil)
 				this->_data = this->_begin;
 			else if (this->_data->right != this->_nil) {
 				this->_data = this->_data->right;
@@ -405,9 +405,6 @@ namespace ft
 				this->_data = this->_data->parent;
 			}
 
-			if (this->_data == this->_nil)
-				this->_data = NULL;
-
 			return tmp;
 		}
 
@@ -415,7 +412,9 @@ namespace ft
 			reverse_tree_bidirectional_iterator	tmp(*this);
 
 			if (this->_data == this->_nil)
-				this->_data = this->_end;
+				this->_data = NULL;
+			else if (this->_data == this->_begin)
+				this->_data = this->_nil;
 			else if (this->_data->left != this->_nil) {
 				this->_data = this->_data->left;
 				while (this->_data->right != this->_nil)
@@ -425,9 +424,6 @@ namespace ft
 					this->_data = this->_data->parent;
 				this->_data = this->_data->parent;
 			}
-
-			if (this->_data == this->_nil)
-				this->_data = NULL;
 
 			return tmp;
 		}
