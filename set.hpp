@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 18:55:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/05 20:56:10 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:40:27 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,13 +167,12 @@ namespace ft {
 			}
 
 			void	swap(set& obj) {
-				set<key_type, key_compare, allocator_type>	aux;
+				allocator_type		alloc;
+				this->_content.swap(obj._content);
 
-				aux.insert(obj.begin(), obj.end());
-				obj.clear();
-				obj.insert(this->begin(), this->end());
-				this->clear();
-				this->insert(aux.begin(), aux.end());
+				alloc = this->_alloc;
+				obj._alloc = this->_alloc;
+				this->_alloc = alloc;
 			}
 
 			//Lookup
