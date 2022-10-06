@@ -265,7 +265,8 @@ public:
 
 	~rb_tree() {
 		destroy(this->_content);
-		_alloc.deallocate(this->_nil, sizeof(Node< T > *));
+		_alloc.destroy(this->_nil);
+		_alloc.deallocate(this->_nil, 1);
 	};
 
 	rb_tree&	operator=(rb_tree const & obj) {
@@ -462,7 +463,8 @@ public:
 		if (node && node != this->_nil) {
 			destroy(node->left);
 			destroy(node->right);
-			_alloc.deallocate(node, sizeof(Node< T > *));
+			_alloc.destroy(node);
+			_alloc.deallocate(node, 1);
 			this->_size--;
 		}
 	}
