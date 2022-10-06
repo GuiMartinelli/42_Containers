@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/06 19:59:43 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:32:30 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ namespace ft
 		}
 
 		~vector() {
-			alloc.deallocate(this->_content, this->_size);
+			alloc.deallocate(this->_content, this->_capacity);
 		};
 
 		vector &	operator=(vector const & obj) {
@@ -81,39 +81,23 @@ namespace ft
 		}
 
 		void	resize(unsigned int n) {
-			if (n > this->_capacity) {
-				T*	resized = alloc.allocate(n);
-				for (unsigned int i = 0; i < this->_size; i++) {
-					resized[i] = this->_content[i];
-				}
-				alloc.deallocate(this->_content, this->_capacity);
-				this->_content = resized;
-				this->_capacity = n;
-			}
-			else {
-				this->_size = n;
+			if (n > this->_size) {
+				for (size_t i = this->_size; i < n; i++)
+					this->push_back(T());
+			} else if (n < this->_size) {
+				for (size_t i = this->_size; i > n; i--)
+					this->pop_back();
 			}
 		}
 
 		void	resize(unsigned int n, T value) {
-			if (n < this->_capacity) {
-				for (int i = this->_size; i < n; i++) {
-					this->_content[i] = value;
-				}
+			if (n > this->_size) {
+				for (size_t i = this->_size; i < n; i++)
+					this->push_back(value);
+			} else if (n < this->_size) {
+				for (size_t i = this->_size; i > n; i--)
+					this->pop_back();
 			}
-			else if (n > this->_capacity) {
-				T*	resized = alloc.allocate(n);
-				for (int i = 0; i < this->_size; i++) {
-					resized[i] = this->_content[i];
-				}
-				for (int i = this->_size; i < n; i++) {
-					resized[i] = value;
-				}
-				this->_capacity = n;
-				alloc.deallocate(this->_content, this->_capacity);
-				this->_content = resized;
-			}
-			this->_size = n;
 		}
 
 		size_t	capacity() const {
@@ -125,8 +109,15 @@ namespace ft
 		}
 
 		void	reserve(size_t new_cap) {
-			if (new_cap > this->_capacity)
-				resize(new_cap);
+			if (new_cap > this->_capacity) {
+				T*	resized = alloc.allocate(new_cap);
+				for (unsigned int i = 0; i < this->_size; i++) {
+					resized[i] = this->_content[i];
+				}
+				alloc.deallocate(this->_content, this->_capacity);
+				this->_content = resized;
+				this->_capacity = new_cap;
+			}
 		}
 
 		//Element Access
@@ -194,7 +185,7 @@ namespace ft
 
 		void	push_back(T const & x) {
 			if (this->_size == this->_capacity) {
-				this->resize(this->_capacity * 2);
+				this->reserve(this->_capacity * 2);
 			}
 			this->_content[this->_size] = x;
 			this->_size++;
@@ -212,11 +203,11 @@ namespace ft
 
 			index = pos - (this->begin());
 			if ((this->_size + 1) > this->_capacity) {
-				this->resize(this->_capacity * 2);
+				this->reserve(this->_capacity * 2);
 				pos = this->begin() + index;
 			}
 			this->_size++;
-			for (int aux = this->_size; aux >= index; aux--)
+			for (int aux = this->_size; aux > index; aux--)
 				this->_content[aux] = this->_content[aux - 1];
 			this->_content[index] = value;
 			return pos;
@@ -231,7 +222,7 @@ namespace ft
 			if ((this->_size + count) > this->_capacity) {
 				while (resized < (this->_size + count))
 					resized *= 2;
-				this->resize(resized);
+				this->reserve(resized);
 				pos = this->begin() + index;
 			}
 			this->_size += count;
@@ -255,7 +246,7 @@ namespace ft
 			if ((this->_size + count) > this->_capacity) {
 				while (resized < (this->_size + count))
 					resized *= 2;
-				this->resize(resized);
+				this->reserve(resized);
 				pos = this->begin() + index;
 			}
 			this->_size += count;
