@@ -426,7 +426,7 @@ public:
 		Node< T >	*temp;
 
 		temp = this->_content;
-		while (temp->left != this->_nil)
+		while (temp && temp->left != this->_nil)
 			temp = temp->left;
 		return temp;
 	}
@@ -435,7 +435,7 @@ public:
 		Node< T >	*temp;
 
 		temp = node;
-		while (temp->left != this->_nil)
+		while (temp && temp->left != this->_nil)
 			temp = temp->left;
 		return temp;
 	}
@@ -444,7 +444,7 @@ public:
 		Node< T >	*temp;
 
 		temp = this->_content;
-		while (temp->right != this->_nil)
+		while (temp && temp->right != this->_nil)
 			temp = temp->right;
 		return temp;
 	}
@@ -453,7 +453,7 @@ public:
 		Node< T >	*temp;
 
 		temp = node;
-		while (temp->right != this->_nil)
+		while (temp && temp->right != this->_nil)
 			temp = temp->right;
 		return temp;
 	}
