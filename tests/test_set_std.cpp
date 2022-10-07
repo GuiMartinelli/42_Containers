@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 19:55:35 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/05 20:37:51 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:08:43 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,22 +234,22 @@ int	main(void) {
 
 	//===================================================================================
 
-	std::cout << std::endl << std::endl << "11. Testing clear" << std::endl;
+	std::cout << std::endl << "11. Testing non-Members operators" << std::endl;
 
-	std::cout << "    11.1 s2 size before clear: " << s2.size() << std::endl;
-	s2.clear();
-	std::cout << "    11.1 s2 size after clear: " << s2.size() << std::endl;
+	std::cout << "    11.1 s1 == s2: " << (s1 == s2) << std::endl;
+	std::cout << "    11.2 s1 != s2: " << (s1 != s2) << std::endl;
+	std::cout << "    11.3 s1 < s2: " << (s1 < s2) << std::endl;
+	std::cout << "    11.4 s1 > s2: " << (s1 > s2) << std::endl;
+	std::cout << "    11.5 s1 <= s2: " << (s1 <= s2) << std::endl;
+	std::cout << "    11.6 s1 >= s2: " << (s1 >= s2) << std::endl;
 
 	//===================================================================================
 
-	std::cout << std::endl << "12. Testing non-Members operators" << std::endl;
+	std::cout << std::endl << std::endl << "12. Testing clear" << std::endl;
 
-	std::cout << "    13.1 s1 == s2: " << (s1 == s2) << std::endl;
-	std::cout << "    13.2 s1 != s2: " << (s1 != s2) << std::endl;
-	std::cout << "    13.3 s1 < s2: " << (s1 < s2) << std::endl;
-	std::cout << "    13.4 s1 > s2: " << (s1 > s2) << std::endl;
-	std::cout << "    13.5 s1 <= s2: " << (s1 <= s2) << std::endl;
-	std::cout << "    13.6 s1 >= s2: " << (s1 >= s2) << std::endl;
+	std::cout << "    12.1 s2 size before clear: " << s2.size() << std::endl;
+	s2.clear();
+	std::cout << "    12.1 s2 size after clear: " << s2.size() << std::endl;
 
 	//===================================================================================
 

@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:35:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/05 20:01:13 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:08:11 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,22 +247,22 @@ int	main(void) {
 
 	//===================================================================================
 
-	std::cout << std::endl << std::endl << "12. Testing clear" << std::endl;
+	std::cout << std::endl << "12. Testing non-Members operators" << std::endl;
 
-	std::cout << "    12.1 m2 size before clear: " << m2.size() << std::endl;
-	m2.clear();
-	std::cout << "    12.1 m2 size after clear: " << m2.size() << std::endl;
+	std::cout << "    12.1 m1 == m2: " << (m1 == m2) << std::endl;
+	std::cout << "    12.2 m1 != m2: " << (m1 != m2) << std::endl;
+	std::cout << "    12.3 m1 < m2: " << (m1 < m2) << std::endl;
+	std::cout << "    12.4 m1 > m2: " << (m1 > m2) << std::endl;
+	std::cout << "    12.5 m1 <= m2: " << (m1 <= m2) << std::endl;
+	std::cout << "    12.6 m1 >= m2: " << (m1 >= m2) << std::endl;
 
 	//===================================================================================
 
-	std::cout << std::endl << "13. Testing non-Members operators" << std::endl;
+	std::cout << std::endl << std::endl << "13. Testing clear" << std::endl;
 
-	std::cout << "    13.1 m1 == m2: " << (m1 == m2) << std::endl;
-	std::cout << "    13.2 m1 != m2: " << (m1 != m2) << std::endl;
-	std::cout << "    13.3 m1 < m2: " << (m1 < m2) << std::endl;
-	std::cout << "    13.4 m1 > m2: " << (m1 > m2) << std::endl;
-	std::cout << "    13.5 m1 <= m2: " << (m1 <= m2) << std::endl;
-	std::cout << "    13.6 m1 >= m2: " << (m1 >= m2) << std::endl;
+	std::cout << "    13.1 m2 size before clear: " << m2.size() << std::endl;
+	m2.clear();
+	std::cout << "    13.1 m2 size after clear: " << m2.size() << std::endl;
 
 	//===================================================================================
 
