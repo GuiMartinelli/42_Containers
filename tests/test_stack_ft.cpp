@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:06:53 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/04 19:41:52 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/10 14:38:39 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,33 @@ int	main(void) {
 
 	std::cout << "1. Testing empty and push" << std::endl;
 
-	std::cout << "    1.1 Empty before push: " << st.empty() << std::endl;
+	std::cout << "\t1.1 Empty before push: " << st.empty() << std::endl;
 	st.push('a');
-	std::cout << "    1.2 Empty after push: " << st.empty() << std::endl << std::endl;
+	std::cout << "\t1.2 Empty after push: " << st.empty() << std::endl << std::endl;
 
 	//===================================================================================
 
 	std::cout << "2. Testing top" << std::endl;
 
-	std::cout << "    2.1 Top before push('b'): " << st.top() << std::endl;
+	std::cout << "\t2.1 Top before push('b'): " << st.top() << std::endl;
 	st.push('b');
-	std::cout << "    2.2 Top after push('b'): " << st.top() << std::endl << std::endl;
+	std::cout << "\t2.2 Top after push('b'): " << st.top() << std::endl << std::endl;
 
 	//===================================================================================
 
 	std::cout << "3. Testing size" << std::endl;
 
-	std::cout << "    3.1 Size before push('c'): " << st.size() << std::endl;
+	std::cout << "\t3.1 Size before push('c'): " << st.size() << std::endl;
 	st.push('c');
-	std::cout << "    3.2 Size after push('c'): " << st.size() << std::endl << std::endl;
+	std::cout << "\t3.2 Size after push('c'): " << st.size() << std::endl << std::endl;
 
 	//===================================================================================
 
 	std::cout << "4. Testing pop" << std::endl;
 
-	std::cout << "    4.1 Top before pop: " << st.top() << std::endl;
+	std::cout << "\t4.1 Top before pop: " << st.top() << std::endl;
 	st.pop();
-	std::cout << "    4.2 Top after pop: " << st.top() << std::endl << std::endl;
+	std::cout << "\t4.2 Top after pop: " << st.top() << std::endl << std::endl;
 
 	//===================================================================================
 
@@ -62,12 +62,12 @@ int	main(void) {
 	st2.push('a');
 	st2.push('b');
 
-	std::cout << "    5.1 st == st2: " << (st == st2) << std::endl;
-	std::cout << "    5.2 st != st2: " << (st != st2) << std::endl;
-	std::cout << "    5.3 st < st2: " << (st < st2) << std::endl;
-	std::cout << "    5.4 st > st2: " << (st > st2) << std::endl;
-	std::cout << "    5.5 st <= st2: " << (st <= st2) << std::endl;
-	std::cout << "    5.6 st >= st2: " << (st >= st2) << std::endl << std::endl;
+	std::cout << "\t5.1 st == st2: " << (st == st2) << std::endl;
+	std::cout << "\t5.2 st != st2: " << (st != st2) << std::endl;
+	std::cout << "\t5.3 st < st2: " << (st < st2) << std::endl;
+	std::cout << "\t5.4 st > st2: " << (st > st2) << std::endl;
+	std::cout << "\t5.5 st <= st2: " << (st <= st2) << std::endl;
+	std::cout << "\t5.6 st >= st2: " << (st >= st2) << std::endl << std::endl;
 
 	//===================================================================================
 
