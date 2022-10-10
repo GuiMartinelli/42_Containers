@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 19:20:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/06 17:33:48 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/10 14:44:37 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,6 @@ namespace ft
 
 	template <typename T>
 	class tree_bidirectional_iterator
-	// : public iterator <random_access_iterator_tag, T >
 	{
 	protected:
 		Node< T >	*_data;
@@ -195,11 +194,6 @@ namespace ft
 
 	public:
 		typedef T															iterator_type;
-		// typedef typename iterator_traits<iterator_type>::iterator_category	iterator_category;
-		// typedef typename iterator_traits<iterator_type>::value_type			value_type;
-		// typedef typename iterator_traits<iterator_type>::difference_type	difference_type;
-		// typedef typename iterator_traits<iterator_type>::pointer			pointer;
-		// typedef typename iterator_traits<iterator_type>::reference			reference;
 
 		tree_bidirectional_iterator() {};
 
