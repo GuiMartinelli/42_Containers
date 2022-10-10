@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/06 20:32:30 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/10 14:07:51 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ namespace ft
 
 		vector &	operator=(vector const & obj) {
 			if (this != &obj) {
+				alloc.deallocate(this->_content, this->_capacity);
 				this->_content = alloc.allocate(obj._capacity);
 				for (size_type i = 0; i < obj._size; i++)
 					this->_content[i] = obj._content[i];
