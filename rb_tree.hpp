@@ -261,7 +261,7 @@ public:
 
 	rb_tree(rb_tree const & obj) {
 		*this = obj;
-	} ;
+	} ; 
 
 	~rb_tree() {
 		destroy(this->_content);
@@ -324,6 +324,8 @@ public:
 			} else if (this->_comp(aux->data, node->data)) {
 			aux = aux->right;
 			} else {
+				_alloc.destroy(node);
+				_alloc.deallocate(node, 1);
 				return false;
 			}
 		}
@@ -362,6 +364,8 @@ public:
 			} else if (this->_comp(aux->data, node->data)) {
 			aux = aux->right;
 			} else {
+				_alloc.destroy(node);
+				_alloc.deallocate(node, 1);
 				return false;
 			}
 		}
@@ -459,7 +463,16 @@ public:
 		return temp;
 	}
 
+	void clear() {
+		this->destroy(_content);
+		_content = _nil;
+		_size = 0;
+	}
+
+
 	void	destroy(Node< T > *node) {
+		if (!node)
+			node = this->_content;
 		if (node && node != this->_nil) {
 			destroy(node->left);
 			destroy(node->right);
