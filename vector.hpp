@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 21:28:39 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/10 14:07:51 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/10 14:59:16 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,14 +123,10 @@ namespace ft
 
 		//Element Access
 		const_reference	operator[](size_t n) const {
-			if (n >= this->_size)
-				throw std::out_of_range("Out of Range");
 			return this->_content[n];
 		}
 
 		reference	operator[](size_t n) {
-			if (n >= this->_size)
-				throw std::out_of_range("Out of Range");
 			return this->_content[n];
 		}
 
