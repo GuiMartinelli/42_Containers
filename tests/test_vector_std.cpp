@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:06:43 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/10 14:39:19 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/10 14:55:14 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ int	main(void) {
 
 	//===================================================================================
 
-	std::cout << std::endl << std::endl << "10. Testing assing" << std::endl;
+	std::cout << std::endl << std::endl << "10. Testing assign" << std::endl;
 
 	it = vec2.begin();
 	std::cout << "\t10.1 Printing vec2: ";

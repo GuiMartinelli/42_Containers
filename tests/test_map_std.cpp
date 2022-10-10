@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:35:57 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/10 14:37:58 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/10 14:48:25 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ int	main(void) {
 
 	//===================================================================================
 
-	std::cout << std::endl << "12. Testing non-Members operators" << std::endl;
+	std::cout << std::endl << std::endl << "12. Testing non-Members operators" << std::endl;
 
 	std::cout << "\t12.1 m1 == m2: " << (m1 == m2) << std::endl;
 	std::cout << "\t12.2 m1 != m2: " << (m1 != m2) << std::endl;
@@ -258,7 +258,7 @@ int	main(void) {
 
 	//===================================================================================
 
-	std::cout << std::endl << std::endl << "13. Testing clear" << std::endl;
+	std::cout << std::endl << "13. Testing clear" << std::endl;
 
 	std::cout << "\t13.1 m2 size before clear: " << m2.size() << std::endl;
 	m2.clear();
