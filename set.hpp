@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 18:55:01 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/06 20:40:27 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:01:04 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ namespace ft {
 			//Modifers
 
 			void	clear() {
-				this->_content.destroy(this->_content.getRoot());
+				this->_content.clear();
 			}
 
 			pair<iterator, bool>	insert(const value_type& value) {
