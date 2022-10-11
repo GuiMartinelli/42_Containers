@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_set_std.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 19:55:35 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/10 14:50:03 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/11 16:15:45 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ int	main(void) {
 
 	p2 = s1.insert('M');
 
-	std::cout << "\t9.2 Boolean return after trying to insert 'M': " << p2.second << std::endl ;
+	std::cout << "\t9.1 Boolean return after trying to insert 'M': " << p2.second << std::endl ;
 
 	p2 = s1.insert('S');
 
@@ -249,7 +249,7 @@ int	main(void) {
 
 	std::cout << "\t12.1 s2 size before clear: " << s2.size() << std::endl;
 	s2.clear();
-	std::cout << "\t12.1 s2 size after clear: " << s2.size() << std::endl;
+	std::cout << "\t12.2 s2 size after clear: " << s2.size() << std::endl;
 
 	//===================================================================================
 

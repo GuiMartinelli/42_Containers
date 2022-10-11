@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_map_ft.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:35:54 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/10 14:33:29 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/11 16:17:07 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ int	main(void) {
 
 	p2 = m1.insert(ft::make_pair<int, const char *>(12, "Twelve"));
 
-	std::cout << "\t10.2 Boolean return after trying to insert 12: " << p2.second << std::endl ;
+	std::cout << "\t10.1 Boolean return after trying to insert 12: " << p2.second << std::endl ;
 
 	p2 = m1.insert(ft::make_pair<int, const char *>(2, "Two"));
 
@@ -261,7 +261,7 @@ int	main(void) {
 
 	std::cout << "\t13.1 m2 size before clear: " << m2.size() << std::endl;
 	m2.clear();
-	std::cout << "\t13.1 m2 size after clear: " << m2.size() << std::endl;
+	std::cout << "\t13.2 m2 size after clear: " << m2.size() << std::endl;
 
 	//===================================================================================
 

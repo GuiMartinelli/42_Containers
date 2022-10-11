@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_stack_ft.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:06:53 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/10 14:38:39 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/11 16:14:32 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(void) {
 
 	//===================================================================================
 
-	std::cout << "5. Testing different inner container" << std::endl;
+	std::cout << "6. Testing different inner container" << std::endl;
 
 	ft::stack<char, std::deque<char> >	st3;
 

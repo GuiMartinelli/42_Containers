@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_vector_ft.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:06:38 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/10 14:55:05 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/11 16:13:44 by coder            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,11 +265,11 @@ int	main(void) {
 
 	//===================================================================================
 
-	std::cout << std::endl << "12. Testing reserve" << std::endl;
+	std::cout << std::endl << std::endl << "12. Testing reserve" << std::endl;
 
 	std::cout << "\t12.1 Capacity before reserve: " << vec1.capacity() << std::endl;
 	vec1.reserve(72);
-	std::cout << "\t12.1 Capacity after reserve: " << vec1.capacity() << std::endl;
+	std::cout << "\t12.2 Capacity after reserve: " << vec1.capacity() << std::endl;
 
 	//===================================================================================
 
