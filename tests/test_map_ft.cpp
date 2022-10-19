@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   test_map_ft.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: coder <coder@student.42.fr>                +#+  +:+       +#+        */
+/*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 19:35:54 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/11 16:17:07 by coder            ###   ########.fr       */
+/*   Updated: 2022/10/19 16:52:42 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <istream>
+#include <iostream>
 #include "../map.hpp"
 #include "../utility.hpp"
 
 int	main(void) {
-	ft::map<int, const char*>	m1;
-	ft::map<int, const char*>	m2;
-	ft::pair<ft::map<int, const char *>::iterator, ft::map<int, const char *>::iterator>	p;
-	ft::pair<ft::map<int, const char *>::iterator, bool>	p2;
+	ft::map<int, std::string>	m1;
+	ft::map<int, std::string>	m2;
+	ft::pair<ft::map<int, std::string>::iterator, ft::map<int, std::string>::iterator>	p;
+	ft::pair<ft::map<int, std::string>::iterator, bool>	p2;
 	clock_t			start;
 	clock_t			end;
 
@@ -30,7 +30,7 @@ int	main(void) {
 	std::cout << "1. Testing empty and insert" << std::endl;
 
 	std::cout << "\t1.1 Empty before insert: " << m1.empty() << std::endl;
-	m1.insert(ft::make_pair<int, const char *>(1, "One"));
+	m1.insert(ft::make_pair<int, std::string>(1, "One"));
 	std::cout << "\t1.2 Empty after insert: " << m1.empty() << std::endl << std::endl;
 
 	//===================================================================================
@@ -38,15 +38,15 @@ int	main(void) {
 	std::cout << "2. Testing size and insert" << std::endl;
 
 	std::cout << "\t2.1 Size: " << m1.size() << std::endl;
-	m1.insert(ft::make_pair<int, const char *>(5, "Five"));
+	m1.insert(ft::make_pair<int, std::string>(5, "Five"));
 	std::cout << "\t2.2 Size: " << m1.size() << std::endl;
-	m1.insert(ft::make_pair<int, const char *>(9, "Nine"));
+	m1.insert(ft::make_pair<int, std::string>(9, "Nine"));
 	std::cout << "\t2.3 Size: " << m1.size() << std::endl;
-	m1.insert(ft::make_pair<int, const char *>(2, "Two"));
+	m1.insert(ft::make_pair<int, std::string>(2, "Two"));
 	std::cout << "\t2.4 Size: " << m1.size() << std::endl;
-	m1.insert(ft::make_pair<int, const char *>(3, "Three"));
+	m1.insert(ft::make_pair<int, std::string>(3, "Three"));
 	std::cout << "\t2.5 Size: " << m1.size() << std::endl;
-	m1.insert(ft::make_pair<int, const char *>(7, "Seven"));
+	m1.insert(ft::make_pair<int, std::string>(7, "Seven"));
 	std::cout << "\t2.6 Size: " << m1.size() << std::endl << std::endl;
 
 	//===================================================================================
@@ -67,10 +67,10 @@ int	main(void) {
 
 	std::cout << "4. Testing Iterators" << std::endl;
 
-	ft::map<int, const char *>::iterator			it1 = m1.begin();
-	ft::map<int, const char *>::iterator			it2 = m1.end();
-	ft::map<int, const char *>::reverse_iterator	rit1 = m1.rbegin();
-	ft::map<int, const char *>::reverse_iterator	rit2 = m1.rend();
+	ft::map<int, std::string>::iterator			it1 = m1.begin();
+	ft::map<int, std::string>::iterator			it2 = m1.end();
+	ft::map<int, std::string>::reverse_iterator	rit1 = m1.rbegin();
+	ft::map<int, std::string>::reverse_iterator	rit2 = m1.rend();
 
 	std::cout << "\t4.1 Printing map using iterator: ";
 	while (it1 != it2) {
@@ -156,9 +156,9 @@ int	main(void) {
 
 	std::cout << std::endl << "9. Testing iterator insertion" << std::endl;
 
-	m2.insert(ft::make_pair<int, const char *>(-2, "Negative Two"));
-	m2.insert(ft::make_pair<int, const char *>(4, "Four"));
-	m2.insert(ft::make_pair<int, const char *>(15, "Fifteen"));
+	m2.insert(ft::make_pair<int, std::string>(-2, "Negative Two"));
+	m2.insert(ft::make_pair<int, std::string>(4, "Four"));
+	m2.insert(ft::make_pair<int, std::string>(15, "Fifteen"));
 
 	it1 = m2.begin();
 	it2 = m2.end();
@@ -193,11 +193,11 @@ int	main(void) {
 
 	std::cout << std::endl << std::endl << "10. Testing insert return" << std::endl;
 
-	p2 = m1.insert(ft::make_pair<int, const char *>(12, "Twelve"));
+	p2 = m1.insert(ft::make_pair<int, std::string>(12, "Twelve"));
 
 	std::cout << "\t10.1 Boolean return after trying to insert 12: " << p2.second << std::endl ;
 
-	p2 = m1.insert(ft::make_pair<int, const char *>(2, "Two"));
+	p2 = m1.insert(ft::make_pair<int, std::string>(2, "Two"));
 
 	std::cout << "\t10.2 Boolean return after trying to insert 2: " << p2.second << std::endl ;
 
