@@ -35,12 +35,22 @@ private:
 
 	Node< T >	*createNode(const T& data) {
 		Node< T >	*node = this->_alloc.allocate(1);
+		this->_alloc.construct(node, Node< T >());
 		node->data = data;
 		node->parent = NULL;
 		node->left = this->_nil;
 		node->right = this->_nil;
 		node->color = RED;
 		return node;
+	}
+
+	void	createNil() {
+		this->_nil = _alloc.allocate(1);
+		this->_alloc.construct(_nil, Node< T >());
+		this->_nil->parent = _nil;
+		this->_nil->right = _nil;
+		this->_nil->left = _nil;
+		this->_nil->color = BLACK;
 	}
 
 	void	copy(Node< T > *node, Node< T > *nil) {
@@ -255,13 +265,13 @@ private:
 public:
 	rb_tree() {
 		this->_content = NULL;
-		this->_nil = createNode(T());
+		this->createNil();
 		this->_size = 0;
 	} ;
 
 	rb_tree(rb_tree const & obj) {
 		*this = obj;
-	} ; 
+	};
 
 	~rb_tree() {
 		destroy(this->_content);
@@ -272,6 +282,7 @@ public:
 	rb_tree&	operator=(rb_tree const & obj) {
 		this->destroy(this->getRoot());
 		this->copy(obj.getRoot(), obj.getNil());
+		this->createNil();
 
 		return *this;
 	}
