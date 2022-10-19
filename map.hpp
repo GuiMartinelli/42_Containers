@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:47:11 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/10 14:23:36 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:59:37 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,11 +227,11 @@ namespace ft
 			//Lookup
 
 			iterator	find(const key_type& key) {
-				return iterator(this->_content.search(this->_content.getRoot(), make_pair<key_type, mapped_type>(key, mapped_type())), this->_content.getNil(), this->_content.min(), this->_content.max());
+				return iterator(this->_content.search(this->_content.getRoot(), ft::make_pair<key_type, mapped_type>(key, mapped_type())), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			const_iterator	find(const key_type& key) const {
-				return const_iterator(this->_content.search(this->_content.getRoot(), make_pair<key_type, mapped_type>(key, mapped_type())), this->_content.getNil(), this->_content.min(), this->_content.max());
+				return const_iterator(this->_content.search(this->_content.getRoot(), ft::make_pair<key_type, mapped_type>(key, mapped_type())), this->_content.getNil(), this->_content.min(), this->_content.max());
 			}
 
 			size_type	count(const key_type& key) const {
@@ -241,11 +241,11 @@ namespace ft
 			}
 
 			pair<iterator, iterator>	equal_range(const key_type& key) {
-				return make_pair<iterator, iterator>(this->lower_bound(key), this->upper_bound(key));
+				return ft::make_pair<iterator, iterator>(this->lower_bound(key), this->upper_bound(key));
 			}
 
 			pair<iterator, iterator>	equal_range(const key_type& key) const {
-				return make_pair<iterator, iterator>(this->lower_bound(key), this->upper_bound(key));
+				return ft::make_pair<iterator, iterator>(this->lower_bound(key), this->upper_bound(key));
 			}
 
 			iterator	lower_bound(const key_type& key) {
