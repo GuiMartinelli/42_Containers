@@ -6,7 +6,7 @@
 /*   By: guferrei <guferrei@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 12:18:40 by guferrei          #+#    #+#             */
-/*   Updated: 2022/10/13 16:00:02 by guferrei         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:46:16 by guferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ namespace ft {
 
 		stack(const stack & obj) {
 			*this = obj;
+		}
 
 		~stack() {};
 
