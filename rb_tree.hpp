@@ -254,9 +254,9 @@ private:
 			}
 
 			if (node == node->parent->left)
-				node->parent->left = NULL;
+				node->parent->left = this->_nil;
 			else
-				node->parent->right = NULL;
+				node->parent->right = this->_nil;
 			this->_alloc.deallocate(node, 1);
 			this->_content->color = BLACK;
 		}
