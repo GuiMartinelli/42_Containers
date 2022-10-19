@@ -282,7 +282,8 @@ public:
 	rb_tree&	operator=(rb_tree const & obj) {
 		this->destroy(this->getRoot());
 		this->copy(obj.getRoot(), obj.getNil());
-		this->createNil();
+		if (!this->_nil)
+			createNil();
 
 		return *this;
 	}
